@@ -954,7 +954,7 @@
         }
         // ── Price History Chart ──────────────────────────────────────────────────
         async function showPriceHistory(sku, name, rsp, psp) {
-            document.getElementById('modalTitle').textContent = name + ' — 價格動向';
+            document.getElementById('modalTitle').textContent = name + ' \u2014 價格動向';
             document.getElementById('modalContent').innerHTML =
                 '<table class="table table-sm mb-2"><tr><td><strong>SKU</strong></td><td><code>' + sku + '</code></td></tr><tr><td><strong>黑價 (RSP)</strong></td><td>$' + rsp + '</td></tr><tr><td><strong>紅價 (PSP)</strong></td><td>$' + psp + '</td></tr></table>';
             document.getElementById('priceChartContainer').style.display = 'block';
@@ -965,19 +965,68 @@
                 window.priceChartInstance = null;
             }
 
-            // TODO: Replace with real HKTVmall price history API
-            // Expected: { dates: [...], rsp: [...], psp: [...] }
-            const mock = generateMockPriceData(sku, parseFloat(rsp), parseFloat(psp));
+            // Load real price history from data/price_history.json
+            let history;
+            try {
+                const res = await fetch('data/price_history.json');
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                history = await res.json();
+            } catch(e) {
+                console.error('Failed to load price history:', e);
+                document.getElementById('priceChartContainer').innerHTML =
+                    '<div class="text-center text-danger p-4">價格歴史載入失敗</div>';
+                return;
+            }
+
+            // Collect all dates and prices for this SKU, sorted ascending
+            const dates = [], rspData = [], pspData = [];
+            const dateKeys = Object.keys(history).sort();
+            let hasData = false;
+            for (const dateStr of dateKeys) {
+                const dayData = history[dateStr];
+                if (dayData && dayData[sku]) {
+                    const rec = dayData[sku];
+                    dates.push(dateStr);
+                    rspData.push(rec.rsp || 0);
+                    pspData.push(rec.psp || 0);
+                    hasData = true;
+                }
+            }
+
+            if (!hasData) {
+                document.getElementById('priceChartContainer').innerHTML =
+                    '<div class="text-center text-muted p-4">暫無價格歴史數據</div>';
+                return;
+            }
+
+            // Detect unique years for chart title
+            const uniqueYears = [...new Set(dates.map(function(d){ return d.split('-')[0]; }))].sort();
+
+            // Format x-axis labels: show month/day
+            // For multi-year, add year prefix at year boundaries
+            const labels = dates.map(function(d, idx) {
+                const parts = d.split('-');
+                const month = parseInt(parts[1]);
+                const day = parseInt(parts[2]);
+                if (uniqueYears.length > 1 && month === 1 && idx > 0) {
+                    return parts[0] + '/' + month + '/' + day;  // show year at Jan 1
+                }
+                return month + '/' + day;
+            });
+
+            const chartTitle = uniqueYears.length > 1
+                ? uniqueYears.join(' / ') + ' 年價格歴史 — ' + name
+                : uniqueYears[0] + ' 年價格歴史 — ' + name;
 
             const ctx = document.getElementById('priceChart').getContext('2d');
             window.priceChartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: mock.dates,
+                    labels: labels,
                     datasets: [
                         {
                             label: '黑價 (RSP)',
-                            data: mock.rsp,
+                            data: rspData,
                             borderColor: 'rgba(30, 64, 175, 0.85)',
                             backgroundColor: 'rgba(30, 64, 175, 0.06)',
                             borderWidth: 2,
@@ -988,7 +1037,7 @@
                         },
                         {
                             label: '紅價 (PSP)',
-                            data: mock.psp,
+                            data: pspData,
                             borderColor: 'rgba(220, 38, 38, 0.85)',
                             backgroundColor: 'rgba(220, 38, 38, 0.06)',
                             borderWidth: 2,
@@ -1001,12 +1050,11 @@
                 },
                 options: {
                     responsive: true,
-                    maintainAspectRatio: true,
                     interaction: { mode: 'index', intersect: false },
                     plugins: {
                         title: {
                             display: true,
-                            text: '365天價格歴史 — ' + name,
+                            text: chartTitle,
                             font: { size: 13, weight: 'bold' },
                             color: '#1e40af'
                         },
@@ -1018,17 +1066,37 @@
                             callbacks: {
                                 label: function(ctx) {
                                     return ctx.dataset.label + ': $' + ctx.parsed.y.toFixed(2);
+                                },
+                                title: function(ctx) {
+                                    var idx = ctx[0].dataIndex;
+                                    var dateStr = dates[idx];
+                                    if (!dateStr) return '';
+                                    var parts = dateStr.split('-');
+                                    var year = parts[0], month = parts[1], day = parseInt(parts[2]);
+                                    if (uniqueYears.length > 1) {
+                                        return year + '年' + parseInt(month) + '月' + day + '日';
+                                    }
+                                    return parseInt(month) + '月' + day + '日';
                                 }
                             }
                         }
                     },
                     scales: {
                         x: {
-                            ticks: { maxTicksLimit: 12, maxRotation: 45, font: { size: 10 }, color: '#64748b' },
+                            ticks: {
+                                maxTicksLimit: 15,
+                                maxRotation: 45,
+                                font: { size: 10 },
+                                color: '#64748b'
+                            },
                             grid: { display: false }
                         },
                         y: {
-                            ticks: { callback: function(v){ return '$' + v.toFixed(2); }, font: { size: 10 }, color: '#64748b' },
+                            ticks: {
+                                callback: function(v){ return '$' + v.toFixed(2); },
+                                font: { size: 10 },
+                                color: '#64748b'
+                            },
                             grid: { color: '#e2e8f0' }
                         }
                     }
@@ -1036,20 +1104,7 @@
             });
         }
 
-        function generateMockPriceData(sku, rspBase, pspBase) {
-            const dates = [], rsp = [], psp = [];
-            const today = new Date();
-            for (let i = 364; i >= 0; i--) {
-                const d = new Date(today);
-                d.setDate(d.getDate() - i);
-                dates.push(d.toLocaleDateString('zh-HK', { month: 'short', day: 'numeric' }));
-                rsp.push(Math.max(0, rspBase + Math.sin(i * 0.15) * 3 + (Math.random() - 0.5) * 4));
-                psp.push(Math.max(0, pspBase + Math.sin(i * 0.12) * 2 + (Math.random() - 0.5) * 3));
-            }
-            return { dates, rsp, psp };
-        }
-
-        function filterPriceTable(){
+function filterPriceTable(){
             const searchInput = document.getElementById('searchPrice');
             const filterSelect = document.getElementById('filterPrice');
             const tbody = document.getElementById('tablePrice');
