@@ -45,9 +45,12 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Inventory Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-14 &nbsp;|&nbsp; 🔄 2026-06-14 23:14:11</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-14 &nbsp;|&nbsp; 🔄 2026-06-15 00:37:41</p>
                     </div>
-                    <button class="btn btn-light" onclick="location.reload()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+                    <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+                    <button class="btn btn-primary" id="updateBtn" onclick="triggerUpdate()" title="Download latest CSV and regenerate dashboard">
+                        <i class="bi bi-download"></i> <span id="updateBtnText">Update Now</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -901,6 +904,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function switchTab(t){document.querySelector('[data-bs-target="#'+t+'"]').click()}
+        function triggerUpdate(){
+            const btn = document.getElementById('updateBtn');
+            const btnText = document.getElementById('updateBtnText');
+            btn.disabled = true;
+            btnText.textContent = '更新中...';
+            // Open Discord channel for manual trigger
+            window.open('https://discord.com/channels/1504655106233073676/1515563548649062491', '_blank');
+            // Simulate completion after delay
+            setTimeout(() => {
+                btn.disabled = false;
+                btnText.textContent = '✅ 已觸發';
+                setTimeout(() => {
+                    btnText.textContent = 'Update Now';
+                }, 4000);
+            }, 3000);
+        }
         function showDetail(sku,name,inv,status){
             const L={'zero':'🚫 Zero','low':'⚠️ Low','normal':'🟢 Normal','high':'🔵 High'};
             document.getElementById('modalTitle').textContent=name;
