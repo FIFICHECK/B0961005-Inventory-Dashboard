@@ -92,6 +92,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          git pull --rebase origin main
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
             git commit -m "Update inventory report $(date +'%Y-%m-%d %H:%M')"
