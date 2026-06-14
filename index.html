@@ -51,6 +51,9 @@
                     <button class="btn btn-primary" id="updateBtn" onclick="triggerUpdate()" title="Download latest CSV and regenerate dashboard">
                         <i class="bi bi-download"></i> <span id="updateBtnText">Update Now</span>
                     </button>
+                    <div id="updateMsg" class="alert alert-success mt-2" style="display:none;">
+                        ✅ 更新完成！請按 <strong>Refresh</strong> 按鈕更新頁面
+                    </div>
                 </div>
             </div>
         </div>
@@ -917,6 +920,14 @@
             setTimeout(() => {
                 btnText.textContent = '🚀 運行中...';
             }, 10000);
+            // After 3 minutes, reset button and show refresh message
+            setTimeout(() => {
+                btn.disabled = false;
+                btnText.textContent = '✅ 可Refresh';
+                // Show a message to refresh
+                const msg = document.getElementById('updateMsg');
+                if (msg) msg.style.display = 'block';
+            }, 180000);
         }
         function showDetail(sku,name,inv,status){
             const L={'zero':'🚫 Zero','low':'⚠️ Low','normal':'🟢 Normal','high':'🔵 High'};
