@@ -979,7 +979,8 @@
             }
 
             // Collect all dates and prices for this SKU, sorted ascending
-            const dates = [], rspData = [], pspData = [];
+            // Primary: PSP (Discount Price) — Fallback: RSP (Original Price) if PSP is 0
+            const dates = [], priceData = [];
             const dateKeys = Object.keys(history).sort();
             let hasData = false;
             for (const dateStr of dateKeys) {
@@ -987,8 +988,8 @@
                 if (dayData && dayData[sku]) {
                     const rec = dayData[sku];
                     dates.push(dateStr);
-                    rspData.push(rec.rsp || 0);
-                    pspData.push(rec.psp || 0);
+                    const price = (rec.psp && rec.psp > 0) ? rec.psp : (rec.rsp || 0);
+                    priceData.push(price);
                     hasData = true;
                 }
             }
@@ -1025,19 +1026,8 @@
                     labels: labels,
                     datasets: [
                         {
-                            label: '黑價 (RSP)',
-                            data: rspData,
-                            borderColor: 'rgba(30, 64, 175, 0.85)',
-                            backgroundColor: 'rgba(30, 64, 175, 0.06)',
-                            borderWidth: 2,
-                            pointRadius: 0,
-                            pointHoverRadius: 4,
-                            tension: 0.35,
-                            fill: true
-                        },
-                        {
-                            label: '紅價 (PSP)',
-                            data: pspData,
+                            label: '價格 (PSP)',
+                            data: priceData,
                             borderColor: 'rgba(220, 38, 38, 0.85)',
                             backgroundColor: 'rgba(220, 38, 38, 0.06)',
                             borderWidth: 2,
