@@ -79,11 +79,11 @@ jobs:
                       except:
                           pass
                   
-                  # Try clicking export button
+                  # Try clicking export/download button - button text is "Download" not "匯出"
                   try:
-                      export_btn = page.locator('button:has-text("匯出"), button:has-text("Export")').first
+                      export_btn = page.locator('button:has-text("Download"), input:has-text("Download")').last
                       if await export_btn.count() > 0:
-                          print("Found export button, clicking...")
+                          print("✅ Found Download button, clicking...")
                           async with page.expect_download(timeout=30000) as dl_info:
                               await export_btn.click()
                           download = await dl_info.value
@@ -92,7 +92,7 @@ jobs:
                           await download.save_as(save_path)
                           print(f"✅ Downloaded to {save_path}")
                       else:
-                          print("⚠️ Export button not found by text")
+                          print("⚠️ Download button not found")
                   except Exception as e:
                       print(f"Export error: {e}")
                   
