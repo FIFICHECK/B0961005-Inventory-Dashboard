@@ -257,19 +257,447 @@
             </div>
             <div class="tab-pane fade" id="category">
                 <div class="card mt-3">
-                    <div class="card-header py-3">
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center">
                         <span class="fw-bold">📦 By Category</span>
-                        <span class="text-muted ms-2">Primary Category Code 前綴分析</span>
+                        <span class="badge bg-secondary">43 categories</span>
                     </div>
                     <div class="table-container">
-                        <table class="table table-hover mb-0"><thead><tr><th>Category</th><th class="text-center">Products</th><th class="text-end">Total Stock</th><th class="text-center">🚫 Zero</th><th class="text-center">⚠️ Low</th><th class="text-center">🟢 Normal</th><th class="text-center">🔵 High</th></tr></thead><tbody>
-<tr><td><strong>個人護理</strong><br><small class="text-muted">AA13</small></td><td class="text-center">91</td><td class="text-end">2,910</td><td class="text-center"><span class="badge badge-zero">31</span></td><td class="text-center"><span class="badge badge-low">28</span></td><td class="text-center"><span class="badge badge-normal">26</span></td><td class="text-center"><span class="badge badge-high">6</span></td></tr>
-<tr><td><strong>超級市場</strong><br><small class="text-muted">AA11</small></td><td class="text-center">88</td><td class="text-end">4,449</td><td class="text-center"><span class="badge badge-zero">12</span></td><td class="text-center"><span class="badge badge-low">22</span></td><td class="text-center"><span class="badge badge-normal">31</span></td><td class="text-center"><span class="badge badge-high">23</span></td></tr>
-<tr><td><strong>母嬰育兒</strong><br><small class="text-muted">AA28</small></td><td class="text-center">9</td><td class="text-end">81</td><td class="text-center"><span class="badge badge-zero">2</span></td><td class="text-center"><span class="badge badge-low">0</span></td><td class="text-center"><span class="badge badge-normal">7</span></td><td class="text-center"><span class="badge badge-high">0</span></td></tr>
+                        <table class="table table-hover mb-0"><thead><tr><th>Primary Category Code</th><th>Primary Category Name (CHI)</th><th class="text-center">Products</th><th class="text-end">Total Stock</th><th class="text-center">🚫 Zero</th><th class="text-center">⚠️ Low</th><th class="text-center">🟢 Normal</th><th class="text-center">🔵 High</th></tr></thead><tbody>
+<tr>
+<td><code>AA11224510001</code></td>
+<td>樽裝茶</td>
+<td class="text-center">29</td>
+<td class="text-end">1,162</td>
+<td class="text-center"><span class="badge badge-zero">2</span></td>
+<td class="text-center"><span class="badge badge-low">9</span></td>
+<td class="text-center"><span class="badge badge-normal">7</span></td>
+<td class="text-center"><span class="badge badge-high">11</span></td>
+</tr>
+<tr>
+<td><code>AA11221500001</code></td>
+<td>汽水</td>
+<td class="text-center">19</td>
+<td class="text-end">1,214</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">1</span></td>
+<td class="text-center"><span class="badge badge-normal">11</span></td>
+<td class="text-center"><span class="badge badge-high">7</span></td>
+</tr>
+<tr>
+<td><code>AA11220500001</code></td>
+<td>水</td>
+<td class="text-center">18</td>
+<td class="text-end">453</td>
+<td class="text-center"><span class="badge badge-zero">6</span></td>
+<td class="text-center"><span class="badge badge-low">4</span></td>
+<td class="text-center"><span class="badge badge-normal">6</span></td>
+<td class="text-center"><span class="badge badge-high">2</span></td>
+</tr>
+<tr>
+<td><code>AA13302000001</code></td>
+<td>腸胃消化</td>
+<td class="text-center">13</td>
+<td class="text-end">50</td>
+<td class="text-center"><span class="badge badge-zero">5</span></td>
+<td class="text-center"><span class="badge badge-low">6</span></td>
+<td class="text-center"><span class="badge badge-normal">2</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13303300001</code></td>
+<td>維他命</td>
+<td class="text-center">11</td>
+<td class="text-end">707</td>
+<td class="text-center"><span class="badge badge-zero">3</span></td>
+<td class="text-center"><span class="badge badge-low">2</span></td>
+<td class="text-center"><span class="badge badge-normal">5</span></td>
+<td class="text-center"><span class="badge badge-high">1</span></td>
+</tr>
+<tr>
+<td><code>AA13302600001</code></td>
+<td>骨骼 關節</td>
+<td class="text-center">9</td>
+<td class="text-end">151</td>
+<td class="text-center"><span class="badge badge-zero">2</span></td>
+<td class="text-center"><span class="badge badge-low">4</span></td>
+<td class="text-center"><span class="badge badge-normal">2</span></td>
+<td class="text-center"><span class="badge badge-high">1</span></td>
+</tr>
+<tr>
+<td><code>AA13408500001</code></td>
+<td>藥油</td>
+<td class="text-center">7</td>
+<td class="text-end">39</td>
+<td class="text-center"><span class="badge badge-zero">3</span></td>
+<td class="text-center"><span class="badge badge-low">2</span></td>
+<td class="text-center"><span class="badge badge-normal">2</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13300300001</code></td>
+<td>免疫系統</td>
+<td class="text-center">6</td>
+<td class="text-end">58</td>
+<td class="text-center"><span class="badge badge-zero">3</span></td>
+<td class="text-center"><span class="badge badge-low">1</span></td>
+<td class="text-center"><span class="badge badge-normal">2</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13305800001</code></td>
+<td>兒童健康</td>
+<td class="text-center">6</td>
+<td class="text-end">19</td>
+<td class="text-center"><span class="badge badge-zero">2</span></td>
+<td class="text-center"><span class="badge badge-low">4</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13306600001</code></td>
+<td>美肌食品</td>
+<td class="text-center">6</td>
+<td class="text-end">1,547</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">3</span></td>
+<td class="text-center"><span class="badge badge-high">3</span></td>
+</tr>
+<tr>
+<td><code>AA28320505001</code></td>
+<td>乳霜 潤膚膏</td>
+<td class="text-center">5</td>
+<td class="text-end">58</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">5</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13401000001</code></td>
+<td>化痰止咳</td>
+<td class="text-center">5</td>
+<td class="text-end">21</td>
+<td class="text-center"><span class="badge badge-zero">2</span></td>
+<td class="text-center"><span class="badge badge-low">2</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13305600001</code></td>
+<td>女士配方</td>
+<td class="text-center">4</td>
+<td class="text-end">131</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">1</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">1</span></td>
+</tr>
+<tr>
+<td><code>AA11221000001</code></td>
+<td>運動飲品</td>
+<td class="text-center">4</td>
+<td class="text-end">5</td>
+<td class="text-center"><span class="badge badge-zero">2</span></td>
+<td class="text-center"><span class="badge badge-low">2</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA11602005001</code></td>
+<td>燕麥片 玉米片</td>
+<td class="text-center">4</td>
+<td class="text-end">106</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">1</span></td>
+<td class="text-center"><span class="badge badge-normal">3</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13404500001</code></td>
+<td>肌肉酸痛 按摩膏</td>
+<td class="text-center">3</td>
+<td class="text-end">17</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">3</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13303000001</code></td>
+<td>壓力 疲勞 睡眠不足</td>
+<td class="text-center">3</td>
+<td class="text-end">48</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">1</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA11222010001</code></td>
+<td>樽裝果汁</td>
+<td class="text-center">3</td>
+<td class="text-end">17</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">3</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA28120505001</code></td>
+<td>嬰兒沐浴露 沐浴啫喱</td>
+<td class="text-center">2</td>
+<td class="text-end">23</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">2</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13407000001</code></td>
+<td>疤痕護理</td>
+<td class="text-center">2</td>
+<td class="text-end">3</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">1</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13300600001</code></td>
+<td>心臟血管健康</td>
+<td class="text-center">2</td>
+<td class="text-end">10</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA11222500001</code></td>
+<td>無汽飲品</td>
+<td class="text-center">2</td>
+<td class="text-end">24</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">1</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA11223505001</code></td>
+<td>咖啡</td>
+<td class="text-center">2</td>
+<td class="text-end">196</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">2</span></td>
+</tr>
+<tr>
+<td><code>AA11301150001</code></td>
+<td>生力</td>
+<td class="text-center">2</td>
+<td class="text-end">35</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">1</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13401500001</code></td>
+<td>腸胃</td>
+<td class="text-center">2</td>
+<td class="text-end">10</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA11821505001</code></td>
+<td>洗潔精 食物清潔劑</td>
+<td class="text-center">2</td>
+<td class="text-end">0</td>
+<td class="text-center"><span class="badge badge-zero">2</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13101050001</code></td>
+<td>潔面皂</td>
+<td class="text-center">1</td>
+<td class="text-end">12</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13201810101</code></td>
+<td>潔面泡沫</td>
+<td class="text-center">1</td>
+<td class="text-end">11</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA11222005001</code></td>
+<td>罐裝果汁</td>
+<td class="text-center">1</td>
+<td class="text-end">19</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA11301110001</code></td>
+<td>藍妹</td>
+<td class="text-center">1</td>
+<td class="text-end">45</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA28373510001</code></td>
+<td>保嬰丹</td>
+<td class="text-center">1</td>
+<td class="text-end">0</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA28373010001</code></td>
+<td>維他命 鈣片</td>
+<td class="text-center">1</td>
+<td class="text-end">0</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13200590001</code></td>
+<td>濕紙巾</td>
+<td class="text-center">1</td>
+<td class="text-end">0</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13202510001</code></td>
+<td>潔手液</td>
+<td class="text-center">1</td>
+<td class="text-end">0</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13201550001</code></td>
+<td>兒童口腔護理</td>
+<td class="text-center">1</td>
+<td class="text-end">11</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13402000001</code></td>
+<td>止痛 消炎 解毒</td>
+<td class="text-center">1</td>
+<td class="text-end">0</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13302300001</code></td>
+<td>頭髮強健</td>
+<td class="text-center">1</td>
+<td class="text-end">48</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA11455510001</code></td>
+<td>雞粉 雞汁</td>
+<td class="text-center">1</td>
+<td class="text-end">1,173</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">1</span></td>
+</tr>
+<tr>
+<td><code>AA13301300001</code></td>
+<td>眼晴健康</td>
+<td class="text-center">1</td>
+<td class="text-end">0</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13306100001</code></td>
+<td>腦部發展</td>
+<td class="text-center">1</td>
+<td class="text-end">0</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13203010001</code></td>
+<td>足貼 足膜</td>
+<td class="text-center">1</td>
+<td class="text-end">0</td>
+<td class="text-center"><span class="badge badge-zero">1</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13201860401</code></td>
+<td>乳液</td>
+<td class="text-center">1</td>
+<td class="text-end">12</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">0</span></td>
+<td class="text-center"><span class="badge badge-normal">1</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+<tr>
+<td><code>AA13200510001</code></td>
+<td>沐浴露</td>
+<td class="text-center">1</td>
+<td class="text-end">5</td>
+<td class="text-center"><span class="badge badge-zero">0</span></td>
+<td class="text-center"><span class="badge badge-low">1</span></td>
+<td class="text-center"><span class="badge badge-normal">0</span></td>
+<td class="text-center"><span class="badge badge-high">0</span></td>
+</tr>
+
 </tbody></table>
                     </div>
                     <div class="card-footer text-muted">
-                        <small>* Category 根據 Primary Category Code 前4位字符分組 | 數據日期: 2026-06-14</small>
+                        <small>* 數據日期: 2026-06-14 | Stock Level: Zero(0) / Low(1-9) / Normal(10-49) / High(50+)</small>
                     </div>
                 </div>
             </div>
