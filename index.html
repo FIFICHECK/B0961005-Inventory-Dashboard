@@ -45,7 +45,7 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Inventory Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-14 &nbsp;|&nbsp; 🔄 2026-06-14 21:15:03</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-14 &nbsp;|&nbsp; 🔄 2026-06-14 21:29:49</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -69,6 +69,7 @@
             <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#skustatus">📊 By SKU Status</button></li>
             <li class="nav-item"><button class="nav-link text-danger" data-bs-toggle="tab" data-bs-target="#alerts">⚠️ Alerts (95)</button></li>
             <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pricecheck">💰 Price Check (188)</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#report">📋 Report (6)</button></li>
         </ul>
 
         <div class="tab-content">
@@ -861,6 +862,79 @@
                         </table>
             </div>
         </div>
+    
+            
+            <div class="tab-pane fade" id="report">
+                <div class="card mt-3">
+                    <div class="card-header py-3">
+                        <span class="fw-bold">📋 Inventory Report 下載</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr><th>日期</th><th>時間</th><th>SKU 數量</th><th>下載</th></tr>
+                            </thead>
+                            <tbody>
+                                
+                <tr>
+                    <td>2026-06-14</td>
+                    <td>18:03</td>
+                    <td>3</td>
+                    <td>
+                        <a href="reports/inventory_report_20260614_1800.csv" download class="btn btn-sm btn-outline-primary">📥 CSV</a>
+                        <a href="reports/inventory_report_20260614_1800.xlsx" download class="btn btn-sm btn-outline-success" style="display:none" id="xlsx_link_0">📥 Excel</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2026-06-14</td>
+                    <td>18:03</td>
+                    <td>3</td>
+                    <td>
+                        <a href="reports/inventory_report_20260614_1800.csv" download class="btn btn-sm btn-outline-primary">📥 CSV</a>
+                        <a href="reports/inventory_report_20260614_1800.xlsx" download class="btn btn-sm btn-outline-success" style="display:none" id="xlsx_link_1">📥 Excel</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2026-06-14</td>
+                    <td>15:08</td>
+                    <td>3</td>
+                    <td>
+                        <a href="reports/inventory_report_20260614_1500.csv" download class="btn btn-sm btn-outline-primary">📥 CSV</a>
+                        <a href="reports/inventory_report_20260614_1500.xlsx" download class="btn btn-sm btn-outline-success" style="display:none" id="xlsx_link_2">📥 Excel</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2026-06-14</td>
+                    <td>15:08</td>
+                    <td>3</td>
+                    <td>
+                        <a href="reports/inventory_report_20260614_1500.csv" download class="btn btn-sm btn-outline-primary">📥 CSV</a>
+                        <a href="reports/inventory_report_20260614_1500.xlsx" download class="btn btn-sm btn-outline-success" style="display:none" id="xlsx_link_3">📥 Excel</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2026-06-14</td>
+                    <td>13:09</td>
+                    <td>3</td>
+                    <td>
+                        <a href="reports/inventory_report_20260614_1300.csv" download class="btn btn-sm btn-outline-primary">📥 CSV</a>
+                        <a href="reports/inventory_report_20260614_1300.xlsx" download class="btn btn-sm btn-outline-success" style="display:none" id="xlsx_link_4">📥 Excel</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2026-06-14</td>
+                    <td>13:09</td>
+                    <td>3</td>
+                    <td>
+                        <a href="reports/inventory_report_20260614_1300.csv" download class="btn btn-sm btn-outline-primary">📥 CSV</a>
+                        <a href="reports/inventory_report_20260614_1300.xlsx" download class="btn btn-sm btn-outline-success" style="display:none" id="xlsx_link_5">📥 Excel</a>
+                    </td>
+                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
     
         </div>
         <div class="text-center mt-4 text-muted"><small>B0961005 Inventory | Exchange Portal | Auto-updated by Hermes Agent</small></div>
