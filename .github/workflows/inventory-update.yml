@@ -1,0 +1,116 @@
+name: B0961005 Inventory Update
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install playwright pandas openpyxl
+          playwright install --with-deps chromium
+
+      - name: Run Exchange download script
+        run: |
+          python << 'PYTHON_SCRIPT'
+          import asyncio
+          from playwright.async_api import async_playwright
+          import time
+
+          async def main():
+              async with async_playwright() as p:
+                  browser = await p.chromium.launch(headless=True)
+                  context = await browser.new_context(
+                      accept_downloads=True,
+                      user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                  )
+                  page = await context.new_page()
+                  
+                  print("🔐 Logging into Exchange...")
+                  await page.goto('https://exchange.hktvmall.com/merchant/shared/loginform.php')
+                  await page.wait_for_load_state('networkidle')
+                  await page.fill('input[name="username"]', 'jerry')
+                  await page.fill('input[name="password"]', 'JerRy1985441')
+                  await page.click('button[type="submit"]')
+                  await page.wait_for_load_state('networkidle')
+                  print("✅ Logged in")
+                  
+                  print("📊 Navigating to Inventory Report...")
+                  await page.goto('https://exchange.hktvmall.com/merchant/reports/product_inventory_report.php')
+                  await page.wait_for_load_state('networkidle')
+                  print("✅ On inventory report page")
+                  
+                  # Look for merchant dropdown/select
+                  print("🔍 Looking for merchant selector...")
+                  page_content = await page.content()
+                  
+                  # Try to find select element for merchant
+                  try:
+                      selects = await page.query_selector_all('select')
+                      for sel in selects:
+                          name = await sel.get_attribute('name')
+                          id = await sel.get_attribute('id')
+                          print(f"  Select: name={name}, id={id}")
+                  except:
+                      pass
+                  
+                  # Try to find export button
+                  print("📥 Looking for export button...")
+                  buttons = await page.query_selector_all('button, a.btn, input[type="button"]')
+                  for btn in buttons[:15]:
+                      try:
+                          text = await btn.text_content()
+                          if text and text.strip():
+                              print(f"  Button: {text.strip()[:50]}")
+                      except:
+                          pass
+                  
+                  # Try clicking export button
+                  try:
+                      export_btn = page.locator('button:has-text("匯出"), button:has-text("Export")').first
+                      if await export_btn.count() > 0:
+                          print("Found export button, clicking...")
+                          async with page.expect_download(timeout=30000) as dl_info:
+                              await export_btn.click()
+                          download = await dl_info.value
+                          timestamp = time.strftime('%Y%m%d_%H%M%S')
+                          save_path = f'data/inventory_report_{timestamp}.csv'
+                          await download.save_as(save_path)
+                          print(f"✅ Downloaded to {save_path}")
+                      else:
+                          print("⚠️ Export button not found by text")
+                  except Exception as e:
+                      print(f"Export error: {e}")
+                  
+                  await browser.close()
+                  print("🏁 Done")
+
+          asyncio.run(main())
+          PYTHON_SCRIPT
+
+      - name: Commit new report
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "Update inventory report $(date +'%Y-%m-%d %H:%M')"
+            git push
+            echo "✅ Report committed"
+          else
+            echo "ℹ️ No changes to commit"
+          fi
