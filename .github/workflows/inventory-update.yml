@@ -32,6 +32,7 @@ jobs:
           import asyncio
           from playwright.async_api import async_playwright
           import time
+          import os
 
           async def main():
               async with async_playwright() as p:
@@ -42,61 +43,42 @@ jobs:
                   )
                   page = await context.new_page()
                   
+                  # Login - use Enter key instead of clicking submit button
                   print("🔐 Logging into Exchange...")
                   await page.goto('https://exchange.hktvmall.com/merchant/shared/loginform.php')
-                  await page.wait_for_load_state('networkidle')
+                  await page.wait_for_load_state('domcontentloaded')
                   await page.fill('input[name="username"]', 'jerry')
-                  await page.fill('input[name="password"]', 'JerRy1985441')
-                  await page.click('button[type="submit"]')
-                  await page.wait_for_load_state('networkidle')
+                  await page.fill('input[name="pwd"]', 'JerRy1985441')
+                  await page.press('input[name="pwd"]', 'Enter')
+                  await page.wait_for_load_state('domcontentloaded')
+                  await page.wait_for_timeout(2000)
                   print("✅ Logged in")
                   
+                  # Navigate to inventory report
                   print("📊 Navigating to Inventory Report...")
                   await page.goto('https://exchange.hktvmall.com/merchant/reports/product_inventory_report.php')
-                  await page.wait_for_load_state('networkidle')
+                  await page.wait_for_load_state('domcontentloaded')
+                  await page.wait_for_timeout(1000)
                   print("✅ On inventory report page")
                   
-                  # Look for merchant dropdown/select
-                  print("🔍 Looking for merchant selector...")
-                  page_content = await page.content()
+                  # Select B0961005 - form auto-submits on change, so wait for navigation
+                  print("🔄 Selecting B0961005...")
+                  async with page.expect_navigation(wait_until='domcontentloaded'):
+                      await page.select_option('#batchMerchant', 'B0961005')
+                  await page.wait_for_timeout(2000)
+                  print("✅ B0961005 selected")
                   
-                  # Try to find select element for merchant
-                  try:
-                      selects = await page.query_selector_all('select')
-                      for sel in selects:
-                          name = await sel.get_attribute('name')
-                          id = await sel.get_attribute('id')
-                          print(f"  Select: name={name}, id={id}")
-                  except:
-                      pass
-                  
-                  # Try to find export button
-                  print("📥 Looking for export button...")
-                  buttons = await page.query_selector_all('button, a.btn, input[type="button"]')
-                  for btn in buttons[:15]:
-                      try:
-                          text = await btn.text_content()
-                          if text and text.strip():
-                              print(f"  Button: {text.strip()[:50]}")
-                      except:
-                          pass
-                  
-                  # Try clicking export/download button - button text is "Download" not "匯出"
-                  try:
-                      export_btn = page.locator('button:has-text("Download"), input:has-text("Download")').last
-                      if await export_btn.count() > 0:
-                          print("✅ Found Download button, clicking...")
-                          async with page.expect_download(timeout=30000) as dl_info:
-                              await export_btn.click()
-                          download = await dl_info.value
-                          timestamp = time.strftime('%Y%m%d_%H%M%S')
-                          save_path = f'data/inventory_report_{timestamp}.csv'
-                          await download.save_as(save_path)
-                          print(f"✅ Downloaded to {save_path}")
-                      else:
-                          print("⚠️ Download button not found")
-                  except Exception as e:
-                      print(f"Export error: {e}")
+                  # Click the last Download button (most recent report)
+                  print("📥 Clicking Download button...")
+                  export_btn = page.locator('input[type="submit"][value="Download"]').last
+                  async with page.expect_download(timeout=30000) as dl_info:
+                      await export_btn.click()
+                  download = await dl_info.value
+                  timestamp = time.strftime('%Y%m%d_%H%M%S')
+                  save_path = f'data/inventory_report_{timestamp}.csv'
+                  os.makedirs('data', exist_ok=True)
+                  await download.save_as(save_path)
+                  print(f"✅ Downloaded to {save_path}")
                   
                   await browser.close()
                   print("🏁 Done")
