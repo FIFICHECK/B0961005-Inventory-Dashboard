@@ -66,6 +66,7 @@
             <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#skuid">🔢 By Online SKU (183)</button></li>
             <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#brand">🏷️ Brand (51)</button></li>
             <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#skustatus">📊 By SKU Status</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#category">📦 By Category</button></li>
             <li class="nav-item"><button class="nav-link text-danger" data-bs-toggle="tab" data-bs-target="#alerts">⚠️ Alerts (95)</button></li>
         </ul>
 
@@ -253,6 +254,24 @@
                 </div>
             </div>
         </div></div>
+            </div>
+            <div class="tab-pane fade" id="category">
+                <div class="card mt-3">
+                    <div class="card-header py-3">
+                        <span class="fw-bold">📦 By Category</span>
+                        <span class="text-muted ms-2">Primary Category Code 前綴分析</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="table table-hover mb-0"><thead><tr><th>Category</th><th class="text-center">Products</th><th class="text-end">Total Stock</th><th class="text-center">🚫 Zero</th><th class="text-center">⚠️ Low</th><th class="text-center">🟢 Normal</th><th class="text-center">🔵 High</th></tr></thead><tbody>
+<tr><td><strong>個人護理</strong><br><small class="text-muted">AA13</small></td><td class="text-center">91</td><td class="text-end">2,910</td><td class="text-center"><span class="badge badge-zero">31</span></td><td class="text-center"><span class="badge badge-low">28</span></td><td class="text-center"><span class="badge badge-normal">26</span></td><td class="text-center"><span class="badge badge-high">6</span></td></tr>
+<tr><td><strong>超級市場</strong><br><small class="text-muted">AA11</small></td><td class="text-center">88</td><td class="text-end">4,449</td><td class="text-center"><span class="badge badge-zero">12</span></td><td class="text-center"><span class="badge badge-low">22</span></td><td class="text-center"><span class="badge badge-normal">31</span></td><td class="text-center"><span class="badge badge-high">23</span></td></tr>
+<tr><td><strong>母嬰育兒</strong><br><small class="text-muted">AA28</small></td><td class="text-center">9</td><td class="text-end">81</td><td class="text-center"><span class="badge badge-zero">2</span></td><td class="text-center"><span class="badge badge-low">0</span></td><td class="text-center"><span class="badge badge-normal">7</span></td><td class="text-center"><span class="badge badge-high">0</span></td></tr>
+</tbody></table>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <small>* Category 根據 Primary Category Code 前4位字符分組 | 數據日期: 2026-06-14</small>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="alerts">
                 <div class="row mt-3">
