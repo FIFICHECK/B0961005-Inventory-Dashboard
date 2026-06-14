@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B0961005 庫存儀表板</title>
+<style>
+    #dashFrame { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; display: none; z-index: 1; background: #fff; }
+</style>
+</head>
+<body>
+<div id="accessGate" style="position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1e40af 0%,#3b82f6 100%);z-index:99999;display:flex;align-items:center;justify-content:center;">
+        <div style="background:#fff;border-radius:16px;padding:40px 32px;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);text-align:center;">
+            <div style="font-size:3rem;margin-bottom:12px;">🔒</div>
+            <h2 style="margin:0 0 8px;color:#1e293b;font-weight:700;">Access Restricted</h2>
+            <p style="color:#64748b;margin:0 0 24px;font-size:0.95rem;">請輸入 email 申請訪問權限。批核後會自動載入 dashboard。</p>
+            <div id="gateFormBox">
+                <input id="gateEmail" type="email" placeholder="your@email.com" style="width:100%;padding:12px 16px;border:1px solid #cbd5e1;border-radius:8px;font-size:1rem;margin-bottom:12px;box-sizing:border-box;" />
+                <button onclick="requestAccess()" style="width:100%;padding:12px;background:#1e40af;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;">申請訪問</button>
+            </div>
+            <div id="gateStatus" style="margin-top:16px;color:#475569;font-size:0.9rem;min-height:20px;"></div>
+            <div style="margin-top:16px;font-size:0.8rem;color:#94a3b8;">Approved email 會自動記住於此瀏覽器。</div>
+        </div>
+    </div>
+    <iframe id="dashFrame" title="B0961005 Dashboard"></iframe>
+    <script>
+    // 🔒 Access gate loader (B pilot 2026-08-29): gate → session → iframe（dashboard 由 worker auth serve）
+    const ALLOWLIST_URL = 'data/access_allowlist.json';
+    const GATE_STORE = 'B0961005';
+    const DASH_URL = 'https://fificheck-access-gate.fificheck.workers.dev/data?site=B0961005&path=index.html';
+
+    async function enterDash(email) {
+      const status = document.getElementById('gateStatus');
+      try {
+        const r = await fetch('https://fificheck-access-gate.fificheck.workers.dev/session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ site: GATE_STORE, email: email }),
+          credentials: 'include'
+        });
+        if (!r.ok) { if (status) status.textContent = '⚠️ 未授權或 session 過期，請重新申請'; return; }
+      } catch (e) { if (status) status.textContent = '⚠️ 連線失敗，請稍後再試'; return; }
+      const f = document.getElementById('dashFrame');
+      f.src = DASH_URL + '&v=' + Date.now();
+      f.style.display = 'block';
+    }
+
+    async function requestAccess() {
+      const input = document.getElementById('gateEmail');
+      const status = document.getElementById('gateStatus');
+      const email = (input.value || '').trim().toLowerCase();
+      if (email.indexOf('@') < 1) { status.textContent = '⚠️ 請輸入有效 Email'; return; }
+      status.textContent = '⏳ 送出申請中…';
+      try {
+        await fetch('https://fificheck-access-gate.fificheck.workers.dev/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ site: GATE_STORE, email: email })
+        });
+        localStorage.setItem('b096_gate_email', email.toLowerCase());
+        status.textContent = '✅ 已送出申請！管理員一撳批准，你重新整理此頁即可進入。';
+      } catch (e) { status.textContent = '❌ 送出失敗 — 請直接 email 管理員'; }
+    }
+
+    async function initAccessGate() {
+      const gate = document.getElementById('accessGate');
+      if (!gate) return;
+      const saved = localStorage.getItem('b096_gate_email');
+      let list = [];
+      try {
+        const r = await fetch(ALLOWLIST_URL + '?v=' + Date.now());
+        if (r.ok) list = await r.json();
+      } catch (e) {}
+      const norm = list.map(String).map(function(s) { return s.trim().toLowerCase(); });
+      if (saved && norm.indexOf(saved.toLowerCase()) >= 0) {
+        gate.style.display = 'none';
+        enterDash(saved);
+        return;
+      }
+      gate.style.display = 'flex';
+    }
+    initAccessGate();
+    </script>
+</body>
+</html>
