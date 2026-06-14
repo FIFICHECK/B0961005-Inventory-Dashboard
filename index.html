@@ -918,22 +918,6 @@
                 btnText.textContent = '🚀 運行中...';
             }, 10000);
         }
-        function triggerUpdate(){
-            const btn = document.getElementById('updateBtn');
-            const btnText = document.getElementById('updateBtnText');
-            btn.disabled = true;
-            btnText.textContent = '更新中...';
-            // Open Discord channel for manual trigger
-            window.open('https://discord.com/channels/1504655106233073676/1515563548649062491', '_blank');
-            // Simulate completion after delay
-            setTimeout(() => {
-                btn.disabled = false;
-                btnText.textContent = '✅ 已觸發';
-                setTimeout(() => {
-                    btnText.textContent = 'Update Now';
-                }, 4000);
-            }, 3000);
-        }
         function showDetail(sku,name,inv,status){
             const L={'zero':'🚫 Zero','low':'⚠️ Low','normal':'🟢 Normal','high':'🔵 High'};
             document.getElementById('modalTitle').textContent=name;
