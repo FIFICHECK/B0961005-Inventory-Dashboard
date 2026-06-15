@@ -1897,26 +1897,60 @@
         if (e.target === this) closePriceTrend();
     });
     
-    // 超市價格匹配功能 - 惠康/萬寧/屈臣氏
+    // 超市價格匹配功能 - 惠康/萬寧/屈臣氏 (數據來源: superpricehk.com)
     (function(){
         var supermarketPrices = {
+            // Swisse 維他命
             'swisse_calcium_vitamin_d_90': { wellcome: '89.30', mannings: '119.00', watsons: '-' },
-            'swisse_vitamin_c_d_zinc_40': { wellcome: '105.00', mannings: '-', watsons: '-' },
-            'swisse_vitamin_c_d_zinc_30': { wellcome: '-', mannings: '92.00', watsons: '-' },
-            'swisse_vitamin_c_d_zinc_10': { wellcome: '-', mannings: '38.00', watsons: '-' },
+            'swisse_fish_oil_200': { wellcome: '149.30', mannings: '199.00', watsons: '199.00' },
+            // 維多C
+            'vitaminc_zinc_10': { wellcome: '-', mannings: '-', watsons: '49.00' },
+            'vitaminc_zinc_90': { wellcome: '104.90', mannings: '104.90', watsons: '104.90' },
+            // 康鈣
+            'vitamin_c_calcium_30': { wellcome: '114.00', mannings: '113.90', watsons: '119.00' },
+            // 善存系列
+            'centrum_junior_vitamin_c': { wellcome: '-', mannings: '174.90', watsons: '185.90' },
+            'centrum_adult_100': { wellcome: '196.50', mannings: '261.90', watsons: '288.00' },
+            'centrum_senior_100': { wellcome: '-', mannings: '312.90', watsons: '338.00' },
+            // 惠氏
+            'wyeth_23vitamins': { wellcome: '-', mannings: '264.00', watsons: '264.00' },
+            // 益生菌
+            'proven_probiotics_30': { wellcome: '-', mannings: '165.00', watsons: '-' },
+            'culturelle_kids_30': { wellcome: '-', mannings: '-', watsons: '268.00' },
+            // 桂格燕麥
             'quaker_oatmeal_800g': { wellcome: '52.90', mannings: '-', watsons: '-' },
+            // 家樂牌
             'knorr_chicken_powder': { wellcome: '17.50', mannings: '18.50', watsons: '-' }
         };
         
         function matchProduct(name) {
             var n = name.toLowerCase();
+            // Swisse 鈣+維他命D 90片
             if (n.includes('鈣') && n.includes('維他命d') && n.includes('90')) return supermarketPrices['swisse_calcium_vitamin_d_90'];
-            if (n.includes('維他命c') && n.includes('d') && n.includes('鋅') && n.includes('泡騰片')) {
-                if (n.includes('40')) return supermarketPrices['swisse_vitamin_c_d_zinc_40'];
-                if (n.includes('30')) return supermarketPrices['swisse_vitamin_c_d_zinc_30'];
-                if (n.includes('10')) return supermarketPrices['swisse_vitamin_c_d_zinc_10'];
+            // Swisse 無腥味高濃度野生魚油 200粒
+            if (n.includes('swisse') && n.includes('魚油') && n.includes('200')) return supermarketPrices['swisse_fish_oil_200'];
+            // 維多C 3重功效
+            if (n.includes('維他命c') && n.includes('鋅') && n.includes('泡騰片')) {
+                if (n.includes('10片')) return supermarketPrices['vitaminc_zinc_10'];
+                if (n.includes('90片')) return supermarketPrices['vitaminc_zinc_90'];
             }
+            // 康鈣 C950
+            if (n.includes('c950') || (n.includes('維他命c') && n.includes('鈣') && n.includes('30'))) return supermarketPrices['vitamin_c_calcium_30'];
+            // 小善存
+            if (n.includes('小善存') || (n.includes('善存') && n.includes('60粒'))) return supermarketPrices['centrum_junior_vitamin_c'];
+            // 善存成人配方
+            if (n.includes('善存') && n.includes('成人') && n.includes('100')) return supermarketPrices['centrum_adult_100'];
+            // 銀善存 50+
+            if (n.includes('銀善存') || (n.includes('善存') && n.includes('50') && n.includes('100'))) return supermarketPrices['centrum_senior_100'];
+            // 惠氏
+            if (n.includes('惠氏') && n.includes('23種維他命')) return supermarketPrices['wyeth_23vitamins'];
+            // Proven 益生菌
+            if (n.includes('proven') && n.includes('益生菌') && n.includes('30')) return supermarketPrices['proven_probiotics_30'];
+            // 康萃樂
+            if (n.includes('康萃樂') && n.includes('益生菌')) return supermarketPrices['culturelle_kids_30'];
+            // 桂格燕麥
             if (n.includes('桂格') && n.includes('燕麥') && n.includes('800')) return supermarketPrices['quaker_oatmeal_800g'];
+            // 家樂牌雞粉
             if (n.includes('家樂牌') && n.includes('雞粉')) return supermarketPrices['knorr_chicken_powder'];
             return null;
         }
