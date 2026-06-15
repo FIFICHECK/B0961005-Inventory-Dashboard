@@ -1896,6 +1896,65 @@
     document.getElementById('priceTrendModal').addEventListener('click', function(e) {
         if (e.target === this) closePriceTrend();
     });
+    
+    // 超市價格匹配功能 - 惠康/萬寧/屈臣氏
+    (function(){
+        var supermarketPrices = {
+            'swisse_calcium_vitamin_d_90': { wellcome: '89.30', mannings: '119.00', watsons: '-' },
+            'swisse_vitamin_c_d_zinc_40': { wellcome: '105.00', mannings: '-', watsons: '-' },
+            'swisse_vitamin_c_d_zinc_30': { wellcome: '-', mannings: '92.00', watsons: '-' },
+            'swisse_vitamin_c_d_zinc_10': { wellcome: '-', mannings: '38.00', watsons: '-' },
+            'quaker_oatmeal_800g': { wellcome: '52.90', mannings: '-', watsons: '-' },
+            'knorr_chicken_powder': { wellcome: '17.50', mannings: '18.50', watsons: '-' }
+        };
+        
+        function matchProduct(name) {
+            var n = name.toLowerCase();
+            if (n.includes('鈣') && n.includes('維他命d') && n.includes('90')) return supermarketPrices['swisse_calcium_vitamin_d_90'];
+            if (n.includes('維他命c') && n.includes('d') && n.includes('鋅') && n.includes('泡騰片')) {
+                if (n.includes('40')) return supermarketPrices['swisse_vitamin_c_d_zinc_40'];
+                if (n.includes('30')) return supermarketPrices['swisse_vitamin_c_d_zinc_30'];
+                if (n.includes('10')) return supermarketPrices['swisse_vitamin_c_d_zinc_10'];
+            }
+            if (n.includes('桂格') && n.includes('燕麥') && n.includes('800')) return supermarketPrices['quaker_oatmeal_800g'];
+            if (n.includes('家樂牌') && n.includes('雞粉')) return supermarketPrices['knorr_chicken_powder'];
+            return null;
+        }
+        
+        function populateSupermarketPrices() {
+            var tbody = document.getElementById('tablePrice');
+            if (!tbody) return;
+            var rows = tbody.querySelectorAll('tr');
+            rows.forEach(function(row) {
+                if (row.dataset.supermarketAdded) return;
+                var productCell = row.cells[2];
+                if (!productCell) return;
+                var productName = productCell.getAttribute('title') || productCell.textContent;
+                var match = matchProduct(productName);
+                
+                var wellcomeCell = row.cells[6];
+                var manningsCell = row.cells[7];
+                var watsonsCell = row.cells[8];
+                
+                if (!wellcomeCell || !manningsCell || !watsonsCell) return;
+                if (wellcomeCell.textContent !== '—') return;
+                
+                row.dataset.supermarketAdded = 'true';
+                
+                if (match) {
+                    wellcomeCell.innerHTML = match.wellcome !== '-' ? '<span style="color:#4ecdc4;font-weight:bold">$' + match.wellcome + '</span>' : '<span style="color:#999">—</span>';
+                    manningsCell.innerHTML = match.mannings !== '-' ? '<span style="color:#ff6b6b;font-weight:bold">$' + match.mannings + '</span>' : '<span style="color:#999">—</span>';
+                    watsonsCell.innerHTML = match.watsons !== '-' ? '<span style="color:#ffb74d;font-weight:bold">$' + match.watsons + '</span>' : '<span style="color:#999">—</span>';
+                }
+            });
+        }
+        
+        setTimeout(populateSupermarketPrices, 500);
+        var priceTab = document.querySelector('[data-bs-target="#pricecheck"]');
+        if (priceTab) {
+            priceTab.addEventListener('shown.bs.tab', populateSupermarketPrices);
+        }
+    })();
     </script>
 </body>
 </html>
