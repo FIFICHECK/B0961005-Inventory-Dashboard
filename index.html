@@ -1926,9 +1926,9 @@
         function matchProduct(name) {
             var n = name.toLowerCase();
             // Swisse 鈣+維他命D 90片
-            if (n.includes('鈣') && n.includes('維他命d') && n.includes('90')) return supermarketPrices['swisse_calcium_vitamin_d_90'];
+            if ((n.includes('鈣') && n.includes('維他命d') && n.includes('90')) || n.includes('ultiboost 鈣')) return supermarketPrices['swisse_calcium_vitamin_d_90'];
             // Swisse 無腥味高濃度野生魚油 200粒
-            if (n.includes('swisse') && n.includes('魚油') && n.includes('200')) return supermarketPrices['swisse_fish_oil_200'];
+            if ((n.includes('swisse') || n.includes('ultiboost')) && n.includes('魚油') && n.includes('200')) return supermarketPrices['swisse_fish_oil_200'];
             // 維多C 3重功效
             if (n.includes('維他命c') && n.includes('鋅') && n.includes('泡騰片')) {
                 if (n.includes('10片')) return supermarketPrices['vitaminc_zinc_10'];
