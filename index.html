@@ -12,45 +12,38 @@
         body { background: #f0f4f8; font-family: 'Inter', system-ui, sans-serif; }
         .card { border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: none; }
         
-        /* Header with Rainbow Gradient & Sparkle */
+        /* Header with Gold Gradient & Sparkle */
         .header-bg { 
             background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); 
             border-radius: 16px; 
             position: relative;
             overflow: visible;
-            animation: float 3s ease-in-out infinite;
+            animation: float 2s ease-in-out infinite;
         }
         
-        /* Rainbow gradient halo effect */
+        /* Gold gradient halo effect */
         .header-bg::before {
             content: '';
             position: absolute;
             top: -4px; left: -4px; right: -4px; bottom: -4px;
-            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd, #ff6b6b);
+            background: linear-gradient(45deg, #ffd700, #ffec8b, #ffd700, #daa520, #ffd700, #ffec8b, #ffd700);
             background-size: 400% 400%;
             border-radius: 20px;
             z-index: -1;
-            animation: rainbow 4s linear infinite, sparkle 2s ease-in-out infinite;
-            opacity: 0.8;
+            animation: goldShimmer 2s ease-in-out infinite;
+            opacity: 0.9;
         }
         
-        /* Floating bounce animation */
+        /* Floating bounce animation - 2 seconds */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
         }
         
-        /* Rainbow gradient animation */
-        @keyframes rainbow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Sparkle/shimmer effect */
-        @keyframes sparkle {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+        /* Gold shimmer animation */
+        @keyframes goldShimmer {
+            0%, 100% { background-position: 0% 50%; opacity: 0.7; }
+            50% { background-position: 100% 50%; opacity: 1; }
         }
         
         /* Glossy shine effect */
