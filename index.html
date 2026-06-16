@@ -12,52 +12,52 @@
         body { background: #f0f4f8; font-family: 'Inter', system-ui, sans-serif; }
         .card { border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: none; }
         
-        /* Header with Teal Gradient & Sparkle */
+        /* Header with Grass Green Gradient & Sparkle */
         .header-bg { 
-            background: linear-gradient(135deg, #004d40 0%, #00897b 100%); 
+            background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%); 
             border-radius: 16px; 
             position: relative;
             overflow: visible;
-            animation: float 8s ease-in-out infinite;
+            animation: float 20s ease-in-out infinite;
         }
         
-        /* Teal gradient halo effect */
+        /* Grass Green gradient halo effect */
         .header-bg::before {
             content: '';
             position: absolute;
             top: -4px; left: -4px; right: -4px; bottom: -4px;
-            background: linear-gradient(45deg, #004d40, #00897b, #00acc1, #00897b, #004d40, #00bcd4, #004d40);
+            background: linear-gradient(45deg, #2e7d32, #4caf50, #81c784, #66bb6a, #2e7d32, #a5d6a7, #2e7d32);
             background-size: 400% 400%;
             border-radius: 20px;
             z-index: -1;
-            animation: tealShimmer 8s ease-in-out infinite;
+            animation: greenShimmer 20s ease-in-out infinite;
             opacity: 0.9;
         }
         
-        /* Floating bounce animation - 8 seconds */
+        /* Floating bounce animation - 20 seconds */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
         }
         
-        /* Teal shimmer animation */
-        @keyframes tealShimmer {
+        /* Green shimmer animation */
+        @keyframes greenShimmer {
             0%, 100% { background-position: 0% 50%; opacity: 0.7; }
             50% { background-position: 100% 50%; opacity: 1; }
         }
         
-        /* Black & Gold shine effect */
+        /* Gold & Black gradient shine sweep - 20 seconds */
         .header-bg::after {
             content: '';
             position: absolute;
             top: 0; left: -100%;
             width: 60%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.5), rgba(0,0,0,0.3), rgba(255,215,0,0.5), transparent);
-            animation: goldShine 10s ease-in-out infinite;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.6), rgba(0,0,0,0.4), rgba(255,215,0,0.6), transparent);
+            animation: goldBlackShine 20s ease-in-out infinite;
         }
         
-        @keyframes goldShine {
+        @keyframes goldBlackShine {
             0% { left: -100%; }
             50%, 100% { left: 150%; }
         }
