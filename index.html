@@ -46,21 +46,7 @@
             50% { background-position: 100% 50%; opacity: 1; }
         }
         
-        /* Gold & Black gradient shine sweep - 20 seconds */
-        .header-bg::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.6), rgba(0,0,0,0.4), rgba(255,215,0,0.6), transparent);
-            animation: goldBlackShine 20s ease-in-out infinite;
-        }
-        
-        @keyframes goldBlackShine {
-            0% { left: -100%; }
-            50%, 100% { left: 150%; }
-        }
+        .kpi-card { text-align: center; padding: 20px; cursor: pointer; transition: transform 0.2s; }
         
         .header-bg h2 { 
             background: linear-gradient(90deg, #000, #ffd700, #000, #ffd700, #000);
@@ -76,7 +62,6 @@
             50% { background-position: 100% 50%; }
         }
         
-        .kpi-card { text-align: center; padding: 20px; cursor: pointer; transition: transform 0.2s; }
         .kpi-card:hover { transform: translateY(-4px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
         .kpi-value { font-size: 2.5rem; font-weight: 700; }
         .kpi-label { font-size: 0.8rem; color: #64748b; margin-top: 4px; }
