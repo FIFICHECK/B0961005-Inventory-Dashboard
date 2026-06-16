@@ -12,54 +12,68 @@
         body { background: #f0f4f8; font-family: 'Inter', system-ui, sans-serif; }
         .card { border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: none; }
         
-        /* Header with Gold Gradient & Sparkle */
+        /* Header with Teal Gradient & Sparkle */
         .header-bg { 
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); 
+            background: linear-gradient(135deg, #004d40 0%, #00897b 100%); 
             border-radius: 16px; 
             position: relative;
             overflow: visible;
             animation: float 8s ease-in-out infinite;
         }
         
-        /* Gold gradient halo effect */
+        /* Teal gradient halo effect */
         .header-bg::before {
             content: '';
             position: absolute;
             top: -4px; left: -4px; right: -4px; bottom: -4px;
-            background: linear-gradient(45deg, #ffd700, #ffec8b, #ffd700, #daa520, #ffd700, #ffec8b, #ffd700);
+            background: linear-gradient(45deg, #004d40, #00897b, #00acc1, #00897b, #004d40, #00bcd4, #004d40);
             background-size: 400% 400%;
             border-radius: 20px;
             z-index: -1;
-            animation: goldShimmer 8s ease-in-out infinite;
+            animation: tealShimmer 8s ease-in-out infinite;
             opacity: 0.9;
         }
         
-        /* Floating bounce animation - 2 seconds */
+        /* Floating bounce animation - 8 seconds */
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
         }
         
-        /* Gold shimmer animation */
-        @keyframes goldShimmer {
+        /* Teal shimmer animation */
+        @keyframes tealShimmer {
             0%, 100% { background-position: 0% 50%; opacity: 0.7; }
             50% { background-position: 100% 50%; opacity: 1; }
         }
         
-        /* Glossy shine effect */
+        /* Black & Gold shine effect */
         .header-bg::after {
             content: '';
             position: absolute;
             top: 0; left: -100%;
             width: 60%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shine 10s ease-in-out infinite;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.5), rgba(0,0,0,0.3), rgba(255,215,0,0.5), transparent);
+            animation: goldShine 10s ease-in-out infinite;
         }
         
-        @keyframes shine {
+        @keyframes goldShine {
             0% { left: -100%; }
             50%, 100% { left: 150%; }
+        }
+        
+        .header-bg h2 { 
+            background: linear-gradient(90deg, #000, #ffd700, #000, #ffd700, #000);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGold 4s ease-in-out infinite;
+        }
+        
+        @keyframes textGold {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .kpi-card { text-align: center; padding: 20px; cursor: pointer; transition: transform 0.2s; }
