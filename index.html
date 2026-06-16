@@ -49,17 +49,8 @@
         .kpi-card { text-align: center; padding: 20px; cursor: pointer; transition: transform 0.2s; }
         
         .header-bg h2 { 
-            background: linear-gradient(90deg, #000, #ffd700, #000, #ffd700, #000);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: textGold 10s ease-in-out infinite;
-        }
-        
-        @keyframes textGold {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
         
         .kpi-card:hover { transform: translateY(-4px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
