@@ -1,0 +1,135 @@
+
+
+<html>
+<style>
+input[type=text], select {
+    width: 300px;
+    padding: 12px 20px;
+    margin-top: 15px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=password], select {
+    width: 300px;
+    padding: 12px 20px;
+    margin-top: 15px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 300px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+a.white:visited, a.white:hover, a.white:link, a.white:active {
+    color: white;
+}
+
+a.green:visited, a.green:hover, a.green:link, a.green:active {
+    color: #336600;
+}
+
+
+</style>
+<body background=' ../images/exchange_cobrand_background.jpg'><br>
+<table style="margin-left:100px">
+<td bgcolor="#FFFFFF">
+<table width="350px" float: "left" style="display: inline-block;">
+<tr><td align="left" >
+<img align="middle" src="../images/hktv_logo_mall.png" border="0" style=" display: block;margin:auto;width:160px; margin-top:10px;">
+
+<form name="loginform" method="POST" action="../shared/login.php">
+<table style="width:100%">
+  <tr>
+<br><br><br>  </tr>
+  <tr>
+  <td>
+  <center>HKTVmall Merchant Portal</center></br></br></br>
+  </td>
+  </tr>
+    <tr>
+    <td>
+    <center>User Login</center></br>
+    </td>
+    </tr>
+  <tr>
+    <td valign="top" align="center">
+<table >
+  <tr>
+    <td valign="top" class="noborder">
+      <input type="text" style="display: block;margin: auto;" name="username" size="20" maxlength="20" placeholder="USER NAME"
+      value="" style="text-transform:uppercase;">
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <font class="error"></font>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="noborder">
+      <input type="password" style="display: block;margin: auto; margin-top: 15px" name="pwd" size="20" maxlength="20" placeholder="PASSWORD"
+      value="" >
+      </td>
+      </tr>
+      <tr>
+      <td>
+      <font class="error">
+      </font>
+    </td>
+  </tr>
+  <tr>
+    <td >
+      <input type="submit" style="display: block;margin: auto; margin-top: 15px; margin-bottom:25px" value="Login"
+    </td>
+	</tr>
+	<td style="padding-left:20px;">
+	<a href="../shared/forgetPasswordform.php"><font size=2px color=#000000>Forget password</font></a>
+	</td>
+	</tr>
+	<tr>
+	<td style="font-size:10px;font-family:verdana,arial,helvetica; padding-top:50px; padding-left:20px"">
+	Copyright © Hong Kong Television Network Limited and its subsidiary 2017. All Rights Reserved.
+	</td>
+	</tr>
+</table>
+    </td>
+  </tr>
+	<!-- Added by Karen 20130326-->
+	<tr>
+		<td colspan="1" class="noborder">
+				</td>
+	</tr>
+</form>
+</td></tr>
+</table>
+</table>
+</td>
+<td>
+<table width="200px" style="float: right; ">
+<tr>
+    <td class="announcement" style="padding-left: 100px; font-weight: bold;">
+        <div align="Top"><br><font face="calibri" color="white" size="5px"> ThePlace一站式開網店平台 <br>  <a class="white" href="https://business.theplace.shop/?utm_source=mall_system&utm_medium=exchange_landing&utm_campaign=image_slider_8.3banner">查看更多</a>  <br></font><font face="calibri" color="white" size="5px">  <br>ThePlace All-in-One Independent eStore Solution<br>  <a class="white" href="https://business.theplace.shop/?utm_source=mall_system&utm_medium=exchange_landing&utm_campaign=image_slider_8.3banner">Watch more</a>  <br><br></font><a href="https://business.theplace.shop/?utm_source=mall_system&utm_medium=exchange_landing&utm_campaign=image_slider_8.3banner"><img height="500" width="1080" src="https://images-dynamic.hktvmall.com/mkgb/common/fnd/uyk/TdUhGLfWfz20241119180332.jpg"></a></div>  </td>
+  </tr>
+  </td>
+  </table>
+  </td>
+  </body>
+</html>
+
