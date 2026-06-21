@@ -3705,7 +3705,7 @@
                             callbacks: {
                                 label: function(ctx) {
                                     const val = ctx.raw;
-                                    return isGmv ? ' $' + val.toLocaleString(undefined, {minimumFractionDigits: 2}) : ' ' + val.toLocaleString();
+                                    return isGmv ? ' $' + val.toLocaleString(undefined, {minimumFractionDigits: 2}) : ' ' + val.toLocaleString() + ' 件';
                                 }
                             }
                         }
@@ -3746,18 +3746,27 @@
         const isQty = chartName.includes('Qty');
         if (isSkuChart) html += '<th>SKU ID</th><th>SKU Name (Chinese)</th>';
         else if (isBrandChart) html += '<th>Brand</th>';
-        html += isDaily ? '<th>Daily</th>' : '<th>Monthly</th>';
+        const colLabel = isDaily ? 'Daily' : 'Monthly';
+        const typeLabel = isQty ? ' (Qty)' : ' (GMV)';
+        html += '<th>' + colLabel + typeLabel + '</th>';
         html += '</tr></thead><tbody>';
         // Data already filtered by switchSalesChart - just use it directly
         const filteredLabels = data.labels || [];
         const filteredDataObj = data.data || [];
         if (isSkuChart && data.isMultiDataset) {
             // For multiDataset: filteredDataObj is array of arrays, data.skus has SKU IDs
-            (data.skus || []).forEach((sku, skuIdx) => {
+            // Calculate totals and sort descending
+            const skuTotals = (data.skus || []).map((sku, skuIdx) => {
+                let total = 0;
+                filteredDataObj.forEach(row => { if (row && row[skuIdx] !== undefined) total += row[skuIdx]; });
+                return { sku, skuIdx, total };
+            });
+            skuTotals.sort((a, b) => b.total - a.total);
+            skuTotals.forEach(({sku, skuIdx, total}) => {
                 const skuName = salesTrendData.sku_name_map[sku] || sku;
                 let total = 0;
                 filteredDataObj.forEach(row => { if (row && row[skuIdx] !== undefined) total += row[skuIdx]; });
-                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isSkuChart) {
             // Non-multiDataset single dataset
@@ -3765,13 +3774,18 @@
                 const skuName = salesTrendData.sku_name_map[sku] || sku;
                 let total = 0;
                 if (filteredDataObj[sku] !== undefined) total = filteredDataObj[sku];
-                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isBrandChart) {
-            (data.brands || []).forEach(brand => {
+            // Calculate totals and sort descending
+            const brandTotals = (data.brands || []).map((brand, brandIdx) => {
                 let total = 0;
-                Object.values(filteredDataObj).forEach(row => { if (row && row[brand] !== undefined) total += row[brand]; });
-                if (total > 0) html += '<tr><td>' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                filteredDataObj.forEach(row => { if (row && row[brandIdx] !== undefined) total += row[brandIdx]; });
+                return { brand, total };
+            });
+            brandTotals.sort((a, b) => b.total - a.total);
+            brandTotals.forEach(({brand, total}) => {
+                if (total > 0) html += '<tr><td>' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         }
         html += '</tbody></table></div>';
