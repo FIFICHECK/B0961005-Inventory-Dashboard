@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "date": "2026-06-21",
+    "time": "18:00",
+    "orders": 272,
+    "filename": "reports/order_reports/ECOM-MMSNG_DAILY_ORDER_B0961005_20260621180001.xlsx"
+  }
+]
