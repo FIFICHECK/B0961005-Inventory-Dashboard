@@ -3660,7 +3660,7 @@
                 
                 // Calculate totals and find TOP 10
                 const isSkuChart = chartName.includes('Sku');
-                const isQty = chartName.includes('Qty');
+                const isQty = chartName.toLowerCase().includes('qty');
                 const items = isSkuChart ? data.skus : data.brands;
                 const totals = items.map((item, idx) => {
                     let sum = 0;
@@ -3742,7 +3742,7 @@
         const isSkuChart = chartName.includes('Sku');
         const isBrandChart = chartName.includes('Brand');
         const isDaily = chartName.includes('Daily');
-        const isQty = chartName.includes('Qty');
+        const isQty = chartName.toLowerCase().includes('qty');
         if (isSkuChart) html += '<th>SKU ID</th><th>SKU Name (Chinese)</th>';
         else if (isBrandChart) html += '<th>Brand</th>';
         const colLabel = isDaily ? 'Daily' : 'Monthly';
