@@ -3647,11 +3647,13 @@
             data = { labels: filtered.labels, data: filtered.data };
         }
         if (salesChartInstance) {
+            salesChartInstance.destroy();
             if (config.multiDataset) {
-            renderSalesTable(chartName, config, data);
-            document.getElementById('salesTrendChart').style.display = 'none';
-            document.getElementById('salesTableContainer').style.display = '';
-            return;
+                renderSalesTable(chartName, config, data);
+                document.getElementById('salesTrendChart').style.display = 'none';
+                document.getElementById('salesTableContainer').style.display = '';
+                return;
+            }
         }
         document.getElementById('salesTrendChart').style.display = '';
         document.getElementById('salesTableContainer').style.display = 'none';
