@@ -1019,13 +1019,13 @@
                                     <button type="button" class="btn btn-outline-primary active" onclick="switchSalesChart('gmvByDate', this)">1. GMV by Date</button>
                                     <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByMonth', this)">2. GMV by Monthly</button>
                                     <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByHour', this)">3. GMV by Hour</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvBySkuDaily', this)">4. GMV by SKU (Daily)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvBySkuMonthly', this)">5. GMV by SKU (Monthly)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('qtyBySkuDaily', this)">6. Qty by SKU (Daily)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('qtyBySkuMonthly', this)">7. Qty by SKU (Monthly)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByBrandDaily', this)">8. GMV by Brand (Daily)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByBrandMonthly', this)">9. GMV by Brand (Monthly)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByDayOfWeek', this)">10. GMV by Day of Week</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByDayOfWeek', this)">4. GMV by Day of Week</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvBySkuDaily', this)">5. GMV by SKU (Daily)</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvBySkuMonthly', this)">6. GMV by SKU (Monthly)</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('qtyBySkuDaily', this)">7. Qty by SKU (Daily)</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('qtyBySkuMonthly', this)">8. Qty by SKU (Monthly)</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByBrandDaily', this)">9. GMV by Brand (Daily)</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByBrandMonthly', this)">10. GMV by Brand (Monthly)</button>
                                 </div>
                             </div>
                         </div>
@@ -3778,7 +3778,7 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
             skuTotals.forEach(({sku, skuIdx, total}) => {
                 const skuName = salesTrendData.sku_name_map[sku] || sku;
                 const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
-                if (total > 0) html += '<tr><td><a href="https://www.hktvmall.com/hktv/p/' + sku + '" target="_blank" onclick="event.stopPropagation()"><code>' + sku + '</code></a></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isSkuChart) {
             // Non-multiDataset single dataset
@@ -3787,7 +3787,7 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
                 let total = 0;
                 if (filteredDataObj[sku] !== undefined) total = filteredDataObj[sku];
-                if (total > 0) html += '<tr><td><a href="https://www.hktvmall.com/hktv/p/' + sku + '" target="_blank" onclick="event.stopPropagation()"><code>' + sku + '</code></a></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isBrandChart) {
             // Calculate totals and sort descending
