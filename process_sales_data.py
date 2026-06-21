@@ -77,10 +77,14 @@ def generate_chart_data(df):
     gmv_by_month = df.groupby('YearMonth')['GMV'].sum().reset_index()
     gmv_by_month = gmv_by_month.sort_values('YearMonth')
     
-    # Chart 3: GMV by Hour
+    # Chart 3: GMV by Hour (fill all 24 hours with 0 for missing ones)
     gmv_by_hour = df.groupby('Hour')['GMV'].sum().reset_index()
     gmv_by_hour = gmv_by_hour.sort_values('Hour')
-    
+    # Ensure all 24 hours are present
+    hour_dict = dict(zip(gmv_by_hour['Hour'], gmv_by_hour['GMV']))
+    all_hours = [f"{i:02d}" for i in range(24)]
+    gmv_by_hour = {'labels': all_hours, 'data': [hour_dict.get(h, 0) for h in all_hours]}
+
     # Chart 10: GMV by Day of Week (labels: "Sunday (2026-06-21)" format)
     gmv_by_date_df = df.groupby('DateStr')['GMV'].sum().reset_index()
     gmv_by_date_df = gmv_by_date_df.sort_values('DateStr')
@@ -130,8 +134,8 @@ def generate_chart_data(df):
             'data': gmv_by_month['GMV'].tolist()
         },
         'gmv_by_hour': {
-            'labels': gmv_by_hour['Hour'].tolist(),
-            'data': gmv_by_hour['GMV'].tolist()
+            'labels': gmv_by_hour['labels'],
+            'data': gmv_by_hour['data']
         },
         'gmv_by_day_of_week': {
             'labels': gmv_by_day_of_week['labels'],
