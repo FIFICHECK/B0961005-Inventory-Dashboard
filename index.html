@@ -3778,7 +3778,7 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
             skuTotals.forEach(({sku, skuIdx, total}) => {
                 const skuName = salesTrendData.sku_name_map[sku] || sku;
                 const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
-                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                if (total > 0) html += '<tr><td><a href="https://www.hktvmall.com/hktv/p/' + sku + '" target="_blank" onclick="event.stopPropagation()"><code>' + sku + '</code></a></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isSkuChart) {
             // Non-multiDataset single dataset
@@ -3787,7 +3787,7 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
                 let total = 0;
                 if (filteredDataObj[sku] !== undefined) total = filteredDataObj[sku];
-                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                if (total > 0) html += '<tr><td><a href="https://www.hktvmall.com/hktv/p/' + sku + '" target="_blank" onclick="event.stopPropagation()"><code>' + sku + '</code></a></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isBrandChart) {
             // Calculate totals and sort descending
