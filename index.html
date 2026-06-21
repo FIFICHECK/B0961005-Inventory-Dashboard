@@ -3715,6 +3715,17 @@
     document.addEventListener('DOMContentLoaded', function() {
         populateSalesFilters();
         setTimeout(() => switchSalesChart('gmvByDate', document.querySelector('#salesChartNav .btn')), 100);
+
+        // Fix: Re-render chart when Sales Trend tab is shown
+        // Chart.js cannot measure container size when tab is hidden (0x0 canvas)
+        document.querySelector('#salestrend').addEventListener('shown.bs.tab', function() {
+            // Re-render chart with current chart type to get proper dimensions
+            const activeBtn = document.querySelector('#salesChartNav .btn.active');
+            if (activeBtn) {
+                const chartName = activeBtn.getAttribute('onclick').match(/'([^']+)'/)[1];
+                switchSalesChart(chartName, activeBtn);
+            }
+        });
     });
     </script>
 </body>
