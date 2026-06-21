@@ -1025,6 +1025,7 @@
                                     <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('qtyBySkuMonthly', this)">7. Qty by SKU (Monthly)</button>
                                     <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByBrandDaily', this)">8. GMV by Brand (Daily)</button>
                                     <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByBrandMonthly', this)">9. GMV by Brand (Monthly)</button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByDayOfWeek', this)">10. GMV by Day of Week</button>
                                 </div>
                             </div>
                         </div>
@@ -3752,12 +3753,14 @@
         const isDateChart = chartName === 'gmvByDate';
         const isMonthChart = chartName === 'gmvByMonth';
         const isHourChart = chartName === 'gmvByHour';
+        const isDayOfWeekChart = chartName === 'gmvByDayOfWeek';
         const isSimpleDateChart = !isSkuChart && !isBrandChart && (isDateChart || isMonthChart);
         
 if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start">Brand</th><th class="text-start">SKU Name (Chinese)</th><th class="text-end">' + (isQty ? 'Qty' : 'GMV') + '</th>';
         else if (isBrandChart) html += '<th class="text-start">Brand</th><th class="text-end">' + (isQty ? 'Qty' : 'GMV') + '</th>';
         else if (isSimpleDateChart) html += '<th class="text-start">' + (isDateChart ? '日期' : '月份') + '</th><th class="text-end">GMV</th>';
         else if (isHourChart) html += '<th class="text-start">小時</th><th class="text-end">GMV</th>';
+        else if (isDayOfWeekChart) html += '<th class="text-start">星期</th><th class="text-end">GMV</th>';
         else html += '<th class="text-start">日期</th><th class="text-end">GMV</th>';
         html += '</tr></thead><tbody>';
         // Data already filtered by switchSalesChart - just use it directly

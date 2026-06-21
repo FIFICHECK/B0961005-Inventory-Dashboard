@@ -13,11 +13,15 @@ Charts generated:
 7. Qty by SKU monthly
 8. GMV by brand daily
 9. GMV by brand monthly
+10. GMV by day of week
 """
 
 import pandas as pd
 import json
 from datetime import datetime
+
+# Chinese day names (Monday=0, Sunday=6)
+DAY_NAMES_CN = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
 
 # File paths
 INPUT_FILE = '/home/snkwok/Downloads/ECOM-MMSNG_DAILY_ORDER_B0961005_20260621180001.xlsx'
@@ -76,6 +80,19 @@ def generate_chart_data(df):
     gmv_by_hour = df.groupby('Hour')['GMV'].sum().reset_index()
     gmv_by_hour = gmv_by_hour.sort_values('Hour')
     
+    # Chart 10: GMV by Day of Week (labels: "星期一 (2026-06-21)" format)
+    gmv_by_date_df = df.groupby('DateStr')['GMV'].sum().reset_index()
+    gmv_by_date_df = gmv_by_date_df.sort_values('DateStr')
+    dow_labels = []
+    for date_str in gmv_by_date_df['DateStr']:
+        dt = pd.to_datetime(date_str)
+        day_idx = dt.weekday()
+        dow_labels.append(f"{DAY_NAMES_CN[day_idx]} ({date_str})")
+    gmv_by_day_of_week = {
+        'labels': dow_labels,
+        'data': gmv_by_date_df['GMV'].tolist()
+    }
+    
     # Chart 4: GMV by SKU Daily
     gmv_by_sku_daily = df.groupby(['DateStr', 'Full_SKU'])['GMV'].sum().reset_index()
     gmv_by_sku_daily_pivot = gmv_by_sku_daily.pivot(index='DateStr', columns='Full_SKU', values='GMV').fillna(0)
@@ -114,6 +131,10 @@ def generate_chart_data(df):
         'gmv_by_hour': {
             'labels': gmv_by_hour['Hour'].tolist(),
             'data': gmv_by_hour['GMV'].tolist()
+        },
+        'gmv_by_day_of_week': {
+            'labels': gmv_by_day_of_week['labels'],
+            'data': gmv_by_day_of_week['data']
         },
         'gmv_by_sku_daily': {
             'labels': gmv_by_sku_daily_pivot.index.tolist(),
@@ -198,6 +219,15 @@ const chartConfigs = {{
         yAxisLabel: 'GMV (HKD)',
         dataKey: 'gmv_by_hour',
         color: '#16a34a'
+    }},
+    // Chart 10: GMV by Day of Week (Bar Chart)
+    gmvByDayOfWeek: {{
+        type: 'bar',
+        label: 'GMV by 星期 (Day of Week)',
+        xAxisLabel: '星期 (Day)',
+        yAxisLabel: 'GMV (HKD)',
+        dataKey: 'gmv_by_day_of_week',
+        color: '#7c3aed'
     }},
     // Chart 4: GMV by SKU Daily (Line Chart)
     gmvBySkuDaily: {{
