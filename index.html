@@ -3763,8 +3763,6 @@
             skuTotals.sort((a, b) => b.total - a.total);
             skuTotals.forEach(({sku, skuIdx, total}) => {
                 const skuName = salesTrendData.sku_name_map[sku] || sku;
-                let total = 0;
-                filteredDataObj.forEach(row => { if (row && row[skuIdx] !== undefined) total += row[skuIdx]; });
                 if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isSkuChart) {
