@@ -804,7 +804,7 @@ const salesTrendData = {
   },
   "gmv_by_day_of_week": {
     "labels": [
-      "星期日 (2026-06-21)"
+      "Sunday (2026-06-21)"
     ],
     "data": [
       26712.6

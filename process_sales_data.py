@@ -22,6 +22,7 @@ from datetime import datetime
 
 # Chinese day names (Monday=0, Sunday=6)
 DAY_NAMES_CN = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
+DAY_NAMES_EN = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 # File paths
 INPUT_FILE = '/home/snkwok/Downloads/ECOM-MMSNG_DAILY_ORDER_B0961005_20260621180001.xlsx'
@@ -80,14 +81,14 @@ def generate_chart_data(df):
     gmv_by_hour = df.groupby('Hour')['GMV'].sum().reset_index()
     gmv_by_hour = gmv_by_hour.sort_values('Hour')
     
-    # Chart 10: GMV by Day of Week (labels: "星期一 (2026-06-21)" format)
+    # Chart 10: GMV by Day of Week (labels: "Sunday (2026-06-21)" format)
     gmv_by_date_df = df.groupby('DateStr')['GMV'].sum().reset_index()
     gmv_by_date_df = gmv_by_date_df.sort_values('DateStr')
     dow_labels = []
     for date_str in gmv_by_date_df['DateStr']:
         dt = pd.to_datetime(date_str)
         day_idx = dt.weekday()
-        dow_labels.append(f"{DAY_NAMES_CN[day_idx]} ({date_str})")
+        dow_labels.append(f"{DAY_NAMES_EN[day_idx]} ({date_str})")
     gmv_by_day_of_week = {
         'labels': dow_labels,
         'data': gmv_by_date_df['GMV'].tolist()
@@ -223,8 +224,8 @@ const chartConfigs = {{
     // Chart 10: GMV by Day of Week (Bar Chart)
     gmvByDayOfWeek: {{
         type: 'bar',
-        label: 'GMV by 星期 (Day of Week)',
-        xAxisLabel: '星期 (Day)',
+        label: 'GMV by Day of Week',
+        xAxisLabel: 'Day of Week',
         yAxisLabel: 'GMV (HKD)',
         dataKey: 'gmv_by_day_of_week',
         color: '#7c3aed'
