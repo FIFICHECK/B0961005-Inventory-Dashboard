@@ -1034,12 +1034,10 @@
                 </div>
                 <div class="table-container">
                     <table class="table table-hover mb-0">
-                        <thead>
+                        <thead style="display: block;">
                             <tr><th>Date 日期</th><th>時間</th><th>SKU 數量</th><th>Download 下載</th></tr>
                         </thead>
-                        <tbody id="orderReportBody">
-                            <tr><td colspan="4" class="text-center text-muted">載入中...</td></tr>
-                        </tbody>
+                        <tbody id="orderReportBody" style="max-height: 320px; overflow-y: auto; display: block;"></tbody>
                     </table>
                 </div>
             </div>
