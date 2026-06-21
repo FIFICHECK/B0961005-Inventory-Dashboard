@@ -3754,17 +3754,11 @@
         const isHourChart = chartName === 'gmvByHour';
         const isSimpleDateChart = !isSkuChart && !isBrandChart && (isDateChart || isMonthChart);
         
-        if (isSkuChart) html += '<th>SKU ID</th><th>SKU Name (Chinese)</th>';
-        else if (isBrandChart) html += '<th>Brand</th>';
-        else if (isSimpleDateChart) html += '<th>' + (isDateChart ? '日期' : '月份') + '</th>';
-        else if (isHourChart) html += '<th>小時</th>';
-        
-        let colLabel = 'GMV';
-        if (isDaily) colLabel = 'Daily';
-        else if (isMonthChart) colLabel = 'Monthly';
-        else if (isHourChart) colLabel = 'Hourly';
-        const typeLabel = isQty ? ' (Qty)' : ' (GMV)';
-        html += '<th>' + colLabel + typeLabel + '</th>';
+if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start">SKU Name (Chinese)</th><th class="text-end">GMV / Qty</th>';
+        else if (isBrandChart) html += '<th class="text-start">Brand</th><th class="text-end">GMV / Qty</th>';
+        else if (isSimpleDateChart) html += '<th class="text-start">' + (isDateChart ? '日期' : '月份') + '</th><th class="text-end">GMV</th>';
+        else if (isHourChart) html += '<th class="text-start">小時</th><th class="text-end">GMV</th>';
+        else html += '<th class="text-start">日期</th><th class="text-end">GMV</th>';
         html += '</tr></thead><tbody>';
         // Data already filtered by switchSalesChart - just use it directly
         const filteredLabels = data.labels || [];
@@ -3799,7 +3793,7 @@
             });
             brandTotals.sort((a, b) => b.total - a.total);
             brandTotals.forEach(({brand, total}) => {
-                if (total > 0) html += '<tr><td>' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                if (total > 0) html += '<tr><td class="text-start">' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else {
             // Simple date/month/hour charts (gmvByDate, gmvByMonth, gmvByHour) - show label + GMV
@@ -3809,7 +3803,7 @@
                 if (val !== undefined && val > 0) {
                     let displayLabel = label;
                     if (isHourChart) displayLabel = label + ':00'; // Show as "00:00", "01:00", etc.
-                    html += '<tr><td>' + displayLabel + '</td><td class="text-end">$' + val.toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td></tr>';
+                    html += '<tr><td class="text-start">' + displayLabel + '</td><td class="text-end">$' + val.toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td></tr>';
                 }
             });
         }
