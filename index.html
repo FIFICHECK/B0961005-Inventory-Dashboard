@@ -71,6 +71,7 @@
             <li class="nav-item"><button class="nav-link text-warning" data-bs-toggle="tab" data-bs-target="#newsku">🆕 New SKU (99)</button></li>
             <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pricecheck">💰 Price Check (242)</button></li>
             <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#report">📋 Report (52)</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#salestrend">📈 Sales Trend</button></li>
         </ul>
 
         <div class="tab-content">
@@ -3243,6 +3244,274 @@
     document.getElementById('priceTrendModal').addEventListener('click', function(e) {
         if (e.target === this) closePriceTrend();
     });
+
+    // ===== Sales Trend Functions =====
+    let stOrderData = null;
+    let stChartDailyGMV = null;
+    let stChartHourly = null;
+    let stChartBrandDaily = null;
+    let stChartBrandMonthly = null;
+
+    async function loadOrderData() {
+        try {
+            const resp = await fetch('data/order_data.json?t=' + Date.now());
+            stOrderData = await resp.json();
+            initSalesTrend();
+        } catch(e) {
+            console.warn('Order data not available:', e);
+        }
+    }
+
+    function initSalesTrend() {
+        if (!stOrderData) return;
+        const dates = Object.keys(stOrderData.gmv_daily).sort();
+        const months = [...new Set(dates.map(d => d.substring(0,7)))].sort();
+        const brands = Object.keys(stOrderData.gmv_brand_daily).sort();
+        const skus = Object.keys(stOrderData.gmv_sku_daily).sort();
+
+        // Populate date filters
+        const startInput = document.getElementById('st-date-start');
+        const endInput = document.getElementById('st-date-end');
+        const hourDateSelect = document.getElementById('st-hour-date');
+        if (dates.length > 0) {
+            startInput.value = dates[0];
+            endInput.value = dates[dates.length - 1];
+            hourDateSelect.innerHTML = '<option value="">選擇日期</option>' + dates.map(d => `<option value="${d}">${d}</option>`).join('');
+        }
+
+        // Populate month filters
+        const skuMonthSelect = document.getElementById('st-sku-month');
+        const qtyMonthSelect = document.getElementById('st-qty-month');
+        skuMonthSelect.innerHTML = '<option value="">選擇月份</option>' + months.map(m => `<option value="${m}">${m}</option>`).join('');
+        qtyMonthSelect.innerHTML = '<option value="">選擇月份</option>' + months.map(m => `<option value="${m}">${m}</option>`).join('');
+
+        // KPI cards
+        const today = dates[dates.length - 1] || dates[0];
+        const todayGMV = stOrderData.gmv_daily[today] || 0;
+        const todayOrders = stOrderData.order_count_daily[today] || 0;
+        const todaySkus = Object.keys(stOrderData.gmv_sku_daily).filter(s => stOrderData.gmv_sku_daily[s][today]).length;
+        const avgGMV = todayOrders > 0 ? (todayGMV / todayOrders).toFixed(2) : 0;
+        document.getElementById('st-gmv-today').textContent = '$' + todayGMV.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        document.getElementById('st-orders-today').textContent = todayOrders;
+        document.getElementById('st-items-today').textContent = todaySkus;
+        document.getElementById('st-avg-gmv').textContent = '$' + avgGMV.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+        stRenderDailyGMV();
+        stRenderHourlyGMV();
+        stRenderSkuGMV();
+        stRenderSkuGMVMonthly();
+        stRenderSkuQty();
+        stRenderSkuQtyMonthly();
+        stRenderBrandDaily();
+        stRenderBrandMonthly();
+    }
+
+    function stRenderDailyGMV() {
+        const startDate = document.getElementById('st-date-start').value;
+        const endDate = document.getElementById('st-date-end').value;
+        const gmvDaily = stOrderData.gmv_daily;
+        const dates = Object.keys(gmvDaily).filter(d => d >= startDate && d <= endDate).sort();
+        const values = dates.map(d => gmvDaily[d] || 0);
+
+        if (stChartDailyGMV) stChartDailyGMV.destroy();
+        const ctx = document.getElementById('stChartDailyGMV').getContext('2d');
+        stChartDailyGMV = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'GMV',
+                    data: values,
+                    backgroundColor: 'rgba(30,64,175,0.7)',
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, ticks: { callback: v => '$' + v.toLocaleString() } }
+                }
+            }
+        });
+    }
+
+    function stRenderHourlyGMV() {
+        const date = document.getElementById('st-hour-date').value;
+        if (!date || !stOrderData.gmv_hourly[date]) return;
+        const hourlyData = stOrderData.gmv_hourly[date];
+        const labels = [];
+        const values = [];
+        for (let h = 0; h < 24; h++) {
+            labels.push(h + ':00');
+            values.push(hourlyData[h] || 0);
+        }
+        if (stChartHourly) stChartHourly.destroy();
+        const ctx = document.getElementById('stChartHourly').getContext('2d');
+        stChartHourly = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'GMV',
+                    data: values,
+                    backgroundColor: 'rgba(22,163,74,0.7)',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, ticks: { callback: v => '$' + v.toLocaleString() } }
+                }
+            }
+        });
+    }
+
+    function stRenderSkuGMV() {
+        const search = (document.getElementById('st-sku-search').value || '').toLowerCase();
+        const today = Object.keys(stOrderData.gmv_daily).sort().pop();
+        const skuData = stOrderData.gmv_sku_daily;
+        const names = stOrderData.sku_names || {};
+
+        let rows = Object.entries(skuData)
+            .filter(([sku, d]) => d[today] && (search === '' || sku.toLowerCase().includes(search) || (names[sku] || '').toLowerCase().includes(search)))
+            .map(([sku, d]) => ({ sku, gmv: d[today] || 0 }))
+            .sort((a, b) => b.gmv - a.gmv)
+            .slice(0, 50);
+
+        const tbody = document.getElementById('stSkuGmvTable');
+        tbody.innerHTML = rows.map(r => `<tr><td><code>${r.sku}</code></td><td class="text-end fw-bold text-primary">$${r.gmv.toFixed(2)}</td></tr>`).join('');
+    }
+
+    function stRenderSkuGMVMonthly() {
+        const month = document.getElementById('st-sku-month').value;
+        if (!month) return;
+        const skuData = stOrderData.gmv_sku_daily;
+        const dates = Object.keys(stOrderData.gmv_daily).filter(d => d.startsWith(month)).sort();
+
+        let rows = [];
+        Object.entries(skuData).forEach(([sku, d]) => {
+            let cumGMV = 0;
+            dates.forEach(date => { cumGMV += (d[date] || 0); });
+            if (cumGMV > 0) rows.push({ sku, gmv: cumGMV });
+        });
+
+        rows.sort((a, b) => b.gmv - a.gmv);
+        rows = rows.slice(0, 50);
+
+        const tbody = document.getElementById('stSkuGmvMonthlyTable');
+        tbody.innerHTML = rows.map(r => `<tr><td><code>${r.sku}</code></td><td class="text-end fw-bold text-primary">$${r.gmv.toFixed(2)}</td></tr>`).join('');
+    }
+
+    function stRenderSkuQty() {
+        const search = (document.getElementById('st-qty-search').value || '').toLowerCase();
+        const today = Object.keys(stOrderData.gmv_daily).sort().pop();
+        const qtyData = stOrderData.qty_sku_daily;
+
+        let rows = Object.entries(qtyData)
+            .filter(([sku, d]) => d[today] && (search === '' || sku.toLowerCase().includes(search)))
+            .map(([sku, d]) => ({ sku, qty: d[today] || 0 }))
+            .sort((a, b) => b.qty - a.qty)
+            .slice(0, 50);
+
+        const tbody = document.getElementById('stSkuQtyTable');
+        tbody.innerHTML = rows.map(r => `<tr><td><code>${r.sku}</code></td><td class="text-end fw-bold text-success">${r.qty}</td></tr>`).join('');
+    }
+
+    function stRenderSkuQtyMonthly() {
+        const month = document.getElementById('st-qty-month').value;
+        if (!month) return;
+        const qtyData = stOrderData.qty_sku_daily;
+        const dates = Object.keys(stOrderData.gmv_daily).filter(d => d.startsWith(month)).sort();
+
+        let rows = [];
+        Object.entries(qtyData).forEach(([sku, d]) => {
+            let cumQty = 0;
+            dates.forEach(date => { cumQty += (d[date] || 0); });
+            if (cumQty > 0) rows.push({ sku, qty: cumQty });
+        });
+
+        rows.sort((a, b) => b.qty - a.qty);
+        rows = rows.slice(0, 50);
+
+        const tbody = document.getElementById('stSkuQtyMonthlyTable');
+        tbody.innerHTML = rows.map(r => `<tr><td><code>${r.sku}</code></td><td class="text-end fw-bold text-success">${r.qty}</td></tr>`).join('');
+    }
+
+    function stRenderBrandDaily() {
+        const today = Object.keys(stOrderData.gmv_daily).sort().pop();
+        const brandData = stOrderData.gmv_brand_daily;
+        const brands = Object.keys(brandData).filter(b => brandData[b][today]);
+
+        if (stChartBrandDaily) stChartBrandDaily.destroy();
+        const ctx = document.getElementById('stChartBrandDaily').getContext('2d');
+        const bgColors = ['rgba(30,64,175,0.7)','rgba(22,163,74,0.7)','rgba(217,119,6,0.7)','rgba(220,38,38,0.7)','rgba(124,58,237,0.7)','rgba(14,165,233,0.7)','rgba(34,197,94,0.7)','rgba(251,146,60,0.7)'];
+        stChartBrandDaily = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: brands,
+                datasets: [{
+                    data: brands.map(b => brandData[b][today] || 0),
+                    backgroundColor: brands.map((_, i) => bgColors[i % bgColors.length])
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'right' } }
+            }
+        });
+    }
+
+    function stRenderBrandMonthly() {
+        const dates = Object.keys(stOrderData.gmv_daily).sort();
+        const brands = Object.keys(stOrderData.gmv_brand_daily).sort();
+        const month = dates.length > 0 ? dates[dates.length - 1].substring(0, 7) : null;
+        if (!month) return;
+        const monthDates = dates.filter(d => d.startsWith(month));
+
+        const brandMonthly = {};
+        brands.forEach(b => {
+            let cumGMV = 0;
+            monthDates.forEach(d => { cumGMV += (stOrderData.gmv_brand_daily[b][d] || 0); });
+            if (cumGMV > 0) brandMonthly[b] = cumGMV;
+        });
+
+        const sortedBrands = Object.entries(brandMonthly).sort((a, b) => b[1] - a[1]);
+
+        if (stChartBrandMonthly) stChartBrandMonthly.destroy();
+        const ctx = document.getElementById('stChartBrandMonthly').getContext('2d');
+        const bgColors = ['rgba(30,64,175,0.7)','rgba(22,163,74,0.7)','rgba(217,119,6,0.7)','rgba(220,38,38,0.7)','rgba(124,58,237,0.7)','rgba(14,165,233,0.7)','rgba(34,197,94,0.7)','rgba(251,146,60,0.7)'];
+        stChartBrandMonthly = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: sortedBrands.map(b => b[0]),
+                datasets: [{
+                    data: sortedBrands.map(b => b[1]),
+                    backgroundColor: sortedBrands.map((_, i) => bgColors[i % bgColors.length])
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'right' } }
+            }
+        });
+    }
+
+    // Auto-load when tab is shown
+    document.addEventListener('shown.bs.tab', function(e) {
+        if (e.target.getAttribute('data-bs-target') === '#salestrend') {
+            if (!stOrderData) loadOrderData();
+            else initSalesTrend();
+        }
+    });
+
+    // Initial load if tab already active on page load
+    if (document.querySelector('#salestrend.active') || document.querySelector('#salestrend.show')) {
+        loadOrderData();
+    }
+
     </script>
 </body>
 </html>
