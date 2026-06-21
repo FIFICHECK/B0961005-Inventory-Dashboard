@@ -37,6 +37,39 @@
         .detail-card { background: white; border-radius: 16px; padding: 30px; max-width: 500px; width: 90%; }
         code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
         .table-responsive { border-radius: 0 0 16px 16px; }
+        /* Japanese-style sales chart nav buttons - pill design */
+        .jp-btn-nav { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 8px; padding: 4px 0; scrollbar-width: thin; }
+        .jp-btn-nav::-webkit-scrollbar { height: 4px; }
+        .jp-btn-nav::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+        .jp-btn { 
+            flex-shrink: 0;
+            padding: 6px 14px; 
+            font-size: 0.75rem; 
+            font-weight: 500;
+            border-radius: 20px; 
+            border: 1.5px solid #e0e0e0;
+            background: #fff;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .jp-btn:hover { 
+            background: #f8f9fa; 
+            border-color: #bbb;
+            color: #333;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .jp-btn.active { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.35);
+        }
+        .jp-btn.active:hover {
+            background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
+        }
     </style>
 </head>
 <body>
@@ -1015,17 +1048,17 @@
                         <!-- Chart Navigation -->
                         <div class="row mb-3">
                             <div class="col-12">
-                                <div class="btn-group flex-wrap" role="group" id="salesChartNav">
-                                    <button type="button" class="btn btn-outline-primary active" onclick="switchSalesChart('gmvByDate', this)">1. GMV by Date</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByMonth', this)">2. GMV by Monthly</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByHour', this)">3. GMV by Hour</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByDayOfWeek', this)">4. GMV by Day of Week</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvBySkuDaily', this)">5. GMV by SKU (Daily)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvBySkuMonthly', this)">6. GMV by SKU (Monthly)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('qtyBySkuDaily', this)">7. Qty by SKU (Daily)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('qtyBySkuMonthly', this)">8. Qty by SKU (Monthly)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByBrandDaily', this)">9. GMV by Brand (Daily)</button>
-                                    <button type="button" class="btn btn-outline-primary" onclick="switchSalesChart('gmvByBrandMonthly', this)">10. GMV by Brand (Monthly)</button>
+                                <div class="jp-btn-nav" id="salesChartNav">
+                                    <button type="button" class="jp-btn active" onclick="switchSalesChart('gmvByDate', this)">1. GMV by Date</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvByMonth', this)">2. GMV by Monthly</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvByHour', this)">3. GMV by Hour</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvBySkuDaily', this)">4. GMV by SKU (Daily)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvBySkuMonthly', this)">5. GMV by SKU (Monthly)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('qtyBySkuDaily', this)">6. Qty by SKU (Daily)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('qtyBySkuMonthly', this)">7. Qty by SKU (Monthly)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvByBrandDaily', this)">8. GMV by Brand (Daily)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvByBrandMonthly', this)">9. GMV by Brand (Monthly)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvByDayOfWeek', this)">10. GMV by Day of Week</button>
                                 </div>
                             </div>
                         </div>
