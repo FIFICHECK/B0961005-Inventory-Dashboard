@@ -992,7 +992,149 @@
                     </div>
                 </div>
             </div>
-    
+
+            <!-- Sales Trend Tab -->
+            <div class="tab-pane fade" id="salestrend">
+                <div class="card mt-3">
+                    <div class="card-header py-3">
+                        <span class="fw-bold">📈 Sales Trend 銷量趨勢</span>
+                        <small class="text-muted ms-2">每日訂單報表分析</small>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="row mb-3">
+                    <div class="col-md-3"><div class="card kpi-card"><div class="kpi-value" style="color:var(--primary)" id="st-gmv-today">—</div><div class="kpi-label">💰 今日 GMV</div></div></div>
+                    <div class="col-md-3"><div class="card kpi-card"><div class="kpi-value" style="color:var(--success)" id="st-orders-today">—</div><div class="kpi-label">📦 今日訂單</div></div></div>
+                    <div class="col-md-3"><div class="card kpi-card"><div class="kpi-value" style="color:var(--warning)" id="st-items-today">—</div><div class="kpi-label">🏷️ 今日 SKU 種類</div></div></div>
+                    <div class="col-md-3"><div class="card kpi-card"><div class="kpi-value" style="color:var(--danger)" id="st-avg-gmv">—</div><div class="kpi-label">📊 平均訂單 GMV</div></div></div>
+                </div>
+
+                <!-- Chart 1: Daily GMV -->
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header py-2 d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">📊 每日 GMV 趨勢</span>
+                                <div class="d-flex gap-2">
+                                    <input type="date" id="st-date-start" class="form-control form-control-sm" style="width:140px">
+                                    <span>—</span>
+                                    <input type="date" id="st-date-end" class="form-control form-control-sm" style="width:140px">
+                                    <button class="btn btn-sm btn-primary" onclick="stRenderDailyGMV()">更新</button>
+                                </div>
+                            </div>
+                            <div class="card-body"><canvas id="stChartDailyGMV" style="max-height:250px"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Hourly GMV -->
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header py-2 d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">⏰ GMV by 時段 (24小時)</span>
+                                <select id="st-hour-date" class="form-select form-select-sm" style="width:140px" onchange="stRenderHourlyGMV()">
+                                    <option value="">選擇日期</option>
+                                </select>
+                            </div>
+                            <div class="card-body"><canvas id="stChartHourly" style="max-height:200px"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SKU GMV Tables -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header py-2 d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">🏷️ GMV by SKU (每日)</span>
+                                <input type="text" id="st-sku-search" placeholder="🔍 Search SKU..." class="form-control form-control-sm" style="width:160px" onkeyup="stRenderSkuGMV()">
+                            </div>
+                            <div class="table-container" style="max-height:300px">
+                                <table class="table table-sm table-hover mb-0">
+                                    <thead><tr><th>SKU ID</th><th class="text-end">GMV</th></tr></thead>
+                                    <tbody id="stSkuGmvTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header py-2 d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">🏷️ GMV by SKU (本月累計)</span>
+                                <select id="st-sku-month" class="form-select form-select-sm" style="width:120px" onchange="stRenderSkuGMVMonthly()">
+                                    <option value="">選擇月份</option>
+                                </select>
+                            </div>
+                            <div class="table-container" style="max-height:300px">
+                                <table class="table table-sm table-hover mb-0">
+                                    <thead><tr><th>SKU ID</th><th class="text-end">GMV</th></tr></thead>
+                                    <tbody id="stSkuGmvMonthlyTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SKU Qty Tables -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header py-2 d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">📦 Qty by SKU (每日)</span>
+                                <input type="text" id="st-qty-search" placeholder="🔍 Search SKU..." class="form-control form-control-sm" style="width:160px" onkeyup="stRenderSkuQty()">
+                            </div>
+                            <div class="table-container" style="max-height:300px">
+                                <table class="table table-sm table-hover mb-0">
+                                    <thead><tr><th>SKU ID</th><th class="text-end">Qty</th></tr></thead>
+                                    <tbody id="stSkuQtyTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header py-2 d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">📦 Qty by SKU (本月累計)</span>
+                                <select id="st-qty-month" class="form-select form-select-sm" style="width:120px" onchange="stRenderSkuQtyMonthly()">
+                                    <option value="">選擇月份</option>
+                                </select>
+                            </div>
+                            <div class="table-container" style="max-height:300px">
+                                <table class="table table-sm table-hover mb-0">
+                                    <thead><tr><th>SKU ID</th><th class="text-end">Qty</th></tr></thead>
+                                    <tbody id="stSkuQtyMonthlyTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brand GMV Charts -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header py-2">
+                                <span class="fw-bold">🏪 GMV by Brand (每日)</span>
+                            </div>
+                            <div class="card-body"><canvas id="stChartBrandDaily" style="max-height:250px"></canvas></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header py-2">
+                                <span class="fw-bold">🏪 GMV by Brand (本月累計)</span>
+                            </div>
+                            <div class="card-body"><canvas id="stChartBrandMonthly" style="max-height:250px"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center text-muted py-2" style="font-size:0.75rem">
+                    📥 訂單數據由 MMS 每日 12PM 自動下載 | <a href="data/order_data.json" target="_blank">JSON 原始數據</a>
+                </div>
+            </div>
         </div>
         <div class="text-center mt-4 text-muted"><small>B0961005 Inventory | Exchange Portal | Auto-updated by Hermes Agent</small></div>
     </div>
