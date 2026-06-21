@@ -60,6 +60,9 @@ def generate_chart_data(df):
 
     # Build SKU name mapping (Full_SKU -> SKU Name Chinese)
     sku_name_map = df.groupby('Full_SKU')['SKU_Name_CN'].first().to_dict()
+    
+    # Build SKU brand mapping (Full_SKU -> Brand Chinese)
+    sku_brand_map = df.groupby('Full_SKU')['Brand'].first().to_dict()
 
     # Chart 1: GMV by Date
     gmv_by_date = df.groupby('DateStr')['GMV'].sum().reset_index()
@@ -99,6 +102,7 @@ def generate_chart_data(df):
     
     return {
         'sku_name_map': sku_name_map,
+        'sku_brand_map': sku_brand_map,
         'gmv_by_date': {
             'labels': gmv_by_date['DateStr'].tolist(),
             'data': gmv_by_date['GMV'].tolist()
