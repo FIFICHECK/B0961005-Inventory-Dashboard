@@ -3652,9 +3652,71 @@
         if (salesChartInstance) {
             salesChartInstance.destroy();
             if (config.multiDataset) {
-                renderSalesTable(chartName, config, data);
-                document.getElementById('salesTrendChart').style.display = 'none';
+                // Show TOP 10 bar chart + table for multiDataset charts
+                const ctx = document.getElementById('salesTrendChart').getContext('2d');
+                document.getElementById('salesTrendChart').style.display = '';
                 document.getElementById('salesTableContainer').style.display = '';
+                
+                // Calculate totals and find TOP 10
+                const isSkuChart = chartName.includes('Sku');
+                const isQty = chartName.includes('Qty');
+                const items = isSkuChart ? data.skus : data.brands;
+                const totals = items.map((item, idx) => {
+                    let sum = 0;
+                    data.data.forEach(row => { if (row && row[idx] !== undefined) sum += row[idx]; });
+                    return { item, sum };
+                });
+                totals.sort((a, b) => b.sum - a.sum);
+                const top10 = totals.slice(0, 10);
+                
+                // Prepare chart labels and values
+                const chartLabels = top10.map(t => {
+                    if (isSkuChart) {
+                        const name = salesTrendData.sku_name_map[t.item] || t.item;
+                        // Truncate long names
+                        return name.length > 20 ? name.substring(0, 17) + '...' : name;
+                    }
+                    return t.item;
+                });
+                const chartValues = top10.map(t => t.sum);
+                const isGmv = !isQty;
+                
+                // Create bar chart for TOP 10
+                const chartData = {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: isGmv ? 'GMV (HKD)' : 'Qty',
+                        data: chartValues,
+                        backgroundColor: [
+                            '#1e40af', '#dc2626', '#16a34a', '#d97706', '#7c3aed',
+                            '#db2777', '#0891b2', '#65a30d', '#f59e0b', '#6366f1'
+                        ]
+                    }]
+                };
+                const chartOptions = {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(ctx) {
+                                    const val = ctx.raw;
+                                    return isGmv ? ' $' + val.toLocaleString(undefined, {minimumFractionDigits: 2}) : ' ' + val.toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: isGmv ? 'GMV (HKD)' : 'Quantity' }, beginAtZero: true },
+                        y: { title: { display: true, text: isSkuChart ? 'SKU' : 'Brand' } }
+                    }
+                };
+                salesChartInstance = new Chart(ctx, { type: 'bar', data: chartData, options: chartOptions });
+                
+                // Also show the full table
+                renderSalesTable(chartName, config, data);
                 return;
             }
         }
