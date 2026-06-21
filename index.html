@@ -3635,11 +3635,14 @@
                     filteredIndices.push(idx);
                 } else if (currentMonthFilter && chartName.includes('Daily') && l.startsWith(currentMonthFilter)) {
                     filteredIndices.push(idx);
+                } else if (currentMonthFilter && chartName.includes('Monthly') && l.startsWith(currentMonthFilter)) {
+                    filteredIndices.push(idx);
                 } else if (!currentDateFilter && !currentMonthFilter) {
                     filteredIndices.push(idx);
                 }
             });
-            // Extract filtered rows from 2D array
+            // Extract filtered labels and rows
+            const filteredLabels = filteredIndices.map(i => rawData.labels[i]);
             const filteredData = filteredIndices.map(i => rawData.data[i]);
             data = { labels: filteredLabels, skus: rawData.skus, brands: rawData.brands, data: filteredData, isMultiDataset: true };
         } else {
