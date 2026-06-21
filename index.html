@@ -1026,6 +1026,23 @@
                         </table>
                     </div>
             </div>
+
+            <div class="card mt-3">
+                <div class="card-header py-3">
+                    <span class="fw-bold">📦 Daily Order Report 下載</span>
+                    <small class="text-muted ms-2">每日 12pm 自動更新</small>
+                </div>
+                <div class="table-container">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr><th>Date 日期</th><th>時間</th><th>Orders</th><th>Download 下載</th></tr>
+                        </thead>
+                        <tbody id="orderReportBody">
+                            <tr><td colspan="4" class="text-center text-muted">載入中...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             </div>
     
             <div class="tab-pane fade" id="salestrend">
@@ -3894,9 +3911,39 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
         if (el3) el3.textContent = (summary.avgGMVPerOrder || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
     }
 
+    // Load Order Report listing from manifest
+    async function loadOrderReports() {
+        const tbody = document.getElementById('orderReportBody');
+        if (!tbody) return;
+        try {
+            const res = await fetch('data/order_reports_manifest.json?' + Date.now());
+            if (!res.ok) throw new Error('Manifest not found');
+            const reports = await res.json();
+            if (!reports || reports.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">暫無 Order Report</td></tr>';
+                return;
+            }
+            tbody.innerHTML = reports.map(r => `
+                <tr>
+                    <td class="align-middle"><strong>${r.date}</strong></td>
+                    <td class="align-middle text-muted">${r.time}</td>
+                    <td class="align-middle">${r.orders}</td>
+                    <td class="align-middle">
+                        <a href="${r.filename}" download class="btn btn-sm btn-success">
+                            <i class="bi bi-download me-1"></i>📥 Download
+                        </a>
+                    </td>
+                </tr>
+            `).join('');
+        } catch (e) {
+            console.warn('Order Report manifest load failed:', e.message);
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         populateSalesFilters();
         setTimeout(() => switchSalesChart('gmvByDate', document.querySelector('#salesChartNav .jp-btn')), 100);
+        loadOrderReports();
 
         // Fix: Re-render chart when Sales Trend tab is shown
         // Chart.js cannot measure container size when tab is hidden (0x0 canvas)
