@@ -3627,7 +3627,17 @@
         const rawData = salesTrendData[config.dataKey];
         let data;
         if (config.multiDataset) {
-            data = rawData;
+            // Apply date/month filter to multiDataset charts (SKU/Brand)
+            let filteredLabels = rawData.labels || [];
+            if (currentDateFilter && chartName.includes('Daily')) {
+                filteredLabels = filteredLabels.filter(l => l === currentDateFilter);
+            } else if (currentMonthFilter && chartName.includes('Daily')) {
+                filteredLabels = filteredLabels.filter(l => l.startsWith(currentMonthFilter));
+            }
+            // Rebuild data object with filtered labels
+            const filteredData = {};
+            filteredLabels.forEach(l => { filteredData[l] = rawData.data[l] || {}; });
+            data = { labels: filteredLabels, skus: rawData.skus, brands: rawData.brands, data: filteredData };
         } else {
             const filtered = getFilteredData(rawData.data, rawData.labels, chartName);
             data = { labels: filtered.labels, data: filtered.data };
@@ -3667,30 +3677,20 @@
         else if (isBrandChart) html += '<th>Brand</th>';
         html += isDaily ? '<th>Daily</th>' : '<th>Monthly</th>';
         html += '</tr></thead><tbody>';
-        let filteredLabels = data.labels || [];
-        let filteredData = data.data || [];
-        if (currentDateFilter && isDaily) {
-            const idx = data.labels.indexOf(currentDateFilter);
-            if (idx >= 0) { filteredLabels = [data.labels[idx]]; filteredData = [data.data[idx]]; }
-            else { filteredLabels = []; filteredData = []; }
-        } else if (currentMonthFilter && isDaily) {
-            filteredLabels = []; filteredData = [];
-            data.labels.forEach((l, i) => { if (l.startsWith(currentMonthFilter)) { filteredLabels.push(l); filteredData.push(data.data[i]); } });
-        } else if (currentMonthFilter && !isDaily) {
-            filteredLabels = []; filteredData = [];
-            data.labels.forEach((l, i) => { if (l.startsWith(currentMonthFilter)) { filteredLabels.push(l); filteredData.push(data.data[i]); } });
-        }
+        // Data already filtered by switchSalesChart - just use it directly
+        const filteredLabels = data.labels || [];
+        const filteredDataObj = data.data || {};
         if (isSkuChart) {
             (data.skus || []).forEach(sku => {
                 const skuName = salesTrendData.sku_name_map[sku] || sku;
                 let total = 0;
-                filteredData.forEach(row => { if (row && row[sku] !== undefined) total += row[sku]; });
+                Object.values(filteredDataObj).forEach(row => { if (row && row[sku] !== undefined) total += row[sku]; });
                 if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isBrandChart) {
             (data.brands || []).forEach(brand => {
                 let total = 0;
-                filteredData.forEach(row => { if (row && row[brand] !== undefined) total += row[brand]; });
+                Object.values(filteredDataObj).forEach(row => { if (row && row[brand] !== undefined) total += row[brand]; });
                 if (total > 0) html += '<tr><td>' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         }
