@@ -3606,12 +3606,12 @@
             document.getElementById('salesMonthFilter').value = month;
             currentMonthFilter = month;
         }
-        switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .btn.active'));
+        switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
     }
 
     function filterSalesByMonth() {
         currentMonthFilter = document.getElementById('salesMonthFilter').value;
-        switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .btn.active'));
+        switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
     }
 
     function getFilteredData(data, labels, chartName) {
@@ -3653,7 +3653,7 @@
     }
 
     function switchSalesChart(chartName, btn) {
-        document.querySelectorAll('#salesChartNav .btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#salesChartNav .jp-btn').forEach(b => b.classList.remove('active'));
         if (btn) btn.classList.add('active');
         currentSalesChart = chartName;
         const config = chartConfigs[chartName];
@@ -3896,13 +3896,13 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
 
     document.addEventListener('DOMContentLoaded', function() {
         populateSalesFilters();
-        setTimeout(() => switchSalesChart('gmvByDate', document.querySelector('#salesChartNav .btn')), 100);
+        setTimeout(() => switchSalesChart('gmvByDate', document.querySelector('#salesChartNav .jp-btn')), 100);
 
         // Fix: Re-render chart when Sales Trend tab is shown
         // Chart.js cannot measure container size when tab is hidden (0x0 canvas)
         document.querySelector('#salestrend').addEventListener('shown.bs.tab', function() {
             // Re-render chart with current chart type to get proper dimensions
-            const activeBtn = document.querySelector('#salesChartNav .btn.active');
+            const activeBtn = document.querySelector('#salesChartNav .jp-btn.active');
             if (activeBtn) {
                 const chartName = activeBtn.getAttribute('onclick').match(/'([^']+)'/)[1];
                 switchSalesChart(chartName, activeBtn);
