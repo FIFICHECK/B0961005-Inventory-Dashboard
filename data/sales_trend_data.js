@@ -804,7 +804,7 @@ const salesTrendData = {
   },
   "gmv_by_day_of_week": {
     "labels": [
-      "Sunday (2026-06-21)"
+      "星期日 (2026-06-21)"
     ],
     "data": [
       26712.6
@@ -900,6 +900,15 @@ const chartConfigs = {
         dataKey: 'gmv_by_brand_monthly',
         multiDataset: true,
         colors: ['#1e40af', '#dc2626', '#16a34a', '#d97706', '#7c3aed', '#db2777', '#0891b2', '#65a30d', '#f59e0b', '#6366f1', '#ec4899', '#14b8a6', '#f97316', '#8b5cf6', '#84cc16']
+    },
+    // Chart 10: GMV by Day of Week (Bar Chart)
+    gmvByDayOfWeek: {
+        type: 'bar',
+        label: 'GMV by Day of Week',
+        xAxisLabel: 'Day of Week',
+        yAxisLabel: 'GMV (HKD)',
+        dataKey: 'gmv_by_day_of_week',
+        color: '#7c3aed'
     }
 };
 
