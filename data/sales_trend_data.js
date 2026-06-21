@@ -628,7 +628,7 @@ const chartConfigs = {
     // Chart 2: Monthly GMV (Bar Chart)
     gmvByMonth: {
         type: 'bar',
-        label: '每月 GMV (Monthly GMV)',
+        label: '每月 GMV (GMV by Monthly)',
         xAxisLabel: '月份 (Month)',
         yAxisLabel: 'GMV (HKD)',
         dataKey: 'gmv_by_month',
