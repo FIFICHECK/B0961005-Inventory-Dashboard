@@ -3754,7 +3754,7 @@
         const isHourChart = chartName === 'gmvByHour';
         const isSimpleDateChart = !isSkuChart && !isBrandChart && (isDateChart || isMonthChart);
         
-if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start">SKU Name (Chinese)</th><th class="text-end">' + (isQty ? 'Qty' : 'GMV') + '</th>';
+if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start">Brand</th><th class="text-start">SKU Name (Chinese)</th><th class="text-end">' + (isQty ? 'Qty' : 'GMV') + '</th>';
         else if (isBrandChart) html += '<th class="text-start">Brand</th><th class="text-end">' + (isQty ? 'Qty' : 'GMV') + '</th>';
         else if (isSimpleDateChart) html += '<th class="text-start">' + (isDateChart ? '日期' : '月份') + '</th><th class="text-end">GMV</th>';
         else if (isHourChart) html += '<th class="text-start">小時</th><th class="text-end">GMV</th>';
@@ -3774,15 +3774,17 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
             skuTotals.sort((a, b) => b.total - a.total);
             skuTotals.forEach(({sku, skuIdx, total}) => {
                 const skuName = salesTrendData.sku_name_map[sku] || sku;
-                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
+                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isSkuChart) {
             // Non-multiDataset single dataset
             (data.skus || []).forEach(sku => {
                 const skuName = salesTrendData.sku_name_map[sku] || sku;
+                const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
                 let total = 0;
                 if (filteredDataObj[sku] !== undefined) total = filteredDataObj[sku];
-                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isBrandChart) {
             // Calculate totals and sort descending
