@@ -3628,16 +3628,20 @@
         let data;
         if (config.multiDataset) {
             // Apply date/month filter to multiDataset charts (SKU/Brand)
-            let filteredLabels = rawData.labels || [];
-            if (currentDateFilter && chartName.includes('Daily')) {
-                filteredLabels = filteredLabels.filter(l => l === currentDateFilter);
-            } else if (currentMonthFilter && chartName.includes('Daily')) {
-                filteredLabels = filteredLabels.filter(l => l.startsWith(currentMonthFilter));
-            }
-            // Rebuild data object with filtered labels
-            const filteredData = {};
-            filteredLabels.forEach(l => { filteredData[l] = rawData.data[l] || {}; });
-            data = { labels: filteredLabels, skus: rawData.skus, brands: rawData.brands, data: filteredData };
+            // rawData.data is a 2D array: data[dateIndex][skuIndex]
+            let filteredIndices = [];
+            rawData.labels.forEach((l, idx) => {
+                if (currentDateFilter && chartName.includes('Daily') && l === currentDateFilter) {
+                    filteredIndices.push(idx);
+                } else if (currentMonthFilter && chartName.includes('Daily') && l.startsWith(currentMonthFilter)) {
+                    filteredIndices.push(idx);
+                } else if (!currentDateFilter && !currentMonthFilter) {
+                    filteredIndices.push(idx);
+                }
+            });
+            // Extract filtered rows from 2D array
+            const filteredData = filteredIndices.map(i => rawData.data[i]);
+            data = { labels: filteredLabels, skus: rawData.skus, brands: rawData.brands, data: filteredData, isMultiDataset: true };
         } else {
             const filtered = getFilteredData(rawData.data, rawData.labels, chartName);
             data = { labels: filtered.labels, data: filtered.data };
@@ -3679,12 +3683,21 @@
         html += '</tr></thead><tbody>';
         // Data already filtered by switchSalesChart - just use it directly
         const filteredLabels = data.labels || [];
-        const filteredDataObj = data.data || {};
-        if (isSkuChart) {
+        const filteredDataObj = data.data || [];
+        if (isSkuChart && data.isMultiDataset) {
+            // For multiDataset: filteredDataObj is array of arrays, data.skus has SKU IDs
+            (data.skus || []).forEach((sku, skuIdx) => {
+                const skuName = salesTrendData.sku_name_map[sku] || sku;
+                let total = 0;
+                filteredDataObj.forEach(row => { if (row && row[skuIdx] !== undefined) total += row[skuIdx]; });
+                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+            });
+        } else if (isSkuChart) {
+            // Non-multiDataset single dataset
             (data.skus || []).forEach(sku => {
                 const skuName = salesTrendData.sku_name_map[sku] || sku;
                 let total = 0;
-                Object.values(filteredDataObj).forEach(row => { if (row && row[sku] !== undefined) total += row[sku]; });
+                if (filteredDataObj[sku] !== undefined) total = filteredDataObj[sku];
                 if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isBrandChart) {
