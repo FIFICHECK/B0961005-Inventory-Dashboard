@@ -3646,8 +3646,8 @@
             const filtered = getFilteredData(rawData.data, rawData.labels, chartName);
             data = { labels: filtered.labels, data: filtered.data };
         }
-        if (salesChartInstance) salesChartInstance.destroy();
-        if (config.multiDataset) {
+        if (salesChartInstance) {
+            if (config.multiDataset) {
             renderSalesTable(chartName, config, data);
             document.getElementById('salesTrendChart').style.display = 'none';
             document.getElementById('salesTableContainer').style.display = '';
