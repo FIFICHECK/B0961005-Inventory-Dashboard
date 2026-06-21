@@ -3925,7 +3925,7 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 <tr>
                     <td class="align-middle" style="width:500px"><strong>${r.date}</strong></td>
                     <td class="align-middle text-muted" style="width:300px">${r.time}</td>
-                    <td class="align-middle text-start" style="width:300px">\${r.orders.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                    <td class="align-middle text-start" style="width:300px">$${r.orders.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                     <td class="align-middle" style="width:700px">
                         <a href="${r.filename}" download class="btn btn-sm btn-success">
                             <i class="bi bi-download me-1"></i>📥 Download
