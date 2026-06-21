@@ -3553,15 +3553,13 @@
         const dateSelect = document.getElementById('salesDateFilter');
         const dates = salesTrendData.gmv_by_date.labels || [];
         dates.forEach(d => {
-            const opt = document.createElement('option');
-            opt.value = d; opt.textContent = d;
+            const opt = document.createElement('option'); opt.value = d; opt.textContent = d;
             dateSelect.appendChild(opt);
         });
         const monthSelect = document.getElementById('salesMonthFilter');
         const months = salesTrendData.gmv_by_month.labels || [];
         months.forEach(m => {
-            const opt = document.createElement('option');
-            opt.value = m; opt.textContent = m;
+            const opt = document.createElement('option'); opt.value = m; opt.textContent = m;
             monthSelect.appendChild(opt);
         });
     }
