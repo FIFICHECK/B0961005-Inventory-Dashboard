@@ -3754,8 +3754,8 @@
         const isHourChart = chartName === 'gmvByHour';
         const isSimpleDateChart = !isSkuChart && !isBrandChart && (isDateChart || isMonthChart);
         
-if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start">SKU Name (Chinese)</th><th class="text-end">GMV / Qty</th>';
-        else if (isBrandChart) html += '<th class="text-start">Brand</th><th class="text-end">GMV / Qty</th>';
+if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start">SKU Name (Chinese)</th><th class="text-end">' + (isQty ? 'Qty' : 'GMV') + '</th>';
+        else if (isBrandChart) html += '<th class="text-start">Brand</th><th class="text-end">' + (isQty ? 'Qty' : 'GMV') + '</th>';
         else if (isSimpleDateChart) html += '<th class="text-start">' + (isDateChart ? '日期' : '月份') + '</th><th class="text-end">GMV</th>';
         else if (isHourChart) html += '<th class="text-start">小時</th><th class="text-end">GMV</th>';
         else html += '<th class="text-start">日期</th><th class="text-end">GMV</th>';
