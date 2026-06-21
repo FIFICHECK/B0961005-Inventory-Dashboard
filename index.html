@@ -3583,7 +3583,8 @@
     function getFilteredData(data, labels, chartName) {
         let filteredLabels = labels;
         let filteredData = data;
-        if (currentDateFilter && chartName.includes('Daily')) {
+        // Date filter applies to Daily and Hour charts
+        if (currentDateFilter && (chartName.includes('Daily') || chartName.includes('Hour'))) {
             const idx = labels.indexOf(currentDateFilter);
             if (idx >= 0) {
                 filteredLabels = [labels[idx]];
@@ -3591,7 +3592,8 @@
             }
             return { labels: filteredLabels, data: filteredData };
         }
-        if (currentMonthFilter && chartName.includes('Daily')) {
+        // Month filter applies to all chart types
+        if (currentMonthFilter && (chartName.includes('Daily') || chartName.includes('Hour'))) {
             filteredLabels = [];
             filteredData = [];
             labels.forEach((l, i) => {
@@ -3602,7 +3604,7 @@
             });
             return { labels: filteredLabels, data: filteredData };
         }
-        if (currentMonthFilter && !chartName.includes('Daily')) {
+        if (currentMonthFilter && !chartName.includes('Daily') && !chartName.includes('Hour')) {
             filteredLabels = [];
             filteredData = [];
             labels.forEach((l, i) => {
