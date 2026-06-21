@@ -3722,7 +3722,20 @@
             }
         }
         document.getElementById('salesTrendChart').style.display = '';
-        document.getElementById('salesTableContainer').style.display = 'none';
+        // Show table for gmvByDate and gmvByMonth (simple non-multiDataset charts)
+        const isDateChart = chartName === 'gmvByDate';
+        const isMonthChart = chartName === 'gmvByMonth';
+        const showSimpleTable = (config.multiDataset === false) && (isDateChart || isMonthChart);
+        if (showSimpleTable) {
+            document.getElementById('salesTableContainer').style.display = '';
+            renderSalesTable(chartName, config, data);
+            // Also render MoM comparison for monthly chart
+            if (isMonthChart) {
+                renderMoMComparison(data);
+            }
+        } else {
+            document.getElementById('salesTableContainer').style.display = 'none';
+        }
         let chartData, chartOptions;
         if (config.type === 'line') {
             chartData = { labels: data.labels, datasets: [{ label: config.label, data: data.data, borderColor: config.color || '#1e40af', backgroundColor: (config.color || '#1e40af') + '20', fill: true, tension: 0.4 }] };
@@ -3743,8 +3756,14 @@
         const isBrandChart = chartName.includes('Brand');
         const isDaily = chartName.includes('Daily');
         const isQty = chartName.toLowerCase().includes('qty');
+        const isDateChart = chartName === 'gmvByDate';
+        const isMonthChart = chartName === 'gmvByMonth';
+        const isSimpleDateChart = !isSkuChart && !isBrandChart && (isDateChart || isMonthChart);
+        
         if (isSkuChart) html += '<th>SKU ID</th><th>SKU Name (Chinese)</th>';
         else if (isBrandChart) html += '<th>Brand</th>';
+        else if (isSimpleDateChart) html += '<th>' + (isDateChart ? '日期' : '月份') + '</th>';
+        
         const colLabel = isDaily ? 'Daily' : 'Monthly';
         const typeLabel = isQty ? ' (Qty)' : ' (GMV)';
         html += '<th>' + colLabel + typeLabel + '</th>';
@@ -3784,9 +3803,49 @@
             brandTotals.forEach(({brand, total}) => {
                 if (total > 0) html += '<tr><td>' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
+        } else {
+            // Simple date/month charts (gmvByDate, gmvByMonth) - show date/month column + GMV
+            const isDateChart = chartName === 'gmvByDate';
+            filteredLabels.forEach((label, idx) => {
+                const val = filteredDataObj[idx];
+                if (val !== undefined && val > 0) {
+                    const displayLabel = isDateChart ? label : label; // already formatted as YYYY-MM
+                    html += '<tr><td>' + displayLabel + '</td><td class="text-end">$' + val.toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td></tr>';
+                }
+            });
         }
         html += '</tbody></table></div>';
         container.innerHTML = html;
+    }
+
+    function renderMoMComparison(data) {
+        const container = document.getElementById('salesTableContainer');
+        if (!container) return;
+        
+        // data.labels = ["2026-06", "2026-05", ...], data.data = [26712.6, 12345.0, ...]
+        // Sort by date descending
+        const sorted = (data.labels || []).map((label, idx) => ({ label, value: data.data[idx] || 0 }))
+            .sort((a, b) => b.label.localeCompare(a.label));
+        
+        if (sorted.length < 2) {
+            // Not enough data for MoM comparison
+            return;
+        }
+        
+        const thisMonth = sorted[0];
+        const lastMonth = sorted[1];
+        const diff = thisMonth.value - lastMonth.value;
+        const pctChange = lastMonth.value !== 0 ? (diff / lastMonth.value * 100) : 0;
+        const isUp = diff >= 0;
+        const arrow = isUp ? '▲' : '▼';
+        const colorClass = isUp ? 'text-success' : 'text-danger';
+        
+        const momHtml = '<div class="mt-4"><h6>月環比 (MoM)</h6><div class="table-responsive"><table class="table table-sm table-hover"><thead><tr><th>月份</th><th class="text-end">GMV (HKD)</th><th class="text-end">變動</th><th class="text-end">百分比</th></tr></thead><tbody>' +
+            '<tr><td>' + thisMonth.label + ' (本月)</td><td class="text-end">$' + thisMonth.value.toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td><td class="text-end ' + colorClass + '">' + arrow + ' $' + Math.abs(diff).toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td><td class="text-end ' + colorClass + '">' + arrow + ' ' + Math.abs(pctChange).toFixed(2) + '%</td></tr>' +
+            '<tr><td>' + lastMonth.label + ' (上月)</td><td class="text-end">$' + lastMonth.value.toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td><td colspan="2"></td></tr>' +
+            '</tbody></table></div></div>';
+        
+        container.innerHTML += momHtml;
     }
 
     function renderSalesLegend(config, data) {
