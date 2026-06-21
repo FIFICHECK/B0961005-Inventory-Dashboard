@@ -18,6 +18,7 @@ def process_order_report(xlsx_path, output_json_path):
     order_count_daily = defaultdict(int)
     sku_names = {}
     brand_names = {}
+    sku_brand_map = {}
 
     for row in ws.iter_rows(min_row=6, values_only=True):
         order_date = row[6]   # G: Order Date
@@ -68,6 +69,7 @@ def process_order_report(xlsx_path, output_json_path):
         order_count_daily[date_str] += 1
         sku_names[full_sku] = row[21]  # V: SKU Name Chinese
         brand_names[brand] = brand
+        sku_brand_map[full_sku] = brand  # SKU -> Brand mapping
 
     output = {
         'gmv_daily': dict(gmv_daily),
@@ -77,6 +79,7 @@ def process_order_report(xlsx_path, output_json_path):
         'gmv_brand_daily': {k: dict(v) for k, v in gmv_brand_daily.items()},
         'order_count_daily': dict(order_count_daily),
         'sku_names': sku_names,
+        'sku_brand_map': sku_brand_map,
         'brand_names': dict(brand_names),
         'generated': str(sys.argv[1]) if len(sys.argv) > 1 else 'unknown'
     }
