@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="data/sales_trend_data.js"></script>
     <style>
         :root { --primary: #1e40af; --success: #16a34a; --warning: #d97706; --danger: #dc2626; }
         body { background: #f0f4f8; font-family: 'Inter', system-ui, sans-serif; }
@@ -35,7 +36,41 @@
         .detail-card { background: white; border-radius: 16px; padding: 30px; max-width: 500px; width: 90%; }
         code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
         .table-responsive { border-radius: 0 0 16px 16px; }
-    </style>
+
+/* Japanese-style sales chart nav buttons - pill design */
+        .jp-btn-nav { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 8px; padding: 4px 0; scrollbar-width: thin; }
+        .jp-btn-nav::-webkit-scrollbar { height: 4px; }
+        .jp-btn-nav::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+        .jp-btn { 
+            flex-shrink: 0;
+            padding: 6px 14px; 
+            font-size: 0.75rem; 
+            font-weight: 500;
+            border-radius: 20px; 
+            border: 1.5px solid #e0e0e0;
+            background: #fff;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        .jp-btn:hover { 
+            background: #f8f9fa; 
+            border-color: #bbb;
+            color: #333;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .jp-btn.active { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.35);
+        }
+        .jp-btn.active:hover {
+            background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
+        }
+        </style>
 </head>
 <body>
     <div class="container-fluid py-4 px-4">
@@ -45,7 +80,7 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Inventory Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-22 15:21:11</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-22 17:46:47</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1028,10 +1063,10 @@
                                 
                 <tr>
                     <td class="align-middle"><strong>2026-06-22</strong></td>
-                    <td class="align-middle text-muted text-center">06:00</td>
-                    <td class="align-middle text-end">$2,342.20</td>
+                    <td class="align-middle text-muted text-center">11:00</td>
+                    <td class="align-middle text-end">$5,049.20</td>
                     <td class="align-middle">
-                        <a href="reports/order_reports/ECOM-MMSNG_DAILY_ORDER_B0961005_20260622060002.xlsx" download class="btn btn-sm btn-warning">
+                        <a href="reports/order_reports/ECOM-MMSNG_DAILY_ORDER_B0961005_20260622110000.xlsx" download class="btn btn-sm btn-warning">
                             <i class="bi bi-download me-1"></i>📥 Download
                         </a>
                     </td>
@@ -1052,17 +1087,45 @@
                 </div>
             </div>
     
-            <div class="tab-pane fade" id="salestrend">
+<div class="tab-pane fade" id="salestrend">
                 <div class="card mt-3">
-                    <div class="card-header py-3 d-flex gap-2 flex-wrap align-items-center">
-                        <span class="fw-bold">📈 Sales Trend</span>
-                        <select id="salesTrendRange" class="form-select form-select-sm" style="width:140px" onchange="loadSalesTrendData()">
-                            <option value="7">最近 7 日</option>
-                            <option value="14">最近 14 日</option>
-                            <option value="30">最近 30 日</option>
-                        </select>
-                        <span class="text-muted ms-auto" id="salesTrendInfo">📊 讀取中...</span>
+                    <div class="card-header py-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <span class="fw-bold">📈 Sales Trend 銷售趨勢</span>
+                        <div class="d-flex gap-3 align-items-center">
+                            <select id="salesDateFilter" class="form-select form-select-sm" style="width:130px" onchange="filterSalesByDate()">
+                                <option value="">全部日期</option>
+                            </select>
+                            <select id="salesMonthFilter" class="form-select form-select-sm" style="width:120px" onchange="filterSalesByMonth()">
+                                <option value="">全部月份</option>
+                            </select>
+                            <span class="badge bg-primary">Total GMV: $<span id="stTotalGMV">0</span></span>
+                            <span class="badge bg-success">Orders: <span id="stTotalOrders">0</span></span>
+                            <span class="badge bg-info">Avg: $<span id="stAvgGMV">0</span></span>
+                        </div>
                     </div>
+                    <div class="card-body">
+                        <!-- Chart Navigation -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div class="jp-btn-nav" id="salesChartNav">
+                                    <button type="button" class="jp-btn active" onclick="switchSalesChart('gmvByDate', this)">1. GMV by Date</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvByMonth', this)">2. GMV by Monthly</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvByHour', this)">3. GMV by Hour</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvByDayOfWeek', this)">4. GMV by Day of Week</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvBySkuDaily', this)">5. GMV by SKU (Daily)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvBySkuMonthly', this)">6. GMV by SKU (Monthly)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('qtyBySkuDaily', this)">7. Qty by SKU (Daily)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('qtyBySkuMonthly', this)">8. Qty by SKU (Monthly)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvByBrandDaily', this)">9. GMV by Brand (Daily)</button>
+                                    <button type="button" class="jp-btn" onclick="switchSalesChart('gmvByBrandMonthly', this)">10. GMV by Brand (Monthly)</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Chart Display -->
+                        <div class="chart-container" style="position: relative; height: 400px;">
+                            <canvas id="salesTrendChart"></canvas>
+                        </div>
+                        <div id="salesTableContainer" style="display:none;"></div>
                     <div class="card-body">
                         <canvas id="salesTrendChart" height="100"></canvas>
                     </div>
@@ -1216,107 +1279,301 @@
             });
         }
         
-        // Sales Trend Chart
-        let salesTrendChartInstance = null;
-        function loadSalesTrendData() {
-            const rangeSelect = document.getElementById('salesTrendRange');
-            const days = rangeSelect ? parseInt(rangeSelect.value) : 7;
-            const info = document.getElementById('salesTrendInfo');
-            const canvas = document.getElementById('salesTrendChart');
-            if (!canvas) return;
-            
-            // Fetch sales trend data from order reports
-            fetch('order_reports/sales_trend_data.js')
-                .then(r => r.text())
-                .then(text => {
-                    try {
-                        // Execute the JS to get the data
-                        const func = new Function(text + '; return getSalesTrendData();');
-                        const data = func();
-                        
-                        if (!data || data.length === 0) {
-                            if (info) info.textContent = '⚠️ 暫無數據';
-                            return;
-                        }
-                        
-                        // Filter by days
-                        const cutoff = new Date();
-                        cutoff.setDate(cutoff.getDate() - days);
-                        const filtered = data.filter(d => new Date(d.date) >= cutoff);
-                        
-                        if (info) info.textContent = '📊 ' + filtered.length + ' 日數據';
-                        
-                        const labels = filtered.map(d => d.date);
-                        const gmvData = filtered.map(d => d.gmv);
-                        const orderData = filtered.map(d => d.orders);
-                        
-                        if (salesTrendChartInstance) {
-                            salesTrendChartInstance.destroy();
-                        }
-                        
-                        salesTrendChartInstance = new Chart(canvas, {
-                            type: 'bar',
-                            data: {
-                                labels: labels,
-                                datasets: [
-                                    {
-                                        label: 'GMV (HKD)',
-                                        data: gmvData,
-                                        backgroundColor: 'rgba(30, 64, 175, 0.7)',
-                                        yAxisID: 'y',
-                                    },
-                                    {
-                                        label: 'Orders',
-                                        data: orderData,
-                                        type: 'line',
-                                        borderColor: 'rgba(22, 163, 74, 1)',
-                                        backgroundColor: 'rgba(22, 163, 74, 0.1)',
-                                        yAxisID: 'y1',
-                                        tension: 0.3,
-                                        fill: true,
-                                    }
-                                ]
-                            },
-                            options: {
-                                responsive: true,
-                                interaction: {
-                                    mode: 'index',
-                                    intersect: false,
-                                },
-                                plugins: {
-                                    legend: { position: 'top' },
-                                },
-                                scales: {
-                                    x: { ticks: { maxTicksLimit: 15 } },
-                                    y: {
-                                        type: 'linear',
-                                        display: true,
-                                        position: 'left',
-                                        title: { display: true, text: 'GMV (HKD)' },
-                                        ticks: { callback: v => '$' + v.toLocaleString() }
-                                    },
-                                    y1: {
-                                        type: 'linear',
-                                        display: true,
-                                        position: 'right',
-                                        title: { display: true, text: 'Orders' },
-                                        grid: { drawOnChartArea: false },
-                                    }
+function getFilteredData(data, labels, chartName) {
+        let filteredLabels = labels;
+        let filteredData = data;
+        // Date filter applies to Daily and Hour charts
+        if (currentDateFilter && (chartName.includes('Daily') || chartName.includes('Hour'))) {
+            const idx = labels.indexOf(currentDateFilter);
+            if (idx >= 0) {
+                filteredLabels = [labels[idx]];
+                filteredData = Array.isArray(data) && data[idx] !== undefined ? [data[idx]] : data;
+            }
+            return { labels: filteredLabels, data: filteredData };
+        }
+        // Month filter applies to all chart types
+        if (currentMonthFilter && (chartName.includes('Daily') || chartName.includes('Hour'))) {
+            filteredLabels = [];
+            filteredData = [];
+            labels.forEach((l, i) => {
+                if (l.startsWith(currentMonthFilter)) {
+                    filteredLabels.push(l);
+                    filteredData.push(data[i]);
+                }
+            });
+            return { labels: filteredLabels, data: filteredData };
+        }
+        if (currentMonthFilter && !chartName.includes('Daily') && !chartName.includes('Hour')) {
+            filteredLabels = [];
+            filteredData = [];
+            labels.forEach((l, i) => {
+                if (l.startsWith(currentMonthFilter)) {
+                    filteredLabels.push(l);
+                    filteredData.push(data[i]);
+                }
+            });
+            return { labels: filteredLabels, data: filteredData };
+        }
+        return { labels: filteredLabels, data: filteredData };
+    }
+
+    function switchSalesChart(chartName, btn) {
+        document.querySelectorAll('#salesChartNav .btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        currentSalesChart = chartName;
+        const config = chartConfigs[chartName];
+        if (!config) return;
+        updateSalesSummary();
+        const ctx = document.getElementById('salesTrendChart').getContext('2d');
+        const rawData = salesTrendData[config.dataKey];
+        let data;
+        if (config.multiDataset) {
+            // Apply date/month filter to multiDataset charts (SKU/Brand)
+            // rawData.data is a 2D array: data[dateIndex][skuIndex]
+            let filteredIndices = [];
+            rawData.labels.forEach((l, idx) => {
+                if (currentDateFilter && chartName.includes('Daily') && l === currentDateFilter) {
+                    filteredIndices.push(idx);
+                } else if (currentMonthFilter && chartName.includes('Daily') && l.startsWith(currentMonthFilter)) {
+                    filteredIndices.push(idx);
+                } else if (currentMonthFilter && chartName.includes('Monthly') && l.startsWith(currentMonthFilter)) {
+                    filteredIndices.push(idx);
+                } else if (!currentDateFilter && !currentMonthFilter) {
+                    filteredIndices.push(idx);
+                }
+            });
+            // Extract filtered labels and rows
+            const filteredLabels = filteredIndices.map(i => rawData.labels[i]);
+            const filteredData = filteredIndices.map(i => rawData.data[i]);
+            data = { labels: filteredLabels, skus: rawData.skus, brands: rawData.brands, data: filteredData, isMultiDataset: true };
+        } else {
+            const filtered = getFilteredData(rawData.data, rawData.labels, chartName);
+            data = { labels: filtered.labels, data: filtered.data };
+        }
+        if (salesChartInstance) {
+            salesChartInstance.destroy();
+            if (config.multiDataset) {
+                // Show TOP 10 bar chart + table for multiDataset charts
+                document.getElementById('salesTrendChart').style.display = '';
+                document.getElementById('salesTableContainer').style.display = '';
+                
+                // Calculate totals and find TOP 10
+                const isSkuChart = chartName.includes('Sku');
+                const isQty = chartName.toLowerCase().includes('qty');
+                const items = isSkuChart ? data.skus : data.brands;
+                const totals = items.map((item, idx) => {
+                    let sum = 0;
+                    data.data.forEach(row => { if (row && row[idx] !== undefined) sum += row[idx]; });
+                    return { item, sum };
+                });
+                totals.sort((a, b) => b.sum - a.sum);
+                const top10 = totals.slice(0, 10);
+                
+                // Prepare chart labels and values
+                const chartLabels = top10.map(t => {
+                    if (isSkuChart) {
+                        const name = salesTrendData.sku_name_map[t.item] || t.item;
+                        // Truncate long names
+                        return name.length > 20 ? name.substring(0, 17) + '...' : name;
+                    }
+                    return t.item;
+                });
+                const chartValues = top10.map(t => t.sum);
+                const isGmv = !isQty;
+                
+                // Create bar chart for TOP 10
+                const chartData = {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: isGmv ? 'GMV (HKD)' : 'Qty 件',
+                        data: chartValues,
+                        backgroundColor: [
+                            '#1e40af', '#dc2626', '#16a34a', '#d97706', '#7c3aed',
+                            '#db2777', '#0891b2', '#65a30d', '#f59e0b', '#6366f1'
+                        ]
+                    }]
+                };
+                const chartOptions = {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(ctx) {
+                                    const val = ctx.raw;
+                                    return isGmv ? ' $' + val.toLocaleString(undefined, {minimumFractionDigits: 2}) : ' ' + val.toLocaleString() + ' 件';
                                 }
                             }
-                        });
-                    } catch (e) {
-                        console.error('Sales trend error:', e);
-                        if (info) info.textContent = '⚠️ 載入失敗';
+                        }
+                    },
+                    scales: {
+                        x: { title: { display: true, text: isGmv ? 'GMV (HKD)' : 'Quantity' }, beginAtZero: true },
+                        y: { title: { display: true, text: isSkuChart ? 'SKU' : 'Brand' } }
                     }
-                })
-                .catch(e => {
-                    console.error('Failed to load sales trend:', e);
-                    if (info) info.textContent = '⚠️ 暫無數據';
-                });
+                };
+                salesChartInstance = new Chart(ctx, { type: 'bar', data: chartData, options: chartOptions });
+                
+                // Also show the full table
+                renderSalesTable(chartName, config, data);
+                return;
+            }
+        }
+        document.getElementById('salesTrendChart').style.display = '';
+        // Show table for ALL charts (Date, Month, Hour, SKU, Brand)
+        document.getElementById('salesTableContainer').style.display = '';
+        renderSalesTable(chartName, config, data);
+        // Also render MoM comparison for monthly chart
+        if (chartName === 'gmvByMonth') {
+            renderMoMComparison(data);
+        }
+        let chartData, chartOptions;
+        if (config.type === 'line') {
+            chartData = { labels: data.labels, datasets: [{ label: config.label, data: data.data, borderColor: config.color || '#1e40af', backgroundColor: (config.color || '#1e40af') + '20', fill: true, tension: 0.4 }] };
+            chartOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(ctx) { return config.yAxisLabel + ': $' + ctx.raw.toLocaleString(undefined, {minimumFractionDigits: 2}); } } } }, scales: { x: { title: { display: true, text: config.xAxisLabel } }, y: { title: { display: true, text: config.yAxisLabel }, beginAtZero: true } } };
+        } else if (config.type === 'bar') {
+            chartData = { labels: data.labels, datasets: [{ label: config.label, data: data.data, backgroundColor: config.color || '#3b82f6' }] };
+            chartOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(ctx) { return config.yAxisLabel + ': $' + ctx.raw.toLocaleString(undefined, {minimumFractionDigits: 2}); } } } }, scales: { x: { title: { display: true, text: config.xAxisLabel } }, y: { title: { display: true, text: config.yAxisLabel }, beginAtZero: true } } };
+        }
+        salesChartInstance = new Chart(ctx, { type: chartData.type || config.type, data: chartData, options: chartOptions });
+        renderSalesLegend(config, data);
+    }
+
+    function renderSalesTable(chartName, config, data) {
+        const container = document.getElementById('salesTableContainer');
+        if (!container) return;
+        let html = '<div class="table-responsive mt-3"><table class="table table-sm table-hover"><thead><tr>';
+        const isSkuChart = chartName.includes('Sku');
+        const isBrandChart = chartName.includes('Brand');
+        const isDaily = chartName.includes('Daily');
+        const isQty = chartName.toLowerCase().includes('qty');
+        const isDateChart = chartName === 'gmvByDate';
+        const isMonthChart = chartName === 'gmvByMonth';
+        const isHourChart = chartName === 'gmvByHour';
+        const isDayOfWeekChart = chartName === 'gmvByDayOfWeek';
+        const isSimpleDateChart = !isSkuChart && !isBrandChart && (isDateChart || isMonthChart);
+        
+if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start">Brand</th><th class="text-start">SKU Name (Chinese)</th><th class="text-end">' + (isQty ? 'Qty' : 'GMV') + '</th>';
+        else if (isBrandChart) html += '<th class="text-start">Brand</th><th class="text-end">' + (isQty ? 'Qty' : 'GMV') + '</th>';
+        else if (isSimpleDateChart) html += '<th class="text-start">' + (isDateChart ? '日期' : '月份') + '</th><th class="text-end">GMV</th>';
+        else if (isHourChart) html += '<th class="text-start">小時</th><th class="text-end">GMV</th>';
+        else if (isDayOfWeekChart) html += '<th class="text-start">星期</th><th class="text-end">GMV</th>';
+        else html += '<th class="text-start">日期</th><th class="text-end">GMV</th>';
+        html += '</tr></thead><tbody>';
+        // Data already filtered by switchSalesChart - just use it directly
+        const filteredLabels = data.labels || [];
+        const filteredDataObj = data.data || [];
+        if (isSkuChart && data.isMultiDataset) {
+            // For multiDataset: filteredDataObj is array of arrays, data.skus has SKU IDs
+            // Calculate totals and sort descending
+            const skuTotals = (data.skus || []).map((sku, skuIdx) => {
+                let total = 0;
+                filteredDataObj.forEach(row => { if (row && row[skuIdx] !== undefined) total += row[skuIdx]; });
+                return { sku, skuIdx, total };
+            });
+            skuTotals.sort((a, b) => b.total - a.total);
+            skuTotals.forEach(({sku, skuIdx, total}) => {
+                const skuName = salesTrendData.sku_name_map[sku] || sku;
+                const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
+                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+            });
+        } else if (isSkuChart) {
+            // Non-multiDataset single dataset
+            (data.skus || []).forEach(sku => {
+                const skuName = salesTrendData.sku_name_map[sku] || sku;
+                const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
+                let total = 0;
+                if (filteredDataObj[sku] !== undefined) total = filteredDataObj[sku];
+                if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+            });
+        } else if (isBrandChart) {
+            // Calculate totals and sort descending
+            const brandTotals = (data.brands || []).map((brand, brandIdx) => {
+                let total = 0;
+                filteredDataObj.forEach(row => { if (row && row[brandIdx] !== undefined) total += row[brandIdx]; });
+                return { brand, total };
+            });
+            brandTotals.sort((a, b) => b.total - a.total);
+            brandTotals.forEach(({brand, total}) => {
+                if (total > 0) html += '<tr><td class="text-start">' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+            });
+        } else {
+            // Simple date/month/hour charts (gmvByDate, gmvByMonth, gmvByHour) - show label + GMV
+            const isHourChart = chartName === 'gmvByHour';
+            filteredLabels.forEach((label, idx) => {
+                const val = filteredDataObj[idx];
+                if (val !== undefined && val > 0) {
+                    let displayLabel = label;
+                    if (isHourChart) displayLabel = label + ':00'; // Show as "00:00", "01:00", etc.
+                    html += '<tr><td class="text-start">' + displayLabel + '</td><td class="text-end">$' + val.toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td></tr>';
+                }
+            });
+        }
+        html += '</tbody></table></div>';
+        container.innerHTML = html;
+    }
+
+    function renderMoMComparison(data) {
+        const container = document.getElementById('salesTableContainer');
+        if (!container) return;
+        
+        // data.labels = ["2026-06", "2026-05", ...], data.data = [26712.6, 12345.0, ...]
+        // Sort by date descending
+        const sorted = (data.labels || []).map((label, idx) => ({ label, value: data.data[idx] || 0 }))
+            .sort((a, b) => b.label.localeCompare(a.label));
+        
+        if (sorted.length < 2) {
+            // Not enough data for MoM comparison
+            return;
         }
         
-        // Auto-load sales trend when tab is shown
+        const thisMonth = sorted[0];
+        const lastMonth = sorted[1];
+        const diff = thisMonth.value - lastMonth.value;
+        const pctChange = lastMonth.value !== 0 ? (diff / lastMonth.value * 100) : 0;
+        const isUp = diff >= 0;
+        const arrow = isUp ? '▲' : '▼';
+        const colorClass = isUp ? 'text-success' : 'text-danger';
+        
+        const momHtml = '<div class="mt-4"><h6>月環比 (MoM)</h6><div class="table-responsive"><table class="table table-sm table-hover"><thead><tr><th>月份</th><th class="text-end">GMV (HKD)</th><th class="text-end">變動</th><th class="text-end">百分比</th></tr></thead><tbody>' +
+            '<tr><td>' + thisMonth.label + ' (本月)</td><td class="text-end">$' + thisMonth.value.toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td><td class="text-end ' + colorClass + '">' + arrow + ' $' + Math.abs(diff).toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td><td class="text-end ' + colorClass + '">' + arrow + ' ' + Math.abs(pctChange).toFixed(2) + '%</td></tr>' +
+            '<tr><td>' + lastMonth.label + ' (上月)</td><td class="text-end">$' + lastMonth.value.toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td><td colspan="2"></td></tr>' +
+            '</tbody></table></div></div>';
+        
+        container.innerHTML += momHtml;
+    }
+
+    function renderSalesLegend(config, data) {
+        const legendEl = document.getElementById('salesLegend');
+        if (legendEl) legendEl.innerHTML = '';
+    }
+
+    function updateSalesSummary() {
+        const summary = salesSummary || {};
+        const el = document.getElementById('stTotalGMV');
+        if (el) el.textContent = (summary.totalGMV || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
+        const el2 = document.getElementById('stTotalOrders');
+        if (el2) el2.textContent = summary.totalOrders || 0;
+        const el3 = document.getElementById('stAvgGMV');
+        if (el3) el3.textContent = (summary.avgGMVPerOrder || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        populateSalesFilters();
+        setTimeout(() => switchSalesChart('gmvByDate', document.querySelector('#salesChartNav .btn')), 100);
+
+        // Fix: Re-render chart when Sales Trend tab is shown
+        // Chart.js cannot measure container size when tab is hidden (0x0 canvas)
+        document.querySelector('#salestrend').addEventListener('shown.bs.tab', function() {
+            // Re-render chart with current chart type to get proper dimensions
+            const activeBtn = document.querySelector('#salesChartNav .btn.active');
+            if (activeBtn) {
+                const chartName = activeBtn.getAttribute('onclick').match(/'([^']+)'/)[1];
+                switchSalesChart(chartName, activeBtn);
+            }
+        });
+    }        // Auto-load sales trend when tab is shown
         document.querySelectorAll('button[data-bs-target="#salestrend"]').forEach(btn => {
             btn.addEventListener('shown.bs.tab', loadSalesTrendData);
         });
