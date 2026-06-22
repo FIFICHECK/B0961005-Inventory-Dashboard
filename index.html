@@ -79,7 +79,7 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Inventory Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-22 23:45:29</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-22 23:46:38</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1557,8 +1557,11 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 filteredDataObj.forEach(row => { if (row && row[skuIdx] !== undefined) total += row[skuIdx]; });
                 return { sku, skuIdx, total };
             });
-            skuTotals.sort((a, b) => b.total - a.total);
-            skuTotals.forEach(({sku, skuIdx, total}) => {
+            skuTotals.sort((a, b) => b.sum - a.sum);
+            console.log('[' + chartName + '] skuTotals top 3:', skuTotals.slice(0,3));
+            skuTotals.forEach((${item, sum}) => {
+                const sku = item;
+                const total = sum;
                 const skuIdFormatted = 'B0961005_S_' + sku;
                 const skuHktvUrl = 'https://www.hktvmall.com/hktv/p/' + sku;
                 // Use product name from order report (sku_product_name_map), fallback to inventory name
@@ -1583,6 +1586,7 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 return { brand, total };
             });
             brandTotals.sort((a, b) => b.total - a.total);
+            console.log('[' + chartName + '] brandTotals top 3:', brandTotals.slice(0,3));
             brandTotals.forEach(({brand, total}) => {
                 if (total > 0) html += '<tr><td class="text-start">' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
