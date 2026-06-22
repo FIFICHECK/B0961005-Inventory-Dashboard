@@ -1001,6 +1001,22 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card mt-3">
+                <div class="card-header py-3">
+                    <span class="fw-bold">📦 Daily Order Report 下載</span>
+                    <small class="text-muted ms-2">每日 12pm 自動更新</small>
+                </div>
+                <div class="table-container">
+                    <table class="table table-hover mb-0">
+                        <thead style="display: block;">
+                            <tr><th style="width:500px">Date 日期</th><th style="width:300px">時間</th><th style="width:300px">GMV</th><th style="width:700px">Download 下載</th></tr>
+                        </thead>
+                        <tbody id="orderReportBody" style="max-height: 320px; overflow-y: auto; display: block;"></tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
     
         </div>
         <div class="text-center mt-4 text-muted"><small>B0961005 Inventory | Exchange Portal | Auto-updated by Hermes Agent</small></div>
@@ -3747,6 +3763,41 @@
     document.getElementById('priceTrendModal').addEventListener('click', function(e) {
         if (e.target === this) closePriceTrend();
     });
+
+    // Load Order Report listing from manifest
+    async function loadOrderReports() {
+        const tbody = document.getElementById('orderReportBody');
+        if (!tbody) return;
+        try {
+            const res = await fetch('data/order_reports_manifest.json?' + Date.now());
+            if (!res.ok) throw new Error('Manifest not found');
+            const reports = await res.json();
+            if (!reports || reports.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted" style="width:1800px">暫無 Order Report</td></tr>';
+                return;
+            }
+            tbody.innerHTML = reports.map(r => `
+                <tr>
+                    <td class="align-middle" style="width:500px"><strong>${r.date}</strong></td>
+                    <td class="align-middle text-muted" style="width:300px">${r.timestamp}</td>
+                    <td class="align-middle text-start" style="width:300px">${r.gmv}</td>
+                    <td class="align-middle" style="width:700px">
+                        <a href="reports/order_reports/${r.filename}" download class="btn btn-sm btn-success">
+                            📥 Download
+                        </a>
+                    </td>
+                </tr>
+            `).join('');
+        } catch (e) {
+            console.warn('Order Report manifest load failed:', e.message);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadOrderReports);
+    } else {
+        loadOrderReports();
+    }
     </script>
 </body>
 </html>
