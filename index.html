@@ -79,7 +79,7 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Inventory Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-22 22:03:29</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-22 22:10:54</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1549,23 +1549,17 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isSkuChart) {
-            // Non-multiDataset single dataset
-            (data.skus || []).forEach(sku => {
+            // Simple single-dataset: labels = SKU IDs, data = GMV/Qty values
+            filteredLabels.forEach((sku, idx) => {
                 const skuName = salesTrendData.sku_name_map[sku] || sku;
                 const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
-                let total = 0;
-                if (filteredDataObj[sku] !== undefined) total = filteredDataObj[sku];
+                const total = filteredDataObj[idx] || 0;
                 if (total > 0) html += '<tr><td><code>' + sku + '</code></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else if (isBrandChart) {
-            // Calculate totals and sort descending
-            const brandTotals = (data.brands || []).map((brand, brandIdx) => {
-                let total = 0;
-                filteredDataObj.forEach(row => { if (row && row[brandIdx] !== undefined) total += row[brandIdx]; });
-                return { brand, total };
-            });
-            brandTotals.sort((a, b) => b.total - a.total);
-            brandTotals.forEach(({brand, total}) => {
+            // Simple single-dataset: labels = Brand names, data = GMV/Qty values
+            filteredLabels.forEach((brand, idx) => {
+                const total = filteredDataObj[idx] || 0;
                 if (total > 0) html += '<tr><td class="text-start">' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
         } else {
