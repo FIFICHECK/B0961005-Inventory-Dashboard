@@ -45,7 +45,7 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Inventory Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-22 11:07:28</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-22 13:40:40</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -70,7 +70,8 @@
             <li class="nav-item"><button class="nav-link text-danger" data-bs-toggle="tab" data-bs-target="#alerts">⚠️ Alerts (171)</button></li>
             <li class="nav-item"><button class="nav-link text-warning" data-bs-toggle="tab" data-bs-target="#newsku">🆕 New SKU (99)</button></li>
             <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#pricecheck">💰 Price Check (242)</button></li>
-            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#report">📋 Report (62)</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#report">📋 Report (62+0)</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#salestrend">📈 Sales Trend</button></li>
         </ul>
 
         <div class="tab-content">
@@ -1000,24 +1001,41 @@
                         </table>
                     </div>
                 </div>
-            </div>
 
-            <div class="card mt-3">
-                <div class="card-header py-3">
-                    <span class="fw-bold">📦 Daily Order Report 下載</span>
-                    <small class="text-muted ms-2">每日 12pm 自動更新</small>
+                <div class="card mt-3">
+                    <div class="card-header py-3">
+                        <span class="fw-bold">📦 Daily Order Report 下載</span>
+                        <small class="text-muted ms-2">每日銷售報告</small>
+                    </div>
+                    <div class="table-container">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr><th>Date 日期</th><th>時間</th><th class="text-end">GMV</th><th class="text-end">Orders</th><th>Download 下載</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan='5' class='text-center text-muted'>暫無報告</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="table-container">
-                    <table class="table table-hover mb-0">
-                        <thead style="display: block;">
-                            <tr><th style="width:500px">Date 日期</th><th style="width:300px">時間</th><th style="width:300px">GMV</th><th style="width:700px">Download 下載</th></tr>
-                        </thead>
-                        <tbody id="orderReportBody" style="max-height: 320px; overflow-y: auto; display: block;"></tbody>
-                    </table>
-                </div>
-            </div>
             </div>
     
+            <div class="tab-pane fade" id="salestrend">
+                <div class="card mt-3">
+                    <div class="card-header py-3 d-flex gap-2 flex-wrap align-items-center">
+                        <span class="fw-bold">📈 Sales Trend</span>
+                        <select id="salesTrendRange" class="form-select form-select-sm" style="width:140px" onchange="loadSalesTrendData()">
+                            <option value="7">最近 7 日</option>
+                            <option value="14">最近 14 日</option>
+                            <option value="30">最近 30 日</option>
+                        </select>
+                        <span class="text-muted ms-auto" id="salesTrendInfo">📊 讀取中...</span>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="salesTrendChart" height="100"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="text-center mt-4 text-muted"><small>B0961005 Inventory | Exchange Portal | Auto-updated by Hermes Agent</small></div>
     </div>
@@ -1165,6 +1183,111 @@
                 row.style.display = show ? '' : 'none';
             });
         }
+        
+        // Sales Trend Chart
+        let salesTrendChartInstance = null;
+        function loadSalesTrendData() {
+            const rangeSelect = document.getElementById('salesTrendRange');
+            const days = rangeSelect ? parseInt(rangeSelect.value) : 7;
+            const info = document.getElementById('salesTrendInfo');
+            const canvas = document.getElementById('salesTrendChart');
+            if (!canvas) return;
+            
+            // Fetch sales trend data from order reports
+            fetch('order_reports/sales_trend_data.js')
+                .then(r => r.text())
+                .then(text => {
+                    try {
+                        // Execute the JS to get the data
+                        const func = new Function(text + '; return getSalesTrendData();');
+                        const data = func();
+                        
+                        if (!data || data.length === 0) {
+                            if (info) info.textContent = '⚠️ 暫無數據';
+                            return;
+                        }
+                        
+                        // Filter by days
+                        const cutoff = new Date();
+                        cutoff.setDate(cutoff.getDate() - days);
+                        const filtered = data.filter(d => new Date(d.date) >= cutoff);
+                        
+                        if (info) info.textContent = '📊 ' + filtered.length + ' 日數據';
+                        
+                        const labels = filtered.map(d => d.date);
+                        const gmvData = filtered.map(d => d.gmv);
+                        const orderData = filtered.map(d => d.orders);
+                        
+                        if (salesTrendChartInstance) {
+                            salesTrendChartInstance.destroy();
+                        }
+                        
+                        salesTrendChartInstance = new Chart(canvas, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: 'GMV (HKD)',
+                                        data: gmvData,
+                                        backgroundColor: 'rgba(30, 64, 175, 0.7)',
+                                        yAxisID: 'y',
+                                    },
+                                    {
+                                        label: 'Orders',
+                                        data: orderData,
+                                        type: 'line',
+                                        borderColor: 'rgba(22, 163, 74, 1)',
+                                        backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                                        yAxisID: 'y1',
+                                        tension: 0.3,
+                                        fill: true,
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                interaction: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                plugins: {
+                                    legend: { position: 'top' },
+                                },
+                                scales: {
+                                    x: { ticks: { maxTicksLimit: 15 } },
+                                    y: {
+                                        type: 'linear',
+                                        display: true,
+                                        position: 'left',
+                                        title: { display: true, text: 'GMV (HKD)' },
+                                        ticks: { callback: v => '$' + v.toLocaleString() }
+                                    },
+                                    y1: {
+                                        type: 'linear',
+                                        display: true,
+                                        position: 'right',
+                                        title: { display: true, text: 'Orders' },
+                                        grid: { drawOnChartArea: false },
+                                    }
+                                }
+                            }
+                        });
+                    } catch (e) {
+                        console.error('Sales trend error:', e);
+                        if (info) info.textContent = '⚠️ 載入失敗';
+                    }
+                })
+                .catch(e => {
+                    console.error('Failed to load sales trend:', e);
+                    if (info) info.textContent = '⚠️ 暫無數據';
+                });
+        }
+        
+        // Auto-load sales trend when tab is shown
+        document.querySelectorAll('button[data-bs-target="#salestrend"]').forEach(btn => {
+            btn.addEventListener('shown.bs.tab', loadSalesTrendData);
+        });
     </script>
     
     <div id="priceTrendModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
@@ -3763,41 +3886,6 @@
     document.getElementById('priceTrendModal').addEventListener('click', function(e) {
         if (e.target === this) closePriceTrend();
     });
-
-    // Load Order Report listing from manifest
-    async function loadOrderReports() {
-        const tbody = document.getElementById('orderReportBody');
-        if (!tbody) return;
-        try {
-            const res = await fetch('data/order_reports_manifest.json?' + Date.now());
-            if (!res.ok) throw new Error('Manifest not found');
-            const reports = await res.json();
-            if (!reports || reports.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted" style="width:1800px">暫無 Order Report</td></tr>';
-                return;
-            }
-            tbody.innerHTML = reports.map(r => `
-                <tr>
-                    <td class="align-middle" style="width:500px"><strong>${r.date}</strong></td>
-                    <td class="align-middle text-muted" style="width:300px">${r.timestamp}</td>
-                    <td class="align-middle text-start" style="width:300px">${r.gmv}</td>
-                    <td class="align-middle" style="width:700px">
-                        <a href="reports/order_reports/${r.filename}" download class="btn btn-sm btn-success">
-                            📥 Download
-                        </a>
-                    </td>
-                </tr>
-            `).join('');
-        } catch (e) {
-            console.warn('Order Report manifest load failed:', e.message);
-        }
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadOrderReports);
-    } else {
-        loadOrderReports();
-    }
     </script>
 </body>
 </html>
