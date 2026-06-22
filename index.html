@@ -80,7 +80,7 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Inventory Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-22 19:49:45</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-22 19:53:41</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1279,7 +1279,42 @@
             });
         }
         
-function getFilteredData(data, labels, chartName) {
+    let currentSalesChart = 'gmvByDate';
+    let currentDateFilter = '';
+    let currentMonthFilter = '';
+
+    function populateSalesFilters() {
+        const dateSelect = document.getElementById('salesDateFilter');
+        const dates = salesTrendData.gmv_by_date.labels || [];
+        dates.forEach(d => {
+            const opt = document.createElement('option'); opt.value = d; opt.textContent = d;
+            dateSelect.appendChild(opt);
+        });
+        const monthSelect = document.getElementById('salesMonthFilter');
+        const months = salesTrendData.gmv_by_month.labels || [];
+        months.forEach(m => {
+            const opt = document.createElement('option'); opt.value = m; opt.textContent = m;
+            monthSelect.appendChild(opt);
+        });
+    }
+
+    function filterSalesByDate() {
+        const dateSelect = document.getElementById('salesDateFilter');
+        currentDateFilter = dateSelect.value;
+        if (currentDateFilter) {
+            const month = currentDateFilter.substring(0, 7);
+            document.getElementById('salesMonthFilter').value = month;
+            currentMonthFilter = month;
+        }
+        switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .btn.active'));
+    }
+
+    function filterSalesByMonth() {
+        currentMonthFilter = document.getElementById('salesMonthFilter').value;
+        switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .btn.active'));
+    }
+
+    function getFilteredData(data, labels, chartName) {
         let filteredLabels = labels;
         let filteredData = data;
         // Date filter applies to Daily and Hour charts
