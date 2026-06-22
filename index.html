@@ -79,7 +79,7 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-23 07:06:28</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-23 07:15:26</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1091,9 +1091,11 @@
                     <div class="card-header py-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <span class="fw-bold">📈 Sales Trend 銷售趨勢</span>
                         <div class="d-flex gap-3 align-items-center">
+                            <span id="salesDateFilterRow">
                             <select id="salesDateFilter" class="form-select form-select-sm" style="width:130px" onchange="filterSalesByDate()">
                                 <option value="">全部日期</option>
                             </select>
+                            </span>
                             <select id="salesMonthFilter" class="form-select form-select-sm" style="width:120px" onchange="filterSalesByMonth()">
                                 <option value="">全部月份</option>
                             </select>
@@ -1385,6 +1387,14 @@
         currentSalesChart = chartName;
         const config = chartConfigs[chartName];
         if (!config) return;
+        
+        // Hide date filter for Monthly and Hour charts (buttons 2,4,6,8,10)
+        const noDateFilterCharts = ['gmvByMonth', 'gmvByHour', 'gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly'];
+        const dateFilterRow = document.getElementById('salesDateFilterRow');
+        if (dateFilterRow) {
+            dateFilterRow.style.display = noDateFilterCharts.includes(chartName) ? 'none' : '';
+        }
+        
         // Map salesTrendData.summary to the format expected by updateSalesSummary
         if (salesTrendData && salesTrendData.summary) {
             salesSummary = {
@@ -1396,7 +1406,6 @@
         updateSalesSummary();
         const ctx = document.getElementById('salesTrendChart').getContext('2d');
         const rawData = salesTrendData[config.dataKey];
-        console.log('[' + chartName + '] dataKey:', config.dataKey, ', rawData labels:', rawData.labels, ', dateFilter:', currentDateFilter);
         let data;
         if (config.multiDataset) {
             // Apply date/month filter to multiDataset charts (SKU/Brand)
