@@ -79,7 +79,7 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-23 10:36:58</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-22 &nbsp;|&nbsp; 🔄 2026-06-23 10:39:27</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1384,8 +1384,9 @@
         const config = chartConfigs[chartName];
         if (!config) return;
         
-        // Hide date filter for buttons 1,2,3,4,6,8,10 (Date, Month, Hour, DayOfWeek, SKU/Brand Monthly charts)
-        const noDateFilterCharts = ['gmvByDate', 'gmvByMonth', 'gmvByHour', 'gmvByDayOfWeek', 'gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly'];
+        // Hide date filter for buttons 1,2,4,6,8,10 (Date, Month, DayOfWeek, SKU/Brand Monthly charts)
+        // Button 3 (GMV by Hour) shows date filter and filters by selected date
+        const noDateFilterCharts = ['gmvByDate', 'gmvByMonth', 'gmvByDayOfWeek', 'gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly'];
         const dateFilterRow = document.getElementById('salesDateFilterRow');
         if (dateFilterRow) {
             dateFilterRow.style.display = noDateFilterCharts.includes(chartName) ? 'none' : '';
