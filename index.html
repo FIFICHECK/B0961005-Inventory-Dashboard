@@ -1715,26 +1715,26 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
             });
         }
         
-        // Calculate grand total - use gmv_by_date which has ALL SKUs total
+        // Calculate grand total - use qty_by_date for Qty charts, gmv_by_date for GMV charts
         let grandTotal = 0;
         if ((isSkuChart || isBrandChart) && data.isMultiDataset) {
-            // For SKU/Brand charts, use gmv_by_date which sums ALL SKUs (not just top 50)
+            // Use qty_by_date for Qty charts, gmv_by_date for GMV charts
+            const dateData = isQty ? (salesTrendData.qty_by_date || {}) : (salesTrendData.gmv_by_date || {});
+            const dateLabels = dateData.labels || [];
+            const dateValues = dateData.data || [];
+            
             if (currentDateFilter && !chartName.includes('Monthly')) {
-                // Single date filter: get GMV for that specific date
-                const dateIdx = (salesTrendData.gmv_by_date && salesTrendData.gmv_by_date.labels) 
-                    ? salesTrendData.gmv_by_date.labels.indexOf(currentDateFilter) : -1;
-                grandTotal = (dateIdx >= 0 && salesTrendData.gmv_by_date.data) 
-                    ? (parseFloat(salesTrendData.gmv_by_date.data[dateIdx]) || 0) : 0;
+                // Single date filter
+                const dateIdx = dateLabels.indexOf(currentDateFilter);
+                grandTotal = (dateIdx >= 0) ? (parseFloat(dateValues[dateIdx]) || 0) : 0;
             } else if (currentMonthFilter) {
-                // Month filter: sum all gmv_by_date values that match the month
-                grandTotal = (salesTrendData.gmv_by_date && salesTrendData.gmv_by_date.labels && salesTrendData.gmv_by_date.data)
-                    ? salesTrendData.gmv_by_date.labels.reduce((sum, label, idx) => {
-                        return label.startsWith(currentMonthFilter) ? sum + (parseFloat(salesTrendData.gmv_by_date.data[idx]) || 0) : sum;
-                    }, 0) : 0;
+                // Month filter: sum all matching dates
+                grandTotal = dateLabels.reduce((sum, label, idx) => {
+                    return label.startsWith(currentMonthFilter) ? sum + (parseFloat(dateValues[idx]) || 0) : sum;
+                }, 0);
             } else {
-                // No filter: sum ALL gmv_by_date (ALL SKUs, ALL dates)
-                grandTotal = (salesTrendData.gmv_by_date && salesTrendData.gmv_by_date.data)
-                    ? salesTrendData.gmv_by_date.data.reduce((sum, v) => sum + (parseFloat(v) || 0), 0) : 0;
+                // No filter: sum all
+                grandTotal = dateValues.reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
             }
         } else {
             // Non-SKU/Brand charts: sum the 1D array
