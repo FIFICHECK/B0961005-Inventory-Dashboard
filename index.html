@@ -1715,21 +1715,29 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
             });
         }
         
-        // Calculate grand total
+        // Calculate grand total - use gmv_by_date which has ALL SKUs total
         let grandTotal = 0;
         if ((isSkuChart || isBrandChart) && data.isMultiDataset) {
+            // For SKU/Brand charts, use gmv_by_date which sums ALL SKUs (not just top 50)
             if (currentDateFilter && !chartName.includes('Monthly')) {
-                // Single date filter: use gmv_by_date which has ALL SKUs total
-                grandTotal = (salesTrendData.gmv_by_date && salesTrendData.gmv_by_date.data && salesTrendData.gmv_by_date.labels ? 
-                    (salesTrendData.gmv_by_date.data[salesTrendData.gmv_by_date.labels.indexOf(currentDateFilter)] || 0) : 0);
+                // Single date filter: get GMV for that specific date
+                const dateIdx = (salesTrendData.gmv_by_date && salesTrendData.gmv_by_date.labels) 
+                    ? salesTrendData.gmv_by_date.labels.indexOf(currentDateFilter) : -1;
+                grandTotal = (dateIdx >= 0 && salesTrendData.gmv_by_date.data) 
+                    ? (parseFloat(salesTrendData.gmv_by_date.data[dateIdx]) || 0) : 0;
+            } else if (currentMonthFilter) {
+                // Month filter: sum all gmv_by_date values that match the month
+                grandTotal = (salesTrendData.gmv_by_date && salesTrendData.gmv_by_date.labels && salesTrendData.gmv_by_date.data)
+                    ? salesTrendData.gmv_by_date.labels.reduce((sum, label, idx) => {
+                        return label.startsWith(currentMonthFilter) ? sum + (parseFloat(salesTrendData.gmv_by_date.data[idx]) || 0) : sum;
+                    }, 0) : 0;
             } else {
-                // Multi-date or month filter: sum all values in filteredDataObj
-                grandTotal = (filteredDataObj || []).reduce((dateSum, row) => {
-                    return dateSum + (row || []).reduce((itemSum, val) => itemSum + (parseFloat(val) || 0), 0);
-                }, 0);
+                // No filter: sum ALL gmv_by_date (ALL SKUs, ALL dates)
+                grandTotal = (salesTrendData.gmv_by_date && salesTrendData.gmv_by_date.data)
+                    ? salesTrendData.gmv_by_date.data.reduce((sum, v) => sum + (parseFloat(v) || 0), 0) : 0;
             }
         } else {
-            // Single dataset: sum the 1D array
+            // Non-SKU/Brand charts: sum the 1D array
             grandTotal = (filteredDataObj || []).reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
         }
         const totalLabel = isQty ? grandTotal.toLocaleString() + ' 件' : '$' + grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
