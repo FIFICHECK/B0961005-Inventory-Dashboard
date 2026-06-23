@@ -1717,14 +1717,27 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
         
         // Calculate grand total (data is already filtered by switchSalesChart)
         let grandTotal = 0;
-        if (isSkuChart && data.isMultiDataset && typeof skuTotals !== 'undefined') {
-            grandTotal = skuTotals.reduce((sum, s) => sum + (s.total || 0), 0);
+        if (isSkuChart && data.isMultiDataset) {
+            // Recalculate SKU totals from filtered data
+            const items = data.skus || [];
+            grandTotal = items.reduce((sum, sku, skuIdx) => {
+                const itemTotal = (filteredDataObj || []).reduce((s, row) => s + (row && row[skuIdx] !== undefined ? row[skuIdx] : 0), 0);
+                return sum + itemTotal;
+            }, 0);
+        } else if (isBrandChart && data.isMultiDataset) {
+            // Recalculate Brand totals from filtered data
+            const items = data.brands || [];
+            grandTotal = items.reduce((sum, brand, brandIdx) => {
+                const itemTotal = (filteredDataObj || []).reduce((s, row) => s + (row && row[brandIdx] !== undefined ? row[brandIdx] : 0), 0);
+                return sum + itemTotal;
+            }, 0);
         } else {
-            grandTotal = filteredDataObj.reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
+            // Single dataset: sum the 1D array
+            grandTotal = (filteredDataObj || []).reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
         }
         const totalLabel = isQty ? grandTotal.toLocaleString() + ' 件' : '$' + grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
         html += '<tfoot><tr class="table-secondary fw-bold"><td>Total</td>' + 
-                (isSkuChart ? '<td></td><td></td>' : (isBrandChart ? '<td></td>' : '')) +
+                (isSkuChart ? '<td></td><td></td>' : '') +
                 '<td class="text-end">' + totalLabel + '</td></tr></tfoot>';
         html += '</tbody></table></div>';
         container.innerHTML = html;
