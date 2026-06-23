@@ -1337,6 +1337,29 @@
             }
             return { labels: filteredLabels, data: filteredData };
         }
+        // GMV by Hour with month filter: aggregate all days in the month from gmv_by_date_hour
+        if (chartName === 'gmvByHour' && currentMonthFilter) {
+            const hourlyData = salesTrendData.gmv_by_date_hour;
+            if (hourlyData && hourlyData.data) {
+                filteredLabels = hourlyData.hours || [];
+                const hourlyTotals = new Array(24).fill(0);
+                let dayCount = 0;
+                Object.keys(hourlyData.data).forEach(dateKey => {
+                    if (dateKey.startsWith(currentMonthFilter)) {
+                        dayCount++;
+                        const dayHours = hourlyData.data[dateKey];
+                        dayHours.forEach((val, h) => {
+                            hourlyTotals[h] += (parseFloat(val) || 0);
+                        });
+                    }
+                });
+                // Calculate average if we have days, otherwise use totals
+                filteredData = dayCount > 0 
+                    ? hourlyTotals.map(v => Math.round(v * 100) / 100)
+                    : [];
+            }
+            return { labels: filteredLabels, data: filteredData };
+        }
         // Month filter applies to all chart types
         if (currentMonthFilter && (chartName.includes('Daily') || chartName.includes('Hour'))) {
             filteredLabels = [];
