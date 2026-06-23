@@ -1714,6 +1714,29 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 }
             });
         }
+
+        // Calculate grand total
+        let grandTotal = 0;
+        if ((isSkuChart || isBrandChart) && data.isMultiDataset) {
+            if (currentDateFilter && !chartName.includes('Monthly')) {
+                // Single date filter: use gmv_by_date which has ALL SKUs/Brands total
+                grandTotal = (isQty 
+                    ? (salesTrendData.qty_by_date?.data[salesTrendData.qty_by_date.labels.indexOf(currentDateFilter)] || 0)
+                    : (salesTrendData.gmv_by_date?.data[salesTrendData.gmv_by_date.labels.indexOf(currentDateFilter)] || 0));
+            } else {
+                // Multi-date or month filter: sum all values in filteredDataObj
+                grandTotal = (filteredDataObj || []).reduce((dateSum, row) => {
+                    return dateSum + (row || []).reduce((itemSum, val) => itemSum + (parseFloat(val) || 0), 0);
+                }, 0);
+            }
+        } else {
+            // Single dataset: sum the 1D array
+            grandTotal = (filteredDataObj || []).reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
+        }
+        const totalLabel = isQty ? grandTotal.toLocaleString() + ' 件' : '$' + grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
+        html += '<tfoot><tr class="table-secondary fw-bold"><td>Total</td>' + 
+                (isSkuChart ? '<td></td><td></td>' : '') +
+                '<td class="text-end">' + totalLabel + '</td></tr></tfoot>';
         html += '</tbody></table></div>';
         container.innerHTML = html;
     }
