@@ -1623,7 +1623,9 @@
     function renderSalesTable(chartName, config, data) {
         const container = document.getElementById('salesTableContainer');
         if (!container) return;
-        let html = '<div class="table-responsive mt-3"><table class="table table-sm table-hover"><thead><tr>';
+        const tableRowsCount = (isSkuChart ? (data.skus || []).length : (isBrandChart ? (data.brands || []).length : 0));
+        const tableScrollStyle = tableRowsCount > 100 ? ' style="max-height: 500px; overflow-y: auto;"' : '';
+        let html = '<div class="table-responsive mt-3"' + tableScrollStyle + '><table class="table table-sm table-hover"><thead><tr>';
         const isSkuChart = chartName.includes('Sku');
         const isBrandChart = chartName.includes('Brand');
         const isDaily = chartName.includes('Daily');
