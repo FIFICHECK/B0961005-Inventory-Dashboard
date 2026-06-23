@@ -79,7 +79,7 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-23 &nbsp;|&nbsp; 🔄 2026-06-23 22:47:31</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Report: 2026-06-23 &nbsp;|&nbsp; 🔄 2026-06-23 23:01:15</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1503,8 +1503,8 @@
             rawData.labels.forEach((l, idx) => {
                 const hasDateFilter = currentDateFilter && currentDateFilter.trim() !== '';
                 const labelMatch = l === currentDateFilter;
-                if (hasDateFilter && !chartName.includes('Monthly')) {
-                    // Date filter only applies to Daily/Hour charts, not Monthly
+                if (hasDateFilter) {
+                    // When date filter is set, ONLY match that specific date (no fallthrough to month filter)
                     if (chartName.includes('Daily') && labelMatch) {
                         filteredIndices.push(idx);
                     }
