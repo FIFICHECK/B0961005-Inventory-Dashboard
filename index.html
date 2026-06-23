@@ -1623,11 +1623,41 @@
     function renderSalesTable(chartName, config, data) {
         const container = document.getElementById('salesTableContainer');
         if (!container) return;
-        let html = '<div class="table-responsive mt-3"><table class="table table-sm table-hover"><thead><tr>';
         const isSkuChart = chartName.includes('Sku');
         const isBrandChart = chartName.includes('Brand');
-        const isDaily = chartName.includes('Daily');
         const isQty = chartName.toLowerCase().includes('qty');
+
+        // Build filter UI
+        let filterHtml = '<div class="row g-2 mb-2 align-items-center">';
+
+        // Brand filter dropdown (for all SKU/Brand charts)
+        if (isSkuChart || isBrandChart) {
+            const allBrands = [];
+            if (isSkuChart && data.skus) {
+                data.skus.forEach(sku => {
+                    const b = salesTrendData.sku_brand_map?.[sku];
+                    if (b && !allBrands.includes(b)) allBrands.push(b);
+                });
+            } else if (isBrandChart && data.brands) {
+                allBrands.push(...data.brands.filter(b => b));
+            }
+            allBrands.sort();
+            if (allBrands.length > 1) {
+                filterHtml += '<div class="col-auto"><select id="tableBrandFilter" class="form-select form-select-sm" style="width:auto;min-width:120px;" onchange="applyTableFilters()"><option value="">所有品牌</option>';
+                allBrands.forEach(b => { filterHtml += '<option value="' + b + '">' + b + '</option>'; });
+                filterHtml += '</select></div>';
+            }
+        }
+
+        // Keyword search (for SKU charts only - searches SKU ID, SKU Name, Brand)
+        if (isSkuChart) {
+            filterHtml += '<div class="col"><div class="input-group input-group-sm"><span class="input-group-text">🔍</span><input type="text" id="tableKeywordSearch" class="form-control" placeholder="搜尋 SKU ID / 品牌 / 產品名稱..." onkeyup="applyTableFilters()"></div></div>';
+        }
+
+        filterHtml += '<div class="col-auto"><span id="tableFilterCount" class="text-muted small"></span></div>';
+        filterHtml += '</div>';
+
+        let html = filterHtml + '<div class="table-responsive mt-1"><table class="table table-sm table-hover" id="salesTableEl"><thead><tr>';
         const isDateChart = chartName === 'gmvByDate';
         const isMonthChart = chartName === 'gmvByMonth';
         const isHourChart = chartName === 'gmvByHour';
@@ -1644,12 +1674,14 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
         // Data already filtered by switchSalesChart - just use it directly
         const filteredLabels = data.labels || [];
         const filteredDataObj = Array.isArray(data.data) ? data.data : [];
-                if (isSkuChart && data.isMultiDataset) {
-            // For multiDataset: filteredDataObj is array of arrays, data.skus has SKU IDs
-            // Calculate totals and find TOP 10
-                        // Validate filteredDataObj structure
+
+        // Get current filter values
+        const brandFilter = document.getElementById('tableBrandFilter')?.value || '';
+        const keywordFilter = (document.getElementById('tableKeywordSearch')?.value || '').toLowerCase();
+
+        if (isSkuChart && data.isMultiDataset) {
             if (!Array.isArray(filteredDataObj) || filteredDataObj.length === 0 || !Array.isArray(filteredDataObj[0])) {
-                                container.innerHTML = '<div class="text-danger p-3">Data error: invalid structure</div>';
+                container.innerHTML = '<div class="text-danger p-3">Data error: invalid structure</div>';
                 return;
             }
             const skuTotals = (data.skus || []).map((sku, skuIdx) => {
@@ -1658,21 +1690,28 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 return { sku, skuIdx, total };
             });
             skuTotals.sort((a, b) => b.total - a.total);
+            let visibleCount = 0;
             skuTotals.forEach(({sku, total}) => {
+                if (total <= 0) return;
                 const skuIdFormatted = 'B0961005_S_' + sku;
-                const skuHktvUrl = 'https://www.hktvmall.com/hktv/p/' + sku;
-                // Use product name from order report (sku_product_name_map), fallback to inventory name
-                const skuName = (salesTrendData.sku_product_name_map && salesTrendData.sku_product_name_map[sku]) 
-                    || salesTrendData.sku_name_map[sku] || sku;
-                const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
-                if (total > 0) html += '<tr><td><a href="' + skuHktvUrl + '" target="_blank" onclick="event.stopPropagation()"><code>' + skuIdFormatted + '</code></a></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                const skuHktvUrl = 'https://www.hktvmall.com/hktv/p/B0961005_S_' + sku;
+                const skuName = (salesTrendData.sku_product_name_map?.[sku]) || salesTrendData.sku_name_map?.[sku] || sku;
+                const brandName = salesTrendData.sku_brand_map?.[sku] || '-';
+
+                // Apply filters
+                if (brandFilter && brandName !== brandFilter) return;
+                if (keywordFilter) {
+                    const searchText = (skuIdFormatted + ' ' + brandName + ' ' + skuName).toLowerCase();
+                    if (!searchText.includes(keywordFilter)) return;
+                }
+
+                visibleCount++;
+                html += '<tr><td><a href="' + skuHktvUrl + '" target="_blank" onclick="event.stopPropagation()"><code>' + skuIdFormatted + '</code></a></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
+            document.getElementById('tableFilterCount').textContent = '顯示 ' + visibleCount + ' / ' + skuTotals.filter(s => s.total > 0).length + ' 項';
         } else if (isBrandChart && data.isMultiDataset) {
-            // multiDataset Brand chart: gmv_by_brand_daily, qty_by_brand_daily
-            // data.data is 2D array: data[dateIndex][brandIndex]
-                        // Validate filteredDataObj structure
             if (!Array.isArray(filteredDataObj) || filteredDataObj.length === 0 || !Array.isArray(filteredDataObj[0])) {
-                                container.innerHTML = '<div class="text-danger p-3">Data error: invalid structure</div>';
+                container.innerHTML = '<div class="text-danger p-3">Data error: invalid structure</div>';
                 return;
             }
             const brandTotals = (data.brands || []).map((brand, brandIdx) => {
@@ -1681,65 +1720,83 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 return { brand, total };
             });
             brandTotals.sort((a, b) => b.total - a.total);
-                        brandTotals.forEach(({brand, total}) => {
-                if (total > 0) html += '<tr><td class="text-start">' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+            let visibleCount = 0;
+            brandTotals.forEach(({brand, total}) => {
+                if (total <= 0) return;
+                if (brandFilter && brand !== brandFilter) return;
+                if (keywordFilter && !brand.toLowerCase().includes(keywordFilter)) return;
+                visibleCount++;
+                html += '<tr><td class="text-start">' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
+            document.getElementById('tableFilterCount').textContent = '顯示 ' + visibleCount + ' / ' + brandTotals.filter(b => b.total > 0).length + ' 項';
         } else if (isSkuChart) {
             // Simple single-dataset: labels = SKU IDs, data = GMV/Qty values
+            let visibleCount = 0;
             filteredLabels.forEach((sku, idx) => {
-                const skuIdFormatted = 'B0961005_S_' + sku;
-                const skuHktvUrl = 'https://www.hktvmall.com/hktv/p/' + sku;
-                // Use product name from order report (sku_product_name_map), fallback to inventory name
-                const skuName = (salesTrendData.sku_product_name_map && salesTrendData.sku_product_name_map[sku]) 
-                    || salesTrendData.sku_name_map[sku] || sku;
-                const brandName = (salesTrendData.sku_brand_map && salesTrendData.sku_brand_map[sku]) ? salesTrendData.sku_brand_map[sku] : '-';
                 const total = filteredDataObj[idx] || 0;
-                if (total > 0) html += '<tr><td><a href="' + skuHktvUrl + '" target="_blank" onclick="event.stopPropagation()"><code>' + skuIdFormatted + '</code></a></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                if (total <= 0) return;
+                const skuIdFormatted = 'B0961005_S_' + sku;
+                const skuHktvUrl = 'https://www.hktvmall.com/hktv/p/B0961005_S_' + sku;
+                const skuName = (salesTrendData.sku_product_name_map?.[sku]) || salesTrendData.sku_name_map?.[sku] || sku;
+                const brandName = salesTrendData.sku_brand_map?.[sku] || '-';
+                if (brandFilter && brandName !== brandFilter) return;
+                if (keywordFilter) {
+                    const searchText = (skuIdFormatted + ' ' + brandName + ' ' + skuName).toLowerCase();
+                    if (!searchText.includes(keywordFilter)) return;
+                }
+                visibleCount++;
+                html += '<tr><td><a href="' + skuHktvUrl + '" target="_blank" onclick="event.stopPropagation()"><code>' + skuIdFormatted + '</code></a></td><td>' + brandName + '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="' + skuName + '">' + skuName + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
+            document.getElementById('tableFilterCount').textContent = '顯示 ' + visibleCount + ' / ' + filteredLabels.length + ' 項';
         } else if (isBrandChart) {
-            // Simple single-dataset: labels = Brand names, data = GMV/Qty values
+            let visibleCount = 0;
             filteredLabels.forEach((brand, idx) => {
                 const total = filteredDataObj[idx] || 0;
-                if (total > 0) html += '<tr><td class="text-start">' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
+                if (total <= 0) return;
+                if (brandFilter && brand !== brandFilter) return;
+                if (keywordFilter && !brand.toLowerCase().includes(keywordFilter)) return;
+                visibleCount++;
+                html += '<tr><td class="text-start">' + brand + '</td><td class="text-end">' + (isQty ? total.toLocaleString() + ' 件' : '$' + total.toLocaleString(undefined, {minimumFractionDigits: 2})) + '</td></tr>';
             });
+            document.getElementById('tableFilterCount').textContent = '顯示 ' + visibleCount + ' / ' + filteredLabels.length + ' 項';
         } else {
-            // Simple date/month/hour charts (gmvByDate, gmvByMonth, gmvByHour) - show label + GMV
+            // Simple date/month/hour charts
             const isHourChart = chartName === 'gmvByHour';
             filteredLabels.forEach((label, idx) => {
                 const val = filteredDataObj[idx];
                 if (val !== undefined && val > 0) {
                     let displayLabel = label;
-                    if (isHourChart) displayLabel = label + ':00'; // Show as "00:00", "01:00", etc.
+                    if (isHourChart) displayLabel = label + ':00';
                     html += '<tr><td class="text-start">' + displayLabel + '</td><td class="text-end">$' + val.toLocaleString(undefined, {minimumFractionDigits: 2}) + '</td></tr>';
                 }
             });
         }
 
-        // Calculate grand total
+        // Calculate grand total (unfiltered total for reference)
         let grandTotal = 0;
         if ((isSkuChart || isBrandChart) && data.isMultiDataset) {
             if (currentDateFilter && !chartName.includes('Monthly')) {
-                // Single date filter: use gmv_by_date which has ALL SKUs/Brands total
                 grandTotal = (isQty 
                     ? (salesTrendData.qty_by_date?.data[salesTrendData.qty_by_date.labels.indexOf(currentDateFilter)] || 0)
                     : (salesTrendData.gmv_by_date?.data[salesTrendData.gmv_by_date.labels.indexOf(currentDateFilter)] || 0));
             } else {
-                // Multi-date or month filter: sum all values in filteredDataObj
                 grandTotal = (filteredDataObj || []).reduce((dateSum, row) => {
                     return dateSum + (row || []).reduce((itemSum, val) => itemSum + (parseFloat(val) || 0), 0);
                 }, 0);
             }
         } else {
-            // Single dataset: sum the 1D array
             grandTotal = (filteredDataObj || []).reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
         }
         const totalLabel = isQty ? grandTotal.toLocaleString() + ' 件' : '$' + grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
-        html += '<tfoot><tr class="table-secondary fw-bold"><td>Total</td>' + 
+        html += '<tfoot><tr class="table-secondary fw-bold"><td>Total (全部)</td>' + 
                 (isSkuChart ? '<td></td><td></td>' : '') +
                 '<td class="text-end">' + totalLabel + '</td></tr></tfoot>';
         html += '</tbody></table></div>';
         container.innerHTML = html;
     }
+
+    // Re-render table when filter changes
+    function applyTableFilters() { renderSalesTable(currentSalesChart, chartConfigs[currentSalesChart], getChartData(currentSalesChart)); }
 
     function renderMoMComparison(data) {
         const container = document.getElementById('salesTableContainer');
