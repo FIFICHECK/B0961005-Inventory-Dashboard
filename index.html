@@ -1714,6 +1714,18 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 }
             });
         }
+        
+        // Calculate grand total (data is already filtered by switchSalesChart)
+        let grandTotal = 0;
+        if (isSkuChart && data.isMultiDataset && typeof skuTotals !== 'undefined') {
+            grandTotal = skuTotals.reduce((sum, s) => sum + (s.total || 0), 0);
+        } else {
+            grandTotal = filteredDataObj.reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
+        }
+        const totalLabel = isQty ? grandTotal.toLocaleString() + ' 件' : '$' + grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
+        html += '<tfoot><tr class="table-secondary fw-bold"><td>Total</td>' + 
+                (isSkuChart ? '<td></td><td></td>' : (isBrandChart ? '<td></td>' : '')) +
+                '<td class="text-end">' + totalLabel + '</td></tr></tfoot>';
         html += '</tbody></table></div>';
         container.innerHTML = html;
     }
