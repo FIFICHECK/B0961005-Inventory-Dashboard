@@ -1724,6 +1724,7 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 const itemTotal = (filteredDataObj || []).reduce((s, row) => s + (row && row[skuIdx] !== undefined ? row[skuIdx] : 0), 0);
                 return sum + itemTotal;
             }, 0);
+            console.log('[DEBUG] grandTotal SKU multiDataset: items=' + items.length + ', filteredDataObj rows=' + (filteredDataObj ? filteredDataObj.length : 'null') + ', grandTotal=' + grandTotal);
         } else if (isBrandChart && data.isMultiDataset) {
             // Recalculate Brand totals from filtered data
             const items = data.brands || [];
@@ -1731,9 +1732,11 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 const itemTotal = (filteredDataObj || []).reduce((s, row) => s + (row && row[brandIdx] !== undefined ? row[brandIdx] : 0), 0);
                 return sum + itemTotal;
             }, 0);
+            console.log('[DEBUG] grandTotal Brand multiDataset: items=' + items.length + ', filteredDataObj rows=' + (filteredDataObj ? filteredDataObj.length : 'null') + ', grandTotal=' + grandTotal);
         } else {
             // Single dataset: sum the 1D array
             grandTotal = (filteredDataObj || []).reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
+            console.log('[DEBUG] grandTotal single: filteredDataObj=' + JSON.stringify(filteredDataObj) + ', grandTotal=' + grandTotal);
         }
         const totalLabel = isQty ? grandTotal.toLocaleString() + ' 件' : '$' + grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2});
         html += '<tfoot><tr class="table-secondary fw-bold"><td>Total</td>' + 
