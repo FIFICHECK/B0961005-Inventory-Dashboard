@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:52:00</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:52:00</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:58:28</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:58:28</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1802,12 +1802,12 @@
 
     function filterSalesByDate() {
         const dateSelect = document.getElementById('salesDateFilter');
-        currentDateFilter = dateSelect.value;
+        const newDateFilter = dateSelect.value;
+        currentDateFilter = newDateFilter;
         // When a specific date is selected, also update month and year to keep dropdowns in sync
         if (currentDateFilter) {
-            const selectedDate = currentDateFilter; // e.g., "2026-06-24"
-            const year = selectedDate.substring(0, 4);
-            const month = selectedDate.substring(0, 7); // "2026-06"
+            const year = currentDateFilter.substring(0, 4);
+            const month = currentDateFilter.substring(0, 7); // "2026-06"
             
             currentYearFilter = year;
             currentMonthFilter = month;
@@ -1819,6 +1819,9 @@
             
             // Repopulate date dropdown to show only dates in selected month
             populateFilteredOptions();
+            
+            // Ensure date dropdown shows the selected date after repopulation
+            dateSelect.value = currentDateFilter;
         }
         switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
     }
