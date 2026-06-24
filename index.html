@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:01:45</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:01:45</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:17:23</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:17:23</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1528,6 +1528,11 @@
                                 <option value="">全部月份</option>
                             </select>
                             </span>
+                            <span id="salesYearFilterRow">
+                            <select id="salesYearFilter" class="form-select form-select-sm" style="width:100px" onchange="filterSalesByYear()">
+                                <option value="">全部年份</option>
+                            </select>
+                            </span>
                             <span class="badge bg-primary">Total GMV: $<span id="stTotalGMV">0</span></span>
                             <span class="badge bg-success">Orders: <span id="stTotalOrders">0</span></span>
                             <span class="badge bg-info">Avg: $<span id="stAvgGMV">0</span></span>
@@ -1712,6 +1717,7 @@
     let currentSalesChart = 'gmvByDate';
     let currentDateFilter = '';
     let currentMonthFilter = '';
+    let currentYearFilter = '';
     let salesChartInstance = null;
 
     function populateSalesFilters() {
@@ -1726,6 +1732,13 @@
         months.forEach(m => {
             const opt = document.createElement('option'); opt.value = m; opt.textContent = m;
             monthSelect.appendChild(opt);
+        });
+        // Populate year filter from dates
+        const yearSelect = document.getElementById('salesYearFilter');
+        const years = [...new Set(dates.map(d => d.substring(0, 4)))].sort().reverse();
+        years.forEach(y => {
+            const opt = document.createElement('option'); opt.value = y; opt.textContent = y;
+            yearSelect.appendChild(opt);
         });
     }
 
@@ -1751,6 +1764,21 @@
             currentDateFilter = '';
             const dateSelect = document.getElementById('salesDateFilter');
             if (dateSelect) dateSelect.value = '';
+        }
+        switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
+    }
+
+    function filterSalesByYear() {
+        const yearSelect = document.getElementById('salesYearFilter');
+        currentYearFilter = yearSelect.value;
+        // Clear date and month filters when year filter is selected
+        if (currentYearFilter) {
+            currentDateFilter = '';
+            currentMonthFilter = '';
+            const dateSelect = document.getElementById('salesDateFilter');
+            const monthSelect = document.getElementById('salesMonthFilter');
+            if (dateSelect) dateSelect.value = '';
+            if (monthSelect) monthSelect.value = '';
         }
         switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
     }
@@ -1865,6 +1893,14 @@
             monthFilterRow.style.display = noMonthFilterCharts.includes(chartName) ? 'none' : '';
         }
         
+        // Year filter is always visible but filters data for SKU/Brand charts
+        const yearFilterRow = document.getElementById('salesYearFilterRow');
+        // Year filter is hidden for Date/Month/DayOfWeek charts (they don't have multi-year data)
+        const noYearFilterCharts = ['gmvByDate', 'gmvByMonth', 'gmvByDayOfWeek'];
+        if (yearFilterRow) {
+            yearFilterRow.style.display = noYearFilterCharts.includes(chartName) ? 'none' : '';
+        }
+        
         // Map salesTrendData.summary to the format expected by updateSalesSummary
         if (salesTrendData && salesTrendData.summary) {
             salesSummary = {
@@ -1878,7 +1914,7 @@
         const rawData = salesTrendData[config.dataKey];
         let data;
         if (config.multiDataset) {
-            // Apply date/month filter to multiDataset charts (SKU/Brand)
+            // Apply date/month/year filter to multiDataset charts (SKU/Brand)
             // rawData.data is a 2D array: data[dateIndex][skuIndex]
             let filteredIndices = [];
             rawData.labels.forEach((l, idx) => {
@@ -1894,6 +1930,11 @@
                     if (chartName.includes('Daily') && l.startsWith(currentMonthFilter)) {
                         filteredIndices.push(idx);
                     } else if (chartName.includes('Monthly') && l.startsWith(currentMonthFilter)) {
+                        filteredIndices.push(idx);
+                    }
+                } else if (currentYearFilter) {
+                    // Year filter: match first 4 characters
+                    if (l.startsWith(currentYearFilter)) {
                         filteredIndices.push(idx);
                     }
                 } else {
@@ -2121,17 +2162,27 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
             });
         }
 
-        // Calculate grand total
+        // Calculate grand total - use gmv_by_date for complete totals (not filtered top-10)
         let grandTotal = 0;
         if ((isSkuChart || isBrandChart) && data.isMultiDataset) {
             if (currentDateFilter && !chartName.includes('Monthly')) {
-                grandTotal = (isQty 
+                // Specific date: use gmv_by_date or qty_by_date
+                grandTotal = (isQty
                     ? (salesTrendData.qty_by_date?.data[salesTrendData.qty_by_date.labels.indexOf(currentDateFilter)] || 0)
                     : (salesTrendData.gmv_by_date?.data[salesTrendData.gmv_by_date.labels.indexOf(currentDateFilter)] || 0));
+            } else if (currentMonthFilter) {
+                // Month filter: sum all dates in that month from gmv_by_date
+                const gmvData = isQty ? salesTrendData.qty_by_date : salesTrendData.gmv_by_date;
+                if (gmvData && gmvData.labels) {
+                    grandTotal = gmvData.labels.reduce((sum, label, idx) => {
+                        return label.startsWith(currentMonthFilter) ? sum + (parseFloat(gmvData.data[idx]) || 0) : sum;
+                    }, 0);
+                }
             } else {
-                grandTotal = (filteredDataObj || []).reduce((dateSum, row) => {
-                    return dateSum + (row || []).reduce((itemSum, val) => itemSum + (parseFloat(val) || 0), 0);
-                }, 0);
+                // No filter: use summary total (ALL SKUs, ALL dates)
+                grandTotal = isQty
+                    ? (salesTrendData.summary?.total_orders || 0)
+                    : (salesTrendData.summary?.total_gmv || 0);
             }
         } else {
             grandTotal = (filteredDataObj || []).reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
