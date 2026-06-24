@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 23:15:58</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 23:15:58</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 23:24:22</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 23:24:22</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1875,7 +1875,14 @@
         if (chartName.includes('Sku') || chartName.includes('Brand')) {
             return { labels: filteredLabels, data: filteredData };
         }
-        // DayOfWeek applies month filter: labels are "2026-06-24 (星期三)" format
+        // DayOfWeek applies date filter FIRST (more specific), then month filter
+        if (chartName === 'gmvByDayOfWeek' && currentDateFilter) {
+            // Filter by specific date
+            filteredLabels = labels.filter(l => l.startsWith(currentDateFilter));
+            const idx = labels.findIndex(l => l.startsWith(currentDateFilter));
+            filteredData = idx >= 0 && Array.isArray(data) && data[idx] !== undefined ? [data[idx]] : [];
+            return { labels: filteredLabels, data: filteredData };
+        }
         if (chartName === 'gmvByDayOfWeek' && currentMonthFilter) {
             filteredLabels = [];
             filteredData = [];
@@ -1896,19 +1903,12 @@
             }
             return { labels: filteredLabels, data: filteredData };
         }
-        // Date filter applies to Daily, Hour, Date, and DayOfWeek charts
-        if (currentDateFilter && (chartName.includes('Daily') || chartName.includes('Hour') || chartName === 'gmvByDate' || chartName === 'gmvByDayOfWeek')) {
-            // For gmvByDayOfWeek, labels are "2026-06-24 (星期三)" format, use startsWith
-            if (chartName === 'gmvByDayOfWeek') {
-                filteredLabels = labels.filter(l => l.startsWith(currentDateFilter));
-                const idx = labels.findIndex(l => l.startsWith(currentDateFilter));
-                filteredData = idx >= 0 && Array.isArray(data) && data[idx] !== undefined ? [data[idx]] : [];
-            } else {
-                const idx = labels.indexOf(currentDateFilter);
-                if (idx >= 0) {
-                    filteredLabels = [labels[idx]];
-                    filteredData = Array.isArray(data) && data[idx] !== undefined ? [data[idx]] : data;
-                }
+        // Date filter applies to Daily, Hour, and Date charts (gmvByDayOfWeek handled separately above)
+        if (currentDateFilter && (chartName.includes('Daily') || chartName.includes('Hour') || chartName === 'gmvByDate')) {
+            const idx = labels.indexOf(currentDateFilter);
+            if (idx >= 0) {
+                filteredLabels = [labels[idx]];
+                filteredData = Array.isArray(data) && data[idx] !== undefined ? [data[idx]] : data;
             }
             return { labels: filteredLabels, data: filteredData };
         }
