@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:09:27</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:09:27</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:13:15</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:13:15</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1877,28 +1877,25 @@
         const config = chartConfigs[chartName];
         if (!config) return;
         
-        // Default to current year-month for bottom buttons (5-10: SKU/Brand Daily/Monthly)
-        const bottomButtons = ['gmvBySkuDaily', 'gmvBySkuMonthly', 'qtyBySkuDaily', 'qtyBySkuMonthly', 'gmvByBrandDaily', 'gmvByBrandMonthly'];
-        if (bottomButtons.includes(chartName)) {
-            const now = new Date();
-            const currentYear = now.getFullYear().toString();
-            const currentMonth = (now.getMonth() + 1).toString().padStart(2, '0');
-            const currentYearMonth = currentYear + '-' + currentMonth;
-            
-            // Check if month filter is already set
-            if (!currentMonthFilter) {
-                currentMonthFilter = currentYearMonth;
-                const monthSelect = document.getElementById('salesMonthFilter');
-                if (monthSelect) {
-                    monthSelect.value = currentMonthFilter;
-                }
+        // Default to current year-month for all buttons (1-10)
+        const now = new Date();
+        const currentYear = now.getFullYear().toString();
+        const currentMonth = (now.getMonth() + 1).toString().padStart(2, '0');
+        const currentYearMonth = currentYear + '-' + currentMonth;
+        
+        // Set default month filter if not already set
+        if (!currentMonthFilter) {
+            currentMonthFilter = currentYearMonth;
+            const monthSelect = document.getElementById('salesMonthFilter');
+            if (monthSelect) {
+                monthSelect.value = currentMonthFilter;
             }
-            if (!currentYearFilter) {
-                currentYearFilter = currentYear;
-                const yearSelect = document.getElementById('salesYearFilter');
-                if (yearSelect) {
-                    yearSelect.value = currentYearFilter;
-                }
+        }
+        if (!currentYearFilter) {
+            currentYearFilter = currentYear;
+            const yearSelect = document.getElementById('salesYearFilter');
+            if (yearSelect) {
+                yearSelect.value = currentYearFilter;
             }
         }
         
