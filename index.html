@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:17:12</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:17:12</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:30:01</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 21:30:01</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1718,7 +1718,6 @@
     let currentDateFilter = '';
     let currentMonthFilter = '';
     let currentYearFilter = '';
-    let isInitialLoad = true;
     let salesChartInstance = null;
 
     function populateSalesFilters() {
@@ -1743,6 +1742,49 @@
         });
     }
 
+    // Re-populate month options based on selected year, and date options based on selected month
+    function populateFilteredOptions() {
+        const dates = salesTrendData.gmv_by_date.labels || [];
+        const monthSelect = document.getElementById('salesMonthFilter');
+        const dateSelect = document.getElementById('salesDateFilter');
+        
+        // Clear and repopulate month options
+        if (monthSelect) {
+            monthSelect.innerHTML = '<option value="">全部月份</option>';
+            let filteredMonths;
+            if (currentYearFilter) {
+                filteredMonths = [...new Set(dates.filter(d => d.startsWith(currentYearFilter)).map(d => d.substring(0, 7)))].sort().reverse();
+            } else {
+                filteredMonths = salesTrendData.gmv_by_month.labels || [];
+            }
+            filteredMonths.forEach(m => {
+                const opt = document.createElement('option'); opt.value = m; opt.textContent = m;
+                monthSelect.appendChild(opt);
+            });
+            if (currentMonthFilter) {
+                monthSelect.value = currentMonthFilter;
+            }
+        }
+        
+        // Clear and repopulate date options
+        if (dateSelect) {
+            dateSelect.innerHTML = '<option value="">全部日期</option>';
+            let filteredDates;
+            if (currentMonthFilter) {
+                filteredDates = dates.filter(d => d.startsWith(currentMonthFilter));
+            } else {
+                filteredDates = dates;
+            }
+            filteredDates.forEach(d => {
+                const opt = document.createElement('option'); opt.value = d; opt.textContent = d;
+                dateSelect.appendChild(opt);
+            });
+            if (currentDateFilter) {
+                dateSelect.value = currentDateFilter;
+            }
+        }
+    }
+
     function filterSalesByDate() {
         const dateSelect = document.getElementById('salesDateFilter');
         currentDateFilter = dateSelect.value;
@@ -1759,28 +1801,23 @@
     function filterSalesByMonth() {
         const monthSelect = document.getElementById('salesMonthFilter');
         currentMonthFilter = monthSelect.value;
-        // Clear date filter when month filter is selected - they are mutually exclusive
-        // (date filter shows specific date, month filter shows all dates in that month)
+        // Clear date filter when month filter is selected
         if (currentMonthFilter) {
             currentDateFilter = '';
-            const dateSelect = document.getElementById('salesDateFilter');
-            if (dateSelect) dateSelect.value = '';
         }
+        // Repopulate date options based on new month
+        populateFilteredOptions();
         switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
     }
 
     function filterSalesByYear() {
         const yearSelect = document.getElementById('salesYearFilter');
         currentYearFilter = yearSelect.value;
-        // Clear date and month filters when year filter is selected
-        if (currentYearFilter) {
-            currentDateFilter = '';
-            currentMonthFilter = '';
-            const dateSelect = document.getElementById('salesDateFilter');
-            const monthSelect = document.getElementById('salesMonthFilter');
-            if (dateSelect) dateSelect.value = '';
-            if (monthSelect) monthSelect.value = '';
-        }
+        // Clear month and date filters when year filter is selected
+        currentMonthFilter = '';
+        currentDateFilter = '';
+        // Repopulate month and date options based on new year
+        populateFilteredOptions();
         switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
     }
 
@@ -1878,33 +1915,31 @@
         const config = chartConfigs[chartName];
         if (!config) return;
         
-        // Default to current year-month ONLY on initial page load
-        if (isInitialLoad) {
-            const now = new Date();
-            const currentYear = now.getFullYear().toString();
-            const currentMonth = (now.getMonth() + 1).toString().padStart(2, '0');
-            const currentYearMonth = currentYear + '-' + currentMonth;
-            
-            // Set default month filter if not already set
-            if (!currentMonthFilter) {
-                currentMonthFilter = currentYearMonth;
-                const monthSelect = document.getElementById('salesMonthFilter');
-                if (monthSelect) {
-                    monthSelect.value = currentMonthFilter;
-                }
-            }
-            if (!currentYearFilter) {
-                currentYearFilter = currentYear;
-                const yearSelect = document.getElementById('salesYearFilter');
-                if (yearSelect) {
-                    yearSelect.value = currentYearFilter;
-                }
-            }
-            isInitialLoad = false;
-        }
+        // Reset to current year-month-day when switching to another button (except initial load)
+        const now = new Date();
+        const currentYear = now.getFullYear().toString();
+        const currentMonth = (now.getMonth() + 1).toString().padStart(2, '0');
+        const currentDate = (now.getDate()).toString().padStart(2, '0');
+        const currentYearMonth = currentYear + '-' + currentMonth;
+        const currentFullDate = currentYear + '-' + currentMonth + '-' + currentDate;
+        
+        currentYearFilter = currentYear;
+        currentMonthFilter = currentYearMonth;
+        currentDateFilter = currentFullDate;
+        
+        const yearSelect = document.getElementById('salesYearFilter');
+        const monthSelect = document.getElementById('salesMonthFilter');
+        const dateSelect = document.getElementById('salesDateFilter');
+        if (yearSelect) yearSelect.value = currentYear;
+        if (monthSelect) monthSelect.value = currentMonthFilter;
+        if (dateSelect) dateSelect.value = currentDateFilter;
+        
+        // Re-populate dropdown options based on selected year/month
+        populateFilteredOptions();
         
         // All filters always visible for all charts
         // EXCEPT date filter is hidden for Monthly SKU/Brand charts (buttons 6, 8, 10)
+        // Also hide date filter for DayOfWeek (button 4) - it shows weekly pattern
         const hideDateFilterCharts = ['gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly'];
         const dateFilterRow = document.getElementById('salesDateFilterRow');
         if (dateFilterRow) {
