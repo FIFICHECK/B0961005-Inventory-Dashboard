@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:17:23</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:17:23</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:20:11</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:20:11</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -2167,9 +2167,7 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
         if ((isSkuChart || isBrandChart) && data.isMultiDataset) {
             if (currentDateFilter && !chartName.includes('Monthly')) {
                 // Specific date: use gmv_by_date or qty_by_date
-                grandTotal = (isQty
-                    ? (salesTrendData.qty_by_date?.data[salesTrendData.qty_by_date.labels.indexOf(currentDateFilter)] || 0)
-                    : (salesTrendData.gmv_by_date?.data[salesTrendData.gmv_by_date.labels.indexOf(currentDateFilter)] || 0));
+                grandTotal = isQty ? (salesTrendData.qty_by_date?.data[salesTrendData.qty_by_date.labels.indexOf(currentDateFilter)] || 0) : (salesTrendData.gmv_by_date?.data[salesTrendData.gmv_by_date.labels.indexOf(currentDateFilter)] || 0);
             } else if (currentMonthFilter) {
                 // Month filter: sum all dates in that month from gmv_by_date
                 const gmvData = isQty ? salesTrendData.qty_by_date : salesTrendData.gmv_by_date;
@@ -2180,9 +2178,7 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
                 }
             } else {
                 // No filter: use summary total (ALL SKUs, ALL dates)
-                grandTotal = isQty
-                    ? (salesTrendData.summary?.total_orders || 0)
-                    : (salesTrendData.summary?.total_gmv || 0);
+                grandTotal = isQty ? (salesTrendData.summary?.total_orders || 0) : (salesTrendData.summary?.total_gmv || 0);
             }
         } else {
             grandTotal = (filteredDataObj || []).reduce((sum, v) => sum + (parseFloat(v) || 0), 0);
