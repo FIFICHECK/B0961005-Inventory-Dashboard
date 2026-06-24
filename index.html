@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 22:16:05</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 22:16:05</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 22:28:05</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 22:28:05</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1830,7 +1830,15 @@
             // Ensure date dropdown shows the selected date after repopulation
             dateSelect.value = currentDateFilter;
         } else {
-            // When "全部日期" is selected, repopulate to show all available dates
+            // When "全部日期" is selected, clear month filter to show all data
+            currentMonthFilter = '';
+            currentYearFilter = '';
+            const monthSelect = document.getElementById('salesMonthFilter');
+            const yearSelect = document.getElementById('salesYearFilter');
+            if (monthSelect) monthSelect.value = '';
+            if (yearSelect) yearSelect.value = '';
+            
+            // Repopulate dropdowns to show all available options
             populateFilteredOptions();
         }
         switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
