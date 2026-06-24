@@ -1,0 +1,214 @@
+{
+  "維多C|雙重功效 (維他命C加鋅) 香橙味水溶片 10片": {
+    "brand": "維多C",
+    "name": "雙重功效 (維他命C加鋅) 香橙味水溶片 10片",
+    "code": "P000001692",
+    "prices": {
+      "WATSONS": 49
+    }
+  },
+  "維多C|3重功效 (維他命C加鋅) 兒童咀嚼片 90片": {
+    "brand": "維多C",
+    "name": "3重功效 (維他命C加鋅) 兒童咀嚼片 90片",
+    "code": "P000003198",
+    "prices": {
+      "WATSONS": 104.9,
+      "MANNINGS": 104.9,
+      "WELLCOME": 104.9,
+      "PARKNSHOP": 118
+    }
+  },
+  "康鈣|C950 (維他命C+鈣) 水溶片- 橙味 30片": {
+    "brand": "康鈣",
+    "name": "C950 (維他命C+鈣) 水溶片- 橙味 30片",
+    "code": "P000003197",
+    "prices": {
+      "MANNINGS": 113.9,
+      "PARKNSHOP": 113.9,
+      "WELLCOME": 114,
+      "WATSONS": 119
+    }
+  },
+  "佳存|純鈣片 (600毫克) 60粒裝": {
+    "brand": "佳存",
+    "name": "純鈣片 (600毫克) 60粒裝",
+    "code": "P000002949",
+    "prices": {}
+  },
+  "小善存|+維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒": {
+    "brand": "小善存",
+    "name": "+維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒",
+    "code": "P000002575",
+    "prices": {
+      "MANNINGS": 174.9,
+      "WATSONS": 185.9
+    }
+  },
+  "善存|成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒": {
+    "brand": "善存",
+    "name": "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒",
+    "code": "P000001663",
+    "prices": {
+      "WELLCOME": 183,
+      "MANNINGS": 261.9,
+      "WATSONS": 288
+    }
+  },
+  "銀善存|50+配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒": {
+    "brand": "銀善存",
+    "name": "50+配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒",
+    "code": "P000003194",
+    "prices": {
+      "MANNINGS": 312.9,
+      "WATSONS": 338
+    }
+  },
+  "惠氏|23種維他命及礦物質補充品 100粒": {
+    "brand": "惠氏",
+    "name": "23種維他命及礦物質補充品 100粒",
+    "code": "P000003195",
+    "prices": {
+      "MANNINGS": 264,
+      "WATSONS": 264
+    }
+  },
+  "司各脫|鰵魚肝油 - 鮮橙 400毫升": {
+    "brand": "司各脫",
+    "name": "鰵魚肝油 - 鮮橙 400毫升",
+    "code": "P000001732",
+    "prices": {
+      "MANNINGS": 111.9,
+      "WATSONS": 118
+    }
+  },
+  "司各脫|鰵魚肝油 - 乳白 400毫升": {
+    "brand": "司各脫",
+    "name": "鰵魚肝油 - 乳白 400毫升",
+    "code": "P000001733",
+    "prices": {}
+  },
+  "Kawai|日本肝油丸 (Drop S) 300粒": {
+    "brand": "Kawai",
+    "name": "日本肝油丸 (Drop S) 300粒",
+    "code": "P000001714",
+    "prices": {
+      "MANNINGS": 205,
+      "WATSONS": 205
+    }
+  },
+  "Swisse|無腥味高濃度野生魚油 200粒": {
+    "brand": "Swisse",
+    "name": "無腥味高濃度野生魚油 200粒",
+    "code": "P000004876",
+    "prices": {
+      "WELLCOME": 149.3,
+      "PARKNSHOP": 199,
+      "MANNINGS": 199,
+      "WATSONS": 199
+    }
+  },
+  "Blackmores|無腥味魚油1000 400粒": {
+    "brand": "Blackmores",
+    "name": "無腥味魚油1000 400粒",
+    "code": "P000004877",
+    "prices": {
+      "PARKNSHOP": 599,
+      "WATSONS": 599
+    }
+  },
+  "Kawai|無腥味日本肝油鈣丸 (Drop M400) 180粒": {
+    "brand": "Kawai",
+    "name": "無腥味日本肝油鈣丸 (Drop M400) 180粒",
+    "code": "P000003196",
+    "prices": {
+      "WATSONS": 182,
+      "MANNINGS": 182.5
+    }
+  },
+  "增美神|三文魚油丸 210粒": {
+    "brand": "增美神",
+    "name": "三文魚油丸 210粒",
+    "code": "P000004874",
+    "prices": {
+      "WATSONS": 275
+    }
+  },
+  "維柏健|3倍精煉魚油 80粒": {
+    "brand": "維柏健",
+    "name": "3倍精煉魚油 80粒",
+    "code": "P000004872",
+    "prices": {
+      "MANNINGS": 352
+    }
+  },
+  "日本命力|增強版強腦素 60粒": {
+    "brand": "日本命力",
+    "name": "增強版強腦素 60粒",
+    "code": "P000004875",
+    "prices": {
+      "WATSONS": 570
+    }
+  },
+  "優之源|雙岐乳酸菌啫喱 20包": {
+    "brand": "優之源",
+    "name": "雙岐乳酸菌啫喱 20包",
+    "code": "P000004949",
+    "prices": {
+      "WATSONS": 89,
+      "PARKNSHOP": 89
+    }
+  },
+  "Blackmores|腸道益生菌 (300億) 30粒": {
+    "brand": "Blackmores",
+    "name": "腸道益生菌 (300億) 30粒",
+    "code": "P000004946",
+    "prices": {
+      "WATSONS": 299,
+      "PARKNSHOP": 299,
+      "MANNINGS": 299
+    }
+  },
+  "康萃樂|兒童益生菌咀嚼片 30粒": {
+    "brand": "康萃樂",
+    "name": "兒童益生菌咀嚼片 30粒",
+    "code": "P000004956",
+    "prices": {
+      "WATSONS": 268,
+      "PARKNSHOP": 268
+    }
+  },
+  "Proven|益生菌 (合生原) 250億高效成人配方 30粒": {
+    "brand": "Proven",
+    "name": "益生菌 (合生原) 250億高效成人配方 30粒",
+    "code": "P000004951",
+    "prices": {
+      "MANNINGS": 165
+    }
+  },
+  "Naturo Vita|益生元．菌固體飲品 14包": {
+    "brand": "Naturo Vita",
+    "name": "益生元．菌固體飲品 14包",
+    "code": "P000004950",
+    "prices": {
+      "MANNINGS": 199
+    }
+  },
+  "善存|三效益生菌配方 60粒": {
+    "brand": "善存",
+    "name": "三效益生菌配方 60粒",
+    "code": "P000004948",
+    "prices": {
+      "PARKNSHOP": 276.5,
+      "MANNINGS": 395,
+      "WATSONS": 395
+    }
+  },
+  "Biostime|合生元兒童 HMO 益生菌 28包": {
+    "brand": "Biostime",
+    "name": "合生元兒童 HMO 益生菌 28包",
+    "code": "P000004955",
+    "prices": {
+      "MANNINGS": 343
+    }
+  }
+}
