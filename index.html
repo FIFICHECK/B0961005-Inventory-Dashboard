@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 22:07:46</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 22:07:46</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 22:12:07</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 22:12:07</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1783,7 +1783,13 @@
         
         // Clear and repopulate date options
         if (dateSelect) {
-            dateSelect.innerHTML = '<option value="">全部日期</option>';
+            // For Daily charts (SKU/Brand Daily), require a specific date - don't show "全部日期"
+            const isDailyChart = currentSalesChart.includes('Daily');
+            if (!isDailyChart) {
+                dateSelect.innerHTML = '<option value="">全部日期</option>';
+            } else {
+                dateSelect.innerHTML = '';
+            }
             let filteredDates;
             if (currentMonthFilter) {
                 filteredDates = dates.filter(d => d.startsWith(currentMonthFilter));
