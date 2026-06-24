@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:34:13</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:34:13</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:44:23</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-24 20:44:23</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1877,28 +1877,18 @@
         const config = chartConfigs[chartName];
         if (!config) return;
         
-        // Hide date filter for buttons 6,8,10 (SKU/Brand Monthly charts) - they are monthly aggregates
-        // Button 3 (GMV by Hour) shows date filter and filters by selected date
-        // Buttons 1,2,4 show date/month filters
-        const noDateFilterCharts = ['gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly'];
+        // All filters always visible for all charts
         const dateFilterRow = document.getElementById('salesDateFilterRow');
         if (dateFilterRow) {
-            dateFilterRow.style.display = noDateFilterCharts.includes(chartName) ? 'none' : '';
+            dateFilterRow.style.display = '';
         }
-        
-        // Hide month filter for gmvByDayOfWeek (Button 4) - its data is aggregated by day-of-week, not by date
-        // Month filter hidden for Date/Month charts which already show monthly granularity
-        const noMonthFilterCharts = ['gmvByDate', 'gmvByMonth', 'gmvByDayOfWeek'];
         const monthFilterRow = document.getElementById('salesMonthFilterRow');
         if (monthFilterRow) {
-            monthFilterRow.style.display = noMonthFilterCharts.includes(chartName) ? 'none' : '';
+            monthFilterRow.style.display = '';
         }
-        
-        // Year filter is hidden for Date/Month/DayOfWeek charts - they don't have multi-year data
         const yearFilterRow = document.getElementById('salesYearFilterRow');
-        const noYearFilterCharts = ['gmvByDate', 'gmvByMonth', 'gmvByDayOfWeek'];
         if (yearFilterRow) {
-            yearFilterRow.style.display = noYearFilterCharts.includes(chartName) ? 'none' : '';
+            yearFilterRow.style.display = '';
         }
         
         // Map salesTrendData.summary to the format expected by updateSalesSummary
