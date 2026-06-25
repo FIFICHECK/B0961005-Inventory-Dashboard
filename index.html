@@ -1569,6 +1569,9 @@
     <div class="detail-modal" id="detailModal"><div class="detail-card"><h4 id="modalTitle" class="mb-3"></h4><p id="modalContent"></p><div class="text-end"><button class="btn btn-secondary" onclick="closeModal()">Close</button></div></div></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // supermarketPrices - Auto-generated 2026-06-25 09:00:27
+        // Source: superpricehk.com API (categories 287=維他命, 288=魚油, 289=益生菌)
+        const supermarketPrices = {"P000001692": {"brand": "維多C", "name": "雙重功效 (維他命C加鋅) 香橙味水溶片 10片", "prices": {"watsons": "49"}}, "P000003198": {"brand": "維多C", "name": "3重功效 (維他命C加鋅) 兒童咀嚼片 90片", "prices": {"jasons": "104.9", "lungfung": "70", "mannings": "104.9", "parknshop": "118", "watsons": "104.9", "wellcome": "104.9"}}, "P000003197": {"brand": "康鈣", "name": "維新 (維他命C+鈣) 水溶片- 橙味 30片", "prices": {"jasons": "114", "lungfung": "90", "mannings": "113.9", "parknshop": "113.9", "watsons": "139", "wellcome": "114"}}, "P000002949": {"brand": "佳存", "name": "純鈣片 (600毫克) 60粒裝", "prices": {"lungfung": "145"}}, "P000002575": {"brand": "小善存", "name": "钙思健 (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒", "prices": {"lungfung": "168", "mannings": "174.9", "watsons": "185.9"}}, "P000001663": {"brand": "善存", "name": "Centrum from A to Z 多種維他命及礦物質 100粒", "prices": {"jasons": "183", "lungfung": "195", "mannings": "261.9", "watsons": "288", "wellcome": "183"}}, "P000003194": {"brand": "銀善存", "name": "50+配方 Advance - Complete from A to Z (多種維他命及礦物質) 100粒", "prices": {"lungfung": "230", "mannings": "312.9", "watsons": "338"}}, "P000003195": {"brand": "惠氏", "name": "23種維他命及礦物質補充品 100粒", "prices": {"mannings": "264", "watsons": "264"}}, "P000001732": {"brand": "司各脫", "name": "鰵魚肝油 - 鮮橙 400毫升", "prices": {"lungfung": "95", "mannings": "111.9", "watsons": "118"}}, "P000001733": {"brand": "司各脫", "name": "鰵魚肝油 - 乳白 400毫升", "prices": {"lungfung": "95"}}, "P000001714": {"brand": "Kawai", "name": "日本肝油丸 (Drop S) 300粒", "prices": {"lungfung": "125", "mannings": "205", "watsons": "205"}}, "P000004876": {"brand": "Swisse", "name": "無腥味高濃度野生魚油 200粒", "prices": {"jasons": "153.8", "mannings": "199", "parknshop": "199", "watsons": "199", "wellcome": "149.3"}}, "P000004877": {"brand": "Blackmores", "name": "無腥味魚油1000 400粒", "prices": {"lungfung": "178", "parknshop": "599", "watsons": "599"}}, "P000003196": {"brand": "Kawai", "name": "無腥味日本肝油鈣丸 (Drop M400) 180粒", "prices": {"mannings": "182.5", "watsons": "182"}}, "P000004874": {"brand": "增美神", "name": "三文魚油丸 210粒", "prices": {"watsons": "275"}}, "P000004872": {"brand": "維柏健", "name": "3倍精煉魚油 80粒", "prices": {"mannings": "352"}}, "P000004875": {"brand": "日本命力", "name": "增強版強腦素 60粒", "prices": {"watsons": "570"}}, "P000004949": {"brand": "優之源", "name": "雙岐乳酸菌啫喱 20包", "prices": {"parknshop": "89", "watsons": "89"}}, "P000004946": {"brand": "Blackmores", "name": "腸道益生菌 (300億) 30粒", "prices": {"mannings": "299", "parknshop": "299", "sasa": "115", "watsons": "299"}}, "P000004956": {"brand": "康萃樂", "name": "兒童益生菌咀嚼片 30粒", "prices": {"lungfung": "128", "parknshop": "268", "watsons": "268"}}, "P000004951": {"brand": "Proven", "name": "益生菌 (合生原) 250億高效成人配方 30粒", "prices": {"mannings": "165"}}, "P000004950": {"brand": "Naturo Vita", "name": "益生元．菌固體飲品 14包", "prices": {"mannings": "199"}}, "P000004948": {"brand": "善存", "name": "三效益生菌配方 60粒", "prices": {"lungfung": "290", "mannings": "395", "parknshop": "276.5", "watsons": "395"}}, "P000004955": {"brand": "Biostime", "name": "合生元兒童 HMO 益生菌 28包", "prices": {"mannings": "343"}}};
         function switchTab(t){document.querySelector('[data-bs-target="#'+t+'"]').click()}
         function showDetail(sku,name,inv,status){
             const L={'zero':'🚫 Zero','low':'⚠️ Low','normal':'🟢 Normal','high':'🔵 High'};
@@ -2441,7 +2444,78 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
         </div>
     </div>
     <script>
-    const priceHistoryData = {
+    // supermarketPrices - Auto-generated 2026-06-25 09:04:39
+// Source: superpricehk.com API (categories 287, 288, 289)
+const supermarketPrices = {
+  "P000001692": {
+    "watsons": "49", "brand": "維多C", "name": "雙重功效 (維他命C加鋅) 香橙味水溶片 10片"
+  },
+  "P000003198": {
+    "wellcome": "104.9", "mannings": "104.9", "watsons": "104.9", "parknshop": "118", "brand": "維多C", "name": "3重功效 (維他命C加鋅) 兒童咀嚼片 90片"
+  },
+  "P000003197": {
+    "wellcome": "114", "mannings": "113.9", "watsons": "139", "parknshop": "113.9", "brand": "康鈣", "name": "C950 (維他命C+鈣) 水溶片- 橙味 30片"
+  },
+  "P000002575": {
+    "mannings": "174.9", "watsons": "185.9", "brand": "小善存", "name": "+維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒"
+  },
+  "P000001663": {
+    "wellcome": "183", "mannings": "261.9", "watsons": "288", "brand": "善存", "name": "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒"
+  },
+  "P000003194": {
+    "mannings": "312.9", "watsons": "338", "brand": "銀善存", "name": "50+配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒"
+  },
+  "P000003195": {
+    "mannings": "264", "watsons": "264", "brand": "惠氏", "name": "23種維他命及礦物質補充品 100粒"
+  },
+  "P000001732": {
+    "mannings": "111.9", "watsons": "118", "brand": "司各脫", "name": "鰵魚肝油 - 鮮橙 400毫升"
+  },
+  "P000001714": {
+    "mannings": "205", "watsons": "205", "brand": "Kawai", "name": "日本肝油丸 (Drop S) 300粒"
+  },
+  "P000004876": {
+    "wellcome": "149.3", "mannings": "199", "watsons": "199", "parknshop": "199", "brand": "Swisse", "name": "無腥味高濃度野生魚油 200粒"
+  },
+  "P000004877": {
+    "watsons": "599", "parknshop": "599", "brand": "Blackmores", "name": "無腥味魚油1000 400粒"
+  },
+  "P000003196": {
+    "mannings": "182.5", "watsons": "182", "brand": "Kawai", "name": "無腥味日本肝油鈣丸 (Drop M400) 180粒"
+  },
+  "P000004874": {
+    "watsons": "275", "brand": "增美神", "name": "三文魚油丸 210粒"
+  },
+  "P000004872": {
+    "mannings": "352", "brand": "維柏健", "name": "3倍精煉魚油 80粒"
+  },
+  "P000004875": {
+    "watsons": "570", "brand": "日本命力", "name": "增強版強腦素 60粒"
+  },
+  "P000004949": {
+    "watsons": "89", "parknshop": "89", "brand": "優之源", "name": "雙岐乳酸菌啫喱 20包"
+  },
+  "P000004946": {
+    "mannings": "299", "watsons": "299", "parknshop": "299", "brand": "Blackmores", "name": "腸道益生菌 (300億) 30粒"
+  },
+  "P000004956": {
+    "watsons": "268", "parknshop": "268", "brand": "康萃樂", "name": "兒童益生菌咀嚼片 30粒"
+  },
+  "P000004951": {
+    "mannings": "165", "brand": "Proven", "name": "益生菌 (合生原) 250億高效成人配方 30粒"
+  },
+  "P000004950": {
+    "mannings": "199", "brand": "Naturo Vita", "name": "益生元．菌固體飲品 14包"
+  },
+  "P000004948": {
+    "mannings": "395", "watsons": "395", "parknshop": "276.5", "brand": "善存", "name": "三效益生菌配方 60粒"
+  },
+  "P000004955": {
+    "mannings": "343", "brand": "Biostime", "name": "合生元兒童 HMO 益生菌 28包"
+  }
+};
+
+const priceHistoryData = {
   'B0961005_S_302993925040': [
     {date:'2026-06-14',rsp:49.9,psp:34.9},
     {date:'2026-06-15',rsp:49.9,psp:34.9},
