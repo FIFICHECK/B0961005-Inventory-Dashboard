@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-25 11:13:20</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-25 11:13:20</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-25 11:26:41</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-24 (13:00:00) &nbsp;|&nbsp; 🔄 2026-06-25 11:26:41</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1533,16 +1533,20 @@
                                 <option value="">全部年份</option>
                             </select>
                             </span>
-                            <div class="d-flex gap-2 flex-wrap align-items-center">
-                                <span class="badge bg-primary">當月 (2026-06): GMV $<span id="stTotalGMV">0</span></span>
-                                <span class="badge bg-success">Orders: <span id="stTotalOrders">0</span></span>
-                                <span class="badge bg-warning text-dark">Avg: $<span id="stAvgGMV">0</span></span>
-                            </div>
-                            <div class="d-flex gap-2 flex-wrap align-items-center mt-1">
-                                <span class="badge bg-secondary">上月 (2026-05): GMV $<span id="stLastGMV">0</span></span>
-                                <span class="badge bg-secondary">Orders: <span id="stLastOrders">0</span></span>
-                                <span class="badge bg-secondary">Avg: $<span id="stLastAvg">0</span></span>
-                            </div>
+                            <div class="d-flex flex-column gap-2">
+                                <div class="d-flex gap-2 flex-wrap align-items-center">
+                                    <span class="badge bg-primary">當月 (JUN 2026)</span>
+                                    <span class="badge bg-primary">GMV $<span id="stTotalGMV">0</span></span>
+                                    <span class="badge bg-success">Orders <span id="stTotalOrders">0</span></span>
+                                    <span class="badge bg-warning text-dark">Avg $<span id="stAvgGMV">0</span></span>
+                                </div>
+                                <div class="d-flex gap-2 flex-wrap align-items-center">
+                                    <span class="badge bg-secondary">上月 (MAY 2026)</span>
+                                    <span class="badge bg-secondary">GMV $<span id="stLastGMV">0</span></span>
+                                    <span class="badge bg-secondary">Orders <span id="stLastOrders">0</span></span>
+                                    <span class="badge bg-secondary">Avg $<span id="stLastAvg">0</span></span>
+                                </div>
+                            </div>                            </div>
                         </div>
                     </div>
                     <div class="card-body">
