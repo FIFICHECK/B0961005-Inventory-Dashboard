@@ -1,5 +1,17 @@
 [
   {
+    "date": "6月25日",
+    "gmv": "$10,722.80",
+    "timestamp": "11:00",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260625110000.xlsx"
+  },
+  {
+    "date": "6月24日",
+    "gmv": "$16,120.30",
+    "timestamp": "13:00",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260624130000.xlsx"
+  },
+  {
     "date": "6月23日",
     "gmv": "$13,358.60",
     "timestamp": "18:00",
@@ -46,6 +58,54 @@
     "gmv": "$27,831.50",
     "timestamp": "23:59",
     "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260616235959.xlsx"
+  },
+  {
+    "date": "6月15日",
+    "gmv": "$21,346.00",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260615235959.xlsx"
+  },
+  {
+    "date": "6月14日",
+    "gmv": "$74,960.00",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260614235959.xlsx"
+  },
+  {
+    "date": "6月13日",
+    "gmv": "$67,577.30",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260613235959.xlsx"
+  },
+  {
+    "date": "6月12日",
+    "gmv": "$20,193.80",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260612235959.xlsx"
+  },
+  {
+    "date": "6月11日",
+    "gmv": "$11,016.40",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260611235959.xlsx"
+  },
+  {
+    "date": "6月10日",
+    "gmv": "$20,255.90",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260610235959.xlsx"
+  },
+  {
+    "date": "6月9日",
+    "gmv": "$11,851.60",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260609235959.xlsx"
+  },
+  {
+    "date": "6月8日",
+    "gmv": "$15,569.50",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260608235959.xlsx"
   },
   {
     "date": "6月7日",
