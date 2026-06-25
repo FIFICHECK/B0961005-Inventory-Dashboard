@@ -1,6 +1,6 @@
 // Auto-generated sales trend data
-// Generated: 2026-06-25 12:25:01
-// Source: ECOM-MMSNG_DAILY_ORDER_B0961005_20260625110000.xlsx
+// Generated: 2026-06-25 16:32:19
+// Source: ECOM-MMSNG_DAILY_ORDER_B0961005_20260621180001.xlsx
 
 const salesTrendData = {
   "sku_name_map": {
