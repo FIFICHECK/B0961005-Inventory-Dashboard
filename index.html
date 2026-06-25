@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-25 19:26:00</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-25 (11:00:00) &nbsp;|&nbsp; 🔄 2026-06-25 19:26:00</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-06-23 (00:00:00) &nbsp;|&nbsp; 🔄 2026-06-25 22:13:30</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-06-25 (11:00:00) &nbsp;|&nbsp; 🔄 2026-06-25 22:13:30</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -2265,8 +2265,8 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
             skuTotals.sort((a, b) => b.total - a.total);
             skuTotals.forEach(({sku, total}) => {
                 if (total <= 0) return;
-                const skuIdFormatted = 'B0961005_S_' + sku;
-                const skuHktvUrl = 'https://www.hktvmall.com/hktv/p/B0961005_S_' + sku;
+                const skuIdFormatted = sku.startsWith('B0961005_S_') ? sku : 'B0961005_S_' + sku;
+                const skuHktvUrl = 'https://www.hktvmall.com/hktv/p/' + skuIdFormatted;
                 const skuName = (salesTrendData.sku_product_name_map?.[sku]) || salesTrendData.sku_name_map?.[sku] || sku;
                 const brandName = salesTrendData.sku_brand_map?.[sku] || '-';
                 const searchText = (skuIdFormatted + ' ' + brandName + ' ' + skuName).toLowerCase();
@@ -2292,8 +2292,8 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
             filteredLabels.forEach((sku, idx) => {
                 const total = filteredDataObj[idx] || 0;
                 if (total <= 0) return;
-                const skuIdFormatted = 'B0961005_S_' + sku;
-                const skuHktvUrl = 'https://www.hktvmall.com/hktv/p/B0961005_S_' + sku;
+                const skuIdFormatted = sku.startsWith('B0961005_S_') ? sku : 'B0961005_S_' + sku;
+                const skuHktvUrl = 'https://www.hktvmall.com/hktv/p/' + skuIdFormatted;
                 const skuName = (salesTrendData.sku_product_name_map?.[sku]) || salesTrendData.sku_name_map?.[sku] || sku;
                 const brandName = salesTrendData.sku_brand_map?.[sku] || '-';
                 const searchText = (skuIdFormatted + ' ' + brandName + ' ' + skuName).toLowerCase();
