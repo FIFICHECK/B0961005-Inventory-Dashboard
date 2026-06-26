@@ -2005,33 +2005,33 @@
         const config = chartConfigs[chartName];
         if (!config) return;
         
-        // Only reset to current year-month-day on INITIAL page load
+        // Only reset to current year-month on INITIAL page load
+        // Don't set date filter initially - let it default to show all data
         if (isInitialLoad) {
             const now = new Date();
             const currentYear = now.getFullYear().toString();
             const currentMonth = (now.getMonth() + 1).toString().padStart(2, '0');
-            const currentDate = (now.getDate()).toString().padStart(2, '0');
             const currentYearMonth = currentYear + '-' + currentMonth;
-            const currentFullDate = currentYear + '-' + currentMonth + '-' + currentDate;
             
             currentYearFilter = currentYear;
             currentMonthFilter = currentYearMonth;
-            currentDateFilter = currentFullDate;
+            currentDateFilter = '';  // Don't filter by specific date on initial load - show all data
             
             const yearSelect = document.getElementById('salesYearFilter');
             const monthSelect = document.getElementById('salesMonthFilter');
             const dateSelect = document.getElementById('salesDateFilter');
             if (yearSelect) yearSelect.value = currentYear;
             if (monthSelect) monthSelect.value = currentMonthFilter;
-            if (dateSelect) dateSelect.value = currentDateFilter;
+            if (dateSelect) dateSelect.value = '';  // Clear date filter initially
             
             // Re-populate dropdown options based on selected year/month
             populateFilteredOptions();
             isInitialLoad = false;
         }
         
-        // Date filter is hidden for GMV by Monthly, GMV by DayOfWeek, and SKU/Brand Daily/Monthly charts
-        const hideDateFilterCharts = ['gmvByMonth', 'gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly', 'gmvByBrandDaily'];
+        // Date filter is hidden for Monthly SKU/Brand charts (buttons 6, 8, 10 only)
+        // Brand Daily (button 9) SHOULD show date filter per Gary's decision
+        const hideDateFilterCharts = ['gmvByMonth', 'gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly'];
         const dateFilterRow = document.getElementById('salesDateFilterRow');
         if (dateFilterRow) {
             dateFilterRow.style.display = hideDateFilterCharts.includes(chartName) ? 'none' : '';
