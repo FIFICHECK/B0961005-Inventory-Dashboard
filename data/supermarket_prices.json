@@ -15,7 +15,8 @@
       "wellcome": "104.9",
       "mannings": "104.9",
       "watsons": "104.9",
-      "parknshop": "118"
+      "parknshop": "118",
+      "lungfung": "70"
     }
   },
   "康鈣|C950 (維他命C+鈣) 水溶片- 橙味 30片": {
@@ -26,7 +27,8 @@
       "mannings": "113.9",
       "parknshop": "113.9",
       "wellcome": "114",
-      "watsons": "139"
+      "watsons": "139",
+      "lungfung": "90"
     }
   },
   "小善存|+維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒": {
@@ -35,7 +37,8 @@
     "code": "P000002575",
     "prices": {
       "mannings": "174.9",
-      "watsons": "185.9"
+      "watsons": "185.9",
+      "lungfung": "168"
     }
   },
   "善存|成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒": {
@@ -45,7 +48,8 @@
     "prices": {
       "wellcome": "183",
       "mannings": "261.9",
-      "watsons": "288"
+      "watsons": "288",
+      "lungfung": "195"
     }
   },
   "銀善存|50+配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒": {
@@ -54,7 +58,8 @@
     "code": "P000003194",
     "prices": {
       "mannings": "312.9",
-      "watsons": "338"
+      "watsons": "338",
+      "lungfung": "230"
     }
   },
   "惠氏|23種維他命及礦物質補充品 100粒": {
@@ -72,7 +77,8 @@
     "code": "P000001732",
     "prices": {
       "mannings": "111.9",
-      "watsons": "118"
+      "watsons": "118",
+      "lungfung": "95"
     }
   },
   "Kawai|日本肝油丸 (Drop S) 300粒": {
@@ -81,7 +87,8 @@
     "code": "P000001714",
     "prices": {
       "watsons": "205",
-      "mannings": "205"
+      "mannings": "205",
+      "lungfung": "125"
     }
   },
   "Swisse|無腥味高濃度野生魚油 200粒": {
@@ -101,7 +108,8 @@
     "code": "P000004877",
     "prices": {
       "watsons": "599",
-      "parknshop": "599"
+      "parknshop": "599",
+      "lungfung": "178"
     }
   },
   "Kawai|無腥味日本肝油鈣丸 (Drop M400) 180粒": {
@@ -162,7 +170,8 @@
     "code": "P000004956",
     "prices": {
       "parknshop": "268",
-      "watsons": "268"
+      "watsons": "268",
+      "lungfung": "128"
     }
   },
   "Proven|益生菌 (合生原) 250億高效成人配方 30粒": {
@@ -188,7 +197,8 @@
     "prices": {
       "parknshop": "276.5",
       "mannings": "395",
-      "watsons": "395"
+      "watsons": "395",
+      "lungfung": "290"
     }
   },
   "Biostime|合生元兒童 HMO 益生菌 28包": {
@@ -197,6 +207,22 @@
     "code": "P000004955",
     "prices": {
       "mannings": "343"
+    }
+  },
+  "佳存|純鈣片 (600毫克) 60粒裝": {
+    "brand": "佳存",
+    "name": "純鈣片 (600毫克) 60粒裝",
+    "code": "P000002949",
+    "prices": {
+      "lungfung": "145"
+    }
+  },
+  "司各脫|鰵魚肝油 - 乳白 400毫升": {
+    "brand": "司各脫",
+    "name": "鰵魚肝油 - 乳白 400毫升",
+    "code": "P000001733",
+    "prices": {
+      "lungfung": "95"
     }
   }
 }
