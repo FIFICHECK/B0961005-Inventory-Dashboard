@@ -3,14 +3,14 @@
     "watsons": "49"
   },
   "維多c 3重功效 (維他命c加鋅) 兒童咀嚼片 90片": {
-    "wellcome": "104.9",
     "mannings": "104.9",
+    "wellcome": "104.9",
     "watsons": "104.9",
     "parknshop": "118"
   },
   "康鈣 c950 (維他命c+鈣) 水溶片- 橙味 30片": {
-    "mannings": "113.9",
     "parknshop": "113.9",
+    "mannings": "113.9",
     "wellcome": "114",
     "watsons": "139"
   },
@@ -19,7 +19,7 @@
     "watsons": "185.9"
   },
   "善存 成人配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
-    "wellcome": "183",
+    "wellcome": "196.5",
     "mannings": "261.9",
     "watsons": "288"
   },
@@ -41,9 +41,9 @@
   },
   "swisse 無腥味高濃度野生魚油 200粒": {
     "wellcome": "149.3",
+    "mannings": "199",
     "parknshop": "199",
-    "watsons": "199",
-    "mannings": "199"
+    "watsons": "199"
   },
   "blackmores 無腥味魚油1000 400粒": {
     "watsons": "599",
@@ -67,9 +67,9 @@
     "watsons": "89"
   },
   "blackmores 腸道益生菌 (300億) 30粒": {
-    "parknshop": "299",
+    "mannings": "299",
     "watsons": "299",
-    "mannings": "299"
+    "parknshop": "299"
   },
   "康萃樂 兒童益生菌咀嚼片 30粒": {
     "parknshop": "268",
@@ -82,11 +82,52 @@
     "mannings": "199"
   },
   "善存 三效益生菌配方 60粒": {
-    "parknshop": "276.5",
-    "watsons": "395",
-    "mannings": "395"
+    "mannings": "395",
+    "parknshop": "395",
+    "watsons": "395"
   },
   "biostime 合生元兒童 hmo 益生菌 28包": {
+    "mannings": "343"
+  },
+  "維多C 雙重功效 (維他命c加鋅) 香橙味水溶片 10片": {
+    "watsons": "49"
+  },
+  "維多C 3重功效 (維他命c加鋅) 兒童咀嚼片 90片": {
+    "mannings": "104.9",
+    "wellcome": "104.9",
+    "watsons": "104.9",
+    "parknshop": "118"
+  },
+  "Kawai 日本肝油丸 (drop s) 300粒": {
+    "mannings": "205",
+    "watsons": "205"
+  },
+  "Swisse 無腥味高濃度野生魚油 200粒": {
+    "wellcome": "149.3",
+    "mannings": "199",
+    "parknshop": "199",
+    "watsons": "199"
+  },
+  "Blackmores 無腥味魚油1000 400粒": {
+    "watsons": "599",
+    "parknshop": "599"
+  },
+  "Kawai 無腥味日本肝油鈣丸 (drop m400) 180粒": {
+    "watsons": "182",
+    "mannings": "182.5"
+  },
+  "Blackmores 腸道益生菌 (300億) 30粒": {
+    "mannings": "299",
+    "watsons": "299",
+    "parknshop": "299"
+  },
+  "Proven 益生菌 (合生原) 250億高效成人配方 30粒": {
+    "mannings": "165"
+  },
+  "Naturo Vita 益生元．菌固體飲品 14包": {
+    "mannings": "199"
+  },
+  "Biostime 合生元兒童 hmo 益生菌 28包": {
     "mannings": "343"
   }
 }
