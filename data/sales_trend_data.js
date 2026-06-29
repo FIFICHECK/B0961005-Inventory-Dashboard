@@ -1,5 +1,5 @@
 // Auto-generated sales trend data
-// Generated: 2026-06-29 16:11:48
+// Generated: 2026-06-29 16:12:39
 // Source: All daily order reports (combined)
 
 const salesTrendData = {
