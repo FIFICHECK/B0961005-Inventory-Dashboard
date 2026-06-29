@@ -1,9 +1,15 @@
 [
   {
+    "date": "6月28日",
+    "gmv": "$77,734.40",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260628235959.xlsx"
+  },
+  {
     "date": "6月27日",
-    "gmv": "$49,049.60",
-    "timestamp": "18:00",
-    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260627180000.xlsx"
+    "gmv": "$65,712.70",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260627235959.xlsx"
   },
   {
     "date": "6月24日",
