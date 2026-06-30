@@ -1,11 +1,11 @@
 {
-  "updated": "2026-06-29",
-  "updated_at": "2026-06-29 09:08:33",
-  "source": "superpricehk.com API + Wellcome/Mannings Playwright scrape",
+  "updated": "2026-06-30",
+  "updated_at": "2026-06-30 09:00:00",
+  "source": "superpricehk.com API (categories 287, 288, 289)",
   "api_products": 23,
-  "wellcome_scraped": 42,
-  "mannings_scraped": 70,
-  "total_merged": 208,
+  "wellcome_scraped": 0,
+  "mannings_scraped": 0,
+  "total_merged": 23,
   "watsons_blocked": true,
   "parknshop_blocked": true
 }
