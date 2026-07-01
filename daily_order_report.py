@@ -38,6 +38,7 @@ REPORTS_DIR = REPO_ROOT / "reports" / "order_reports"
 MANIFEST    = DATA_DIR / "order_reports_manifest.json"
 ORDER_DATA  = DATA_DIR / "order_data.json"
 SALES_TREND = DATA_DIR / "sales_trend_data.js"
+INDEX_HTML  = REPO_ROOT / "index.html"
 
 REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -386,6 +387,136 @@ def update_manifest(xlsx_path: Path, gmv_total: float, target_date: datetime):
     print(f"  ✅ Manifest: {date_cn} GMV={entry['gmv']} @{ts}")
 
 
+# ── Inject new chart data into index.html (incremental, preserves history) ────
+
+def _norm(s):
+    return s.replace("B0961005_S_", "")
+
+def _pfx(bare):
+    return bare if bare.startswith("B0961005_S_") else "B0961005_S_" + bare
+
+def inject_into_index_html(new_chart):
+    """Merge new_chart into existing salesTrendData in index.html.
+
+    - New dates → prepend rows with per-SKU/brand values
+    - New SKUs/brands → append columns with 0 for existing date rows
+    - Overlapping dates → overwrite with new_chart values (authoritative)
+    """
+    if not INDEX_HTML.exists():
+        print("  ⚠️  index.html not found, skipping inject")
+        return
+
+    html = INDEX_HTML.read_text(encoding="utf-8")
+    em = re.search(r"    const salesTrendData = (\{.*\})", html)
+    if not em:
+        print("  ⚠️  salesTrendData not found in index.html")
+        return
+
+    ex = json.loads(em.group(1))
+    changed = False
+
+    for key in ("gmv_by_date", "orders_by_date"):
+        if key not in new_chart or key not in ex:
+            continue
+        nc, ec = new_chart[key], ex[key]
+        existing_set = set(ec["labels"])
+        new_dates = [d for d in nc["labels"] if d not in existing_set]
+        if new_dates:
+            new_vals = [nc["data"][nc["labels"].index(d)] for d in new_dates]
+            ec["labels"] = new_dates + ec["labels"]
+            ec["data"]   = new_vals  + ec["data"]
+            changed = True
+
+    if "gmv_by_month" in new_chart and "gmv_by_month" in ex:
+        nc, ec = new_chart["gmv_by_month"], ex["gmv_by_month"]
+        for month, val in zip(nc["labels"], nc["data"]):
+            if month in ec["labels"]:
+                ec["data"][ec["labels"].index(month)] = val
+            else:
+                ec["labels"].insert(0, month)
+                ec["data"].insert(0, val)
+                changed = True
+
+    for key in ("gmv_by_hour", "gmv_by_day_of_week", "gmv_by_date_hour"):
+        if key in new_chart and key in ex:
+            ex[key] = new_chart[key]
+            changed = True
+
+    def _merge_daily(chart_key, item_field):
+        nonlocal changed
+        if chart_key not in new_chart or chart_key not in ex:
+            return
+        nc, ec = new_chart[chart_key], ex[chart_key]
+        new_dates = [d for d in nc["labels"] if d not in set(ec["labels"])]
+        if not new_dates:
+            return
+        ex_item_set = {_norm(s) for s in ec[item_field]}
+        nc_item_map = {_norm(s): i for i, s in enumerate(nc[item_field])}
+        for b in (b for b in nc_item_map if b not in ex_item_set):
+            ec[item_field].append(_pfx(b))
+            for row in ec["data"]:
+                row.append(0)
+        for nd in new_dates:
+            nd_idx = nc["labels"].index(nd)
+            row = []
+            for item_str in ec[item_field]:
+                bare = _norm(item_str)
+                ni = nc_item_map.get(bare)
+                row.append(round(nc["data"][nd_idx][ni], 2) if ni is not None else 0)
+            ec["data"].insert(0, row)
+            ec["labels"].insert(0, nd)
+        changed = True
+
+    def _merge_monthly(chart_key, item_field):
+        nonlocal changed
+        if chart_key not in new_chart or chart_key not in ex:
+            return
+        nc, ec = new_chart[chart_key], ex[chart_key]
+        ex_item_set = {_norm(s) for s in ec[item_field]}
+        nc_item_map = {_norm(s): i for i, s in enumerate(nc[item_field])}
+        for b in (b for b in nc_item_map if b not in ex_item_set):
+            ec[item_field].append(_pfx(b))
+            for row in ec["data"]:
+                row.append(0)
+        for mi, month in enumerate(nc["labels"]):
+            if month in ec["labels"]:
+                ei = ec["labels"].index(month)
+                for j, item_str in enumerate(ec[item_field]):
+                    ni = nc_item_map.get(_norm(item_str))
+                    if ni is not None:
+                        ec["data"][ei][j] = nc["data"][mi][ni]
+            else:
+                new_row = []
+                for item_str in ec[item_field]:
+                    ni = nc_item_map.get(_norm(item_str))
+                    new_row.append(round(nc["data"][mi][ni], 2) if ni is not None else 0)
+                ec["labels"].insert(0, month)
+                ec["data"].insert(0, new_row)
+        changed = True
+
+    _merge_daily("gmv_by_sku_daily",   "skus")
+    _merge_daily("qty_by_sku_daily",   "skus")
+    _merge_daily("gmv_by_brand_daily", "brands")
+    _merge_monthly("gmv_by_sku_monthly",   "skus")
+    _merge_monthly("qty_by_sku_monthly",   "skus")
+    _merge_monthly("gmv_by_brand_monthly", "brands")
+
+    if "summary" in new_chart:
+        ex["summary"] = new_chart["summary"]
+        changed = True
+
+    if not changed:
+        print("  ℹ️  No new dates to inject into index.html")
+        return
+
+    compact = json.dumps(ex, ensure_ascii=False, separators=(",", ":"))
+    new_html = re.sub(r"( {4}const salesTrendData = )\{.*\}", r"\g<1>" + compact, html)
+    INDEX_HTML.write_text(new_html, encoding="utf-8")
+    n_dates = len(ex["gmv_by_date"]["labels"])
+    n_skus  = len(ex["gmv_by_sku_daily"]["skus"])
+    print(f"  ✅ index.html updated: {n_dates} dates, {n_skus} SKUs")
+
+
 # ── Regenerate sales_trend_data.js ─────────────────────────────────────────────
 
 def regenerate_sales_trend():
@@ -418,12 +549,12 @@ def regenerate_sales_trend():
     order_arr = [order_count.get(ds, 0) for ds in labels_date]
 
     sku_totals = {sku: sum(dv.values()) for sku, dv in gmv_sku_daily.items()}
-    top_skus   = sorted(sku_totals, key=lambda x: -sku_totals[x])[:50]
+    top_skus   = sorted(sku_totals, key=lambda x: -sku_totals[x])
     sku_data   = [[round(gmv_sku_daily.get(s, {}).get(ds, 0), 2) for ds in labels_date] for s in top_skus]
     qty_data   = [[round(qty_sku_daily.get(s, {}).get(ds, 0), 2) for ds in labels_date] for s in top_skus]
 
     brand_totals = {b: sum(dv.values()) for b, dv in gmv_brand_daily.items()}
-    top_brands   = sorted(brand_totals, key=lambda x: -brand_totals[x])[:20]
+    top_brands   = sorted(brand_totals, key=lambda x: -brand_totals[x])
     brand_data   = [[round(gmv_brand_daily.get(b, {}).get(ds, 0), 2) for ds in labels_date] for b in top_brands]
 
     # Monthly aggregations
@@ -486,6 +617,8 @@ def regenerate_sales_trend():
 
     SALES_TREND.write_text(js, encoding="utf-8")
     print(f"  ✅ sales_trend_data.js regenerated ({len(js):,} bytes)")
+
+    inject_into_index_html(chart_data)
 
 
 # ── Main ───────────────────────────────────────────────────────────────────────
