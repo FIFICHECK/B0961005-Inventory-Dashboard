@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-07-01 (00:00:00) &nbsp;|&nbsp; 🔄 2026-07-02 13:18:30</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-07-01 (23:59:59) &nbsp;|&nbsp; 🔄 2026-07-02 13:18:30</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-07-01 (00:00:00) &nbsp;|&nbsp; 🔄 2026-07-02 13:37:02</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-07-01 (23:59:59) &nbsp;|&nbsp; 🔄 2026-07-02 13:37:02</p>
                     </div>
                     <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
                 </div>
@@ -1704,18 +1704,19 @@
                             </span>
                             <div class="d-flex flex-column gap-2">
                                 <div class="d-flex gap-2 flex-wrap align-items-center">
-                                    <span class="badge bg-primary">當月 (JUN 2026)</span>
-                                    <span class="badge bg-primary">GMV $<span id="stTotalGMV">0</span></span>
+                                    <span id="stThisMonthLabel">當月 (---)</span>
+                                    <span class="text-success fw-bold">GMV $<span id="stTotalGMV">0</span></span>
                                     <span class="badge bg-success">Orders <span id="stTotalOrders">0</span></span>
                                     <span class="badge bg-warning text-dark">Avg $<span id="stAvgGMV">0</span></span>
                                 </div>
                                 <div class="d-flex gap-2 flex-wrap align-items-center">
-                                    <span class="badge bg-secondary">上月 (MAY 2026)</span>
-                                    <span class="badge bg-secondary">GMV $<span id="stLastGMV">0</span></span>
-                                    <span class="badge bg-secondary">Orders <span id="stLastOrders">0</span></span>
-                                    <span class="badge bg-secondary">Avg $<span id="stLastAvg">0</span></span>
+                                    <span id="stLastMonthLabel">上月 (---)</span>
+                                    <span class="text-success fw-bold">GMV $<span id="stLastGMV">0</span></span>
+                                    <span class="badge bg-success">Orders <span id="stLastOrders">0</span></span>
+                                    <span class="badge bg-warning text-dark">Avg $<span id="stLastAvg">0</span></span>
                                 </div>
-                            </div>                            </div>
+                            </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -1952,6 +1953,8 @@
             } else {
                 filteredMonths = salesTrendData.gmv_by_month.labels || [];
             }
+            // Gary requirement: limit to current month + previous 2 months only (max 3 months)
+            filteredMonths = filteredMonths.slice(0, 3);
             filteredMonths.forEach(m => {
                 const opt = document.createElement('option'); opt.value = m; opt.textContent = m;
                 monthSelect.appendChild(opt);
@@ -2590,6 +2593,19 @@ if (isSkuChart) html += '<th class="text-start">SKU ID</th><th class="text-start
 
     function updateSalesSummary() {
         const summary = salesSummary || {};
+        // Helper to format month label like "JUL 2026"
+        const formatMonthLabel = (monthStr) => {
+            if (!monthStr) return '---';
+            const [year, month] = monthStr.split('-');
+            const monthNames = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+            const m = parseInt(month, 10);
+            return monthNames[m - 1] + ' ' + year;
+        };
+        // Update month labels
+        const labelEl = document.getElementById('stThisMonthLabel');
+        if (labelEl) labelEl.textContent = '當月 (' + formatMonthLabel(summary.thisMonth?.label) + ')';
+        const labelEl2 = document.getElementById('stLastMonthLabel');
+        if (labelEl2) labelEl2.textContent = '上月 (' + formatMonthLabel(summary.lastMonth?.label) + ')';
         // This month (current month)
         const el = document.getElementById('stTotalGMV');
         if (el) el.textContent = (summary.thisMonth?.gmv || 0).toLocaleString(undefined, {minimumFractionDigits: 2});
