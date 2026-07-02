@@ -2222,7 +2222,8 @@
                 totalOrders: salesTrendData.summary.total_orders || 0,
                 avgGMVPerOrder: salesTrendData.summary.avg_order_value || 0,
                 thisMonth: salesTrendData.summary.this_month || { label: '', gmv: 0, orders: 0, avg: 0 },
-                lastMonth: salesTrendData.summary.last_month || { label: '', gmv: 0, orders: 0, avg: 0 }
+                lastMonth: salesTrendData.summary.last_month || { label: '', gmv: 0, orders: 0, avg: 0 },
+                monthBeforeLast: salesTrendData.summary.month_before_last || { label: '', gmv: 0, orders: 0, avg: 0 }
             };
         }
         updateSalesSummary();
