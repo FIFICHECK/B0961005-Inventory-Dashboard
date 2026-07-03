@@ -6,27 +6,36 @@
     "mannings": "104.9",
     "wellcome": "104.9",
     "watsons": "104.9",
-    "parknshop": "118"
+    "parknshop": "118",
+    "lungfung": "70",
+    "jasons": "104.9"
   },
   "康鈣 c950 (維他命c+鈣) 水溶片- 橙味 30片": {
     "parknshop": "113.9",
     "mannings": "113.9",
     "wellcome": "114",
-    "watsons": "139"
+    "watsons": "139",
+    "lungfung": "90",
+    "jasons": "114"
   },
   "小善存 +維他命c (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒": {
     "mannings": "174.9",
-    "watsons": "185.9"
+    "watsons": "185.9",
+    "lungfung": "168"
   },
   "善存 成人配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
     "wellcome": "196.5",
     "mannings": "261.9",
-    "watsons": "288"
+    "watsons": "288",
+    "lungfung": "195",
+    "jasons": "262"
   },
   "銀善存 50+配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
     "mannings": "312.9",
-    "watsons": "338",
-    "wellcome": "234.7"
+    "watsons": "312.9",
+    "wellcome": "234.7",
+    "lungfung": "230",
+    "jasons": "312.9"
   },
   "惠氏 23種維他命及礦物質補充品 100粒": {
     "mannings": "264",
@@ -35,21 +44,26 @@
   "司各脫 鰵魚肝油 - 鮮橙 400毫升": {
     "mannings": "111.9",
     "watsons": "118",
-    "wellcome": "95"
+    "wellcome": "95",
+    "jasons": "95",
+    "lungfung": "95"
   },
   "kawai 日本肝油丸 (drop s) 300粒": {
     "mannings": "205",
-    "watsons": "205"
+    "watsons": "205",
+    "lungfung": "125"
   },
   "swisse 無腥味高濃度野生魚油 200粒": {
     "wellcome": "149.3",
     "mannings": "199",
     "parknshop": "199",
-    "watsons": "199"
+    "watsons": "199",
+    "jasons": "153.8"
   },
   "blackmores 無腥味魚油1000 400粒": {
     "watsons": "599",
-    "parknshop": "599"
+    "parknshop": "599",
+    "lungfung": "178"
   },
   "kawai 無腥味日本肝油鈣丸 (drop m400) 180粒": {
     "watsons": "182",
@@ -71,11 +85,13 @@
   "blackmores 腸道益生菌 (300億) 30粒": {
     "mannings": "299",
     "watsons": "299",
-    "parknshop": "299"
+    "parknshop": "299",
+    "sasa": "155"
   },
   "康萃樂 兒童益生菌咀嚼片 30粒": {
     "parknshop": "268",
-    "watsons": "268"
+    "watsons": "268",
+    "lungfung": "128"
   },
   "proven 益生菌 (合生原) 250億高效成人配方 30粒": {
     "mannings": "165"
@@ -86,7 +102,8 @@
   "善存 三效益生菌配方 60粒": {
     "mannings": "395",
     "parknshop": "395",
-    "watsons": "395"
+    "watsons": "395",
+    "lungfung": "290"
   },
   "biostime 合生元兒童 hmo 益生菌 28包": {
     "mannings": "343"
@@ -170,7 +187,9 @@
     "mannings": "111.9",
     "watsons": "118"
   },
-  "鰵魚肝油 - 乳白 400毫升": {},
+  "鰵魚肝油 - 乳白 400毫升": {
+    "lungfung": "95"
+  },
   "日本肝油丸 (Drop S) 300粒": {
     "watsons": "205",
     "mannings": "205"
