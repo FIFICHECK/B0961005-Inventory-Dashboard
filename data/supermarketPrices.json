@@ -15,8 +15,8 @@
   "P000003197": {
     "brand": "康鈣",
     "name": "C950 (維他命C+鈣) 水溶片- 橙味 30片",
-    "mannings": "113.9",
     "parknshop": "113.9",
+    "mannings": "113.9",
     "wellcome": "114",
     "watsons": "139"
   },
@@ -38,13 +38,13 @@
     "name": "50+配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒",
     "wellcome": "234.7",
     "mannings": "312.9",
-    "watsons": "338"
+    "watsons": "312.9"
   },
   "P000003195": {
     "brand": "惠氏",
     "name": "23種維他命及礦物質補充品 100粒",
-    "mannings": "264",
-    "watsons": "264"
+    "watsons": "264",
+    "mannings": "264"
   },
   "P000001732": {
     "brand": "司各脫",
@@ -56,22 +56,22 @@
   "P000001714": {
     "brand": "Kawai",
     "name": "日本肝油丸 (Drop S) 300粒",
-    "mannings": "205",
-    "watsons": "205"
+    "watsons": "205",
+    "mannings": "205"
   },
   "P000004876": {
     "brand": "Swisse",
     "name": "無腥味高濃度野生魚油 200粒",
     "wellcome": "149.3",
+    "parknshop": "199",
     "mannings": "199",
-    "watsons": "199",
-    "parknshop": "199"
+    "watsons": "199"
   },
   "P000004877": {
     "brand": "Blackmores",
     "name": "無腥味魚油1000 400粒",
-    "watsons": "599",
-    "parknshop": "599"
+    "parknshop": "599",
+    "watsons": "599"
   },
   "P000003196": {
     "brand": "Kawai",
@@ -87,7 +87,7 @@
   "P000004872": {
     "brand": "維柏健",
     "name": "3倍精煉魚油 80粒",
-    "mannings": "352"
+    "mannings": "281"
   },
   "P000004875": {
     "brand": "日本命力",
@@ -109,8 +109,8 @@
     "brand": "Blackmores",
     "name": "腸道益生菌 (300億) 30粒",
     "parknshop": "299",
-    "mannings": "299",
-    "watsons": "299"
+    "watsons": "299",
+    "mannings": "299"
   },
   "P000004951": {
     "brand": "Proven",
@@ -133,5 +133,9 @@
     "brand": "Biostime",
     "name": "合生元兒童 HMO 益生菌 28包",
     "mannings": "343"
+  },
+  "P000001733": {
+    "brand": "司各脫",
+    "name": "鰵魚肝油 - 乳白 400毫升"
   }
 }
