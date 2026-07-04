@@ -292,5 +292,17 @@
     "gmv": "$54.40",
     "timestamp": "23:59",
     "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260514235959.xlsx"
+  },
+  {
+    "date": "7月2日",
+    "gmv": "$14,098.00",
+    "timestamp": "partial",
+    "filename": "doc_f313e5f28f08_ECOM-MMSNG_DAILY_ORDER_B0961005_20260702235959.xlsx"
+  },
+  {
+    "date": "7月1日",
+    "gmv": "$24,309.30",
+    "timestamp": "23:59",
+    "filename": "ECOM-MMSNG_DAILY_ORDER_B0961005_20260701235959.xlsx"
   }
 ]
