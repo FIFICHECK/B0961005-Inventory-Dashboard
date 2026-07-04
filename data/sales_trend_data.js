@@ -1,6 +1,6 @@
 // Auto-generated sales trend data
-// Generated: 2026-07-04 12:30:00
-// Source: All daily order reports (combined) - May fix applied
+// Generated: 2026-07-04 13:00:00
+// Source: All daily order reports (combined) - Format C Qty fix applied
 
 const salesTrendData = {
   "gmv_by_date": {
@@ -8956,14 +8956,19 @@ const salesTrendData = {
     "this_month": {
       "label": "2026-07",
       "gmv": 91217.97,
-      "orders": 775,
-      "avg": 117.7
+      "orders": 575,
+      "avg": 158.64
     },
     "last_month": {
-      "label": "2026-05",
-      "gmv": 216312.8,
-      "orders": 535,
-      "avg": 404.32
+      "label": "2026-06",
+      "gmv": 938364.4,
+      "orders": 8893,
+      "avg": 105.52
     }
+  },
+  "qty_monthly": {
+    "2026-05": 2209,
+    "2026-06": 8893,
+    "2026-07": 575
   }
 };
