@@ -10,7 +10,9 @@
     "wellcome": "104.9",
     "mannings": "104.9",
     "watsons": "104.9",
-    "parknshop": "118"
+    "parknshop": "118",
+    "lungfung": "70",
+    "jasons": "104.9"
   },
   "P000003197": {
     "brand": "康鈣",
@@ -18,14 +20,17 @@
     "parknshop": "114",
     "mannings": "113.9",
     "wellcome": "114",
-    "watsons": "139"
+    "watsons": "139",
+    "lungfung": "90",
+    "jasons": "114"
   },
   "P000002575": {
     "brand": "小善存",
     "name": "+維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒",
     "mannings": "174.9",
     "watsons": "185.9",
-    "parknshop": "168"
+    "parknshop": "168",
+    "lungfung": "168"
   },
   "P000001663": {
     "brand": "善存",
@@ -33,7 +38,9 @@
     "wellcome": "196.5",
     "mannings": "261.9",
     "watsons": "288",
-    "parknshop": "262"
+    "parknshop": "262",
+    "lungfung": "195",
+    "jasons": "262"
   },
   "P000003194": {
     "brand": "銀善存",
@@ -41,7 +48,9 @@
     "wellcome": "234.7",
     "mannings": "312.9",
     "watsons": "312.9",
-    "parknshop": "312.9"
+    "parknshop": "312.9",
+    "lungfung": "230",
+    "jasons": "312.9"
   },
   "P000003195": {
     "brand": "惠氏",
@@ -55,14 +64,17 @@
     "wellcome": "95",
     "mannings": "111.9",
     "watsons": "118",
-    "parknshop": "95"
+    "parknshop": "95",
+    "jasons": "95",
+    "lungfung": "95"
   },
   "P000001714": {
     "brand": "Kawai",
     "name": "日本肝油丸 (Drop S) 300粒",
     "watsons": "205",
     "mannings": "205",
-    "parknshop": "125"
+    "parknshop": "125",
+    "lungfung": "125"
   },
   "P000004876": {
     "brand": "Swisse",
@@ -70,13 +82,15 @@
     "wellcome": "149.3",
     "parknshop": "199",
     "mannings": "199",
-    "watsons": "199"
+    "watsons": "199",
+    "jasons": "153.8"
   },
   "P000004877": {
     "brand": "Blackmores",
     "name": "無腥味魚油1000 400粒",
     "parknshop": "599",
-    "watsons": "599"
+    "watsons": "599",
+    "lungfung": "178"
   },
   "P000003196": {
     "brand": "Kawai",
@@ -108,7 +122,8 @@
     "brand": "康萃樂",
     "name": "兒童益生菌咀嚼片 30粒",
     "watsons": "268",
-    "parknshop": "268"
+    "parknshop": "268",
+    "lungfung": "128"
   },
   "P000004946": {
     "brand": "Blackmores",
@@ -133,7 +148,8 @@
     "name": "三效益生菌配方 60粒",
     "mannings": "395",
     "parknshop": "395",
-    "watsons": "395"
+    "watsons": "395",
+    "lungfung": "290"
   },
   "P000004955": {
     "brand": "Biostime",
@@ -143,6 +159,7 @@
   "P000001733": {
     "brand": "司各脫",
     "name": "鰵魚肝油 - 乳白 400毫升",
-    "parknshop": "95"
+    "parknshop": "95",
+    "lungfung": "95"
   }
 }
