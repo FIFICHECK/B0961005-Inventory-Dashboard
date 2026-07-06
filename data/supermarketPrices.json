@@ -15,7 +15,7 @@
   "P000003197": {
     "brand": "康鈣",
     "name": "C950 (維他命C+鈣) 水溶片- 橙味 30片",
-    "parknshop": "113.9",
+    "parknshop": "114",
     "mannings": "113.9",
     "wellcome": "114",
     "watsons": "139"
@@ -24,21 +24,24 @@
     "brand": "小善存",
     "name": "+維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒",
     "mannings": "174.9",
-    "watsons": "185.9"
+    "watsons": "185.9",
+    "parknshop": "168"
   },
   "P000001663": {
     "brand": "善存",
     "name": "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒",
     "wellcome": "196.5",
     "mannings": "261.9",
-    "watsons": "288"
+    "watsons": "288",
+    "parknshop": "262"
   },
   "P000003194": {
     "brand": "銀善存",
     "name": "50+配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒",
     "wellcome": "234.7",
     "mannings": "312.9",
-    "watsons": "312.9"
+    "watsons": "312.9",
+    "parknshop": "312.9"
   },
   "P000003195": {
     "brand": "惠氏",
@@ -51,13 +54,15 @@
     "name": "鰵魚肝油 - 鮮橙 400毫升",
     "wellcome": "95",
     "mannings": "111.9",
-    "watsons": "118"
+    "watsons": "118",
+    "parknshop": "95"
   },
   "P000001714": {
     "brand": "Kawai",
     "name": "日本肝油丸 (Drop S) 300粒",
     "watsons": "205",
-    "mannings": "205"
+    "mannings": "205",
+    "parknshop": "125"
   },
   "P000004876": {
     "brand": "Swisse",
@@ -110,7 +115,8 @@
     "name": "腸道益生菌 (300億) 30粒",
     "parknshop": "299",
     "watsons": "299",
-    "mannings": "299"
+    "mannings": "299",
+    "sasa": "155"
   },
   "P000004951": {
     "brand": "Proven",
@@ -136,6 +142,7 @@
   },
   "P000001733": {
     "brand": "司各脫",
-    "name": "鰵魚肝油 - 乳白 400毫升"
+    "name": "鰵魚肝油 - 乳白 400毫升",
+    "parknshop": "95"
   }
 }
