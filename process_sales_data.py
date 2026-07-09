@@ -25,7 +25,7 @@ DAY_NAMES_CN = ['星期一', '星期二', '星期三', '星期四', '星期五',
 DAY_NAMES_EN = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 # File paths
-INPUT_FILE = '/home/snkwok/B0961005-Inventory-Dashboard/reports/order_reports/ECOM-MMSNG_DAILY_ORDER_B0961005_20260622235959.xlsx'
+INPUT_FILE = '/home/snkwok/B0961005-Inventory-Dashboard/reports/order_reports/ECOM-MMSNG_DAILY_ORDER_B0961005_20260708235959.xlsx'
 OUTPUT_FILE = '/home/snkwok/B0961005-Inventory-Dashboard/data/sales_trend_data.js'
 
 def process_order_report():
