@@ -2338,7 +2338,7 @@
         // Only reset to current year-month-day on INITIAL page load
         if (isInitialLoad) {
             // Use latest available date from data (prevents empty filter on days without data)
-            const availableDates = dates[0] || '';
+            const availableDates = (salesTrendData.gmv_by_date.labels || [''])[0];
             const currentFullDate = availableDates;
             const currentYear = availableDates.substring(0, 4) || '';
             const currentYearMonth = availableDates.substring(0, 7) || '';
