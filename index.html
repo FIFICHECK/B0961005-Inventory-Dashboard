@@ -2390,6 +2390,12 @@
         const ctx = document.getElementById('salesTrendChart').getContext('2d');
         const rawData = salesTrendData[config.dataKey];
         let data;
+        // For multiDataset SKU/Brand daily charts, auto-clear date filter (not meaningful)
+        if (config.multiDataset && (chartName.includes('Sku') || chartName.includes('Brand'))) {
+            currentDateFilter = '';
+            const dateFilterSelect = document.getElementById('jpDateFilter');
+            if (dateFilterSelect) dateFilterSelect.value = '';
+        }
         if (config.multiDataset) {
             // Apply date/month/year filter to multiDataset charts (SKU/Brand)
             // rawData.data is a 2D array: data[dateIndex][skuIndex]
