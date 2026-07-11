@@ -2393,7 +2393,7 @@
         // For multiDataset SKU/Brand daily charts, auto-clear date filter (not meaningful)
         if (config.multiDataset && (chartName.includes('Sku') || chartName.includes('Brand'))) {
             currentDateFilter = '';
-            const dateFilterSelect = document.getElementById('jpDateFilter');
+            const dateFilterSelect = document.getElementById('salesDateFilter');
             if (dateFilterSelect) dateFilterSelect.value = '';
         }
         if (config.multiDataset) {
