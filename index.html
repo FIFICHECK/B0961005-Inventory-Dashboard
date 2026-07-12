@@ -2331,7 +2331,7 @@
         switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
     }
 
-    function getFilteredData(chartName, btn) {
+    function getFilteredData(data, labels, chartName) {
         let filteredLabels = labels;
         let filteredData = data;
         // Skip date/month filters for SKU, Brand charts - their data is already date-aggregated
