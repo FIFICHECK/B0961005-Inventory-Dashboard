@@ -35106,13 +35106,26 @@
         if (chartName.includes('Sku') || chartName.includes('Brand')) {
             return { labels: filteredLabels, data: filteredData };
         }
-        // DayOfWeek: date filter takes PRIORITY — if date is set, use date only; otherwise use month
+        // DayOfWeek: data labels are "Sunday (2026-07-12)" format
         if (chartName === 'gmvByDayOfWeek') {
             if (currentDateFilter) {
-                // Date filter: most specific, return immediately
+                // Date filter: try exact date; if no data, fall back to month
                 filteredLabels = labels.filter(l => l.includes(currentDateFilter));
                 const idx = labels.findIndex(l => l.includes(currentDateFilter));
-                filteredData = idx >= 0 && Array.isArray(data) && data[idx] !== undefined ? [data[idx]] : [];
+                if (idx >= 0) {
+                    filteredData = Array.isArray(data) && data[idx] !== undefined ? [data[idx]] : [];
+                } else {
+                    // Date not found (no data for that day) → use month from date
+                    const monthFromDate = currentDateFilter.substring(0, 7);
+                    filteredLabels = [];
+                    filteredData = [];
+                    labels.forEach((l, i) => {
+                        if (l.includes(monthFromDate)) {
+                            filteredLabels.push(l);
+                            filteredData.push(data[i]);
+                        }
+                    });
+                }
             } else if (currentMonthFilter) {
                 // Month filter: only if no date filter is set
                 filteredLabels = [];
