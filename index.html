@@ -70,6 +70,57 @@
             background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
         }
         </style>
+
+        /* Mobile / App responsive styles */
+        @media (max-width: 768px) {
+            body { font-size: 14px; }
+            .container-fluid { padding: 8px !important; }
+            .card-body { padding: 12px !important; }
+            .header-bg h2 { font-size: 1.1rem; }
+            .header-bg p { font-size: 0.7rem !important; }
+            .header-bg .d-flex { flex-direction: column; align-items: flex-start !important; gap: 8px; }
+            .header-bg .btn { width: 100%; font-size: 0.8rem; }
+            .kpi-card { padding: 12px 8px !important; }
+            .kpi-value { font-size: 1.4rem !important; }
+            .kpi-label { font-size: 0.65rem !important; }
+            .row.mb-4 .col-md-2 { flex: 0 0 50%; max-width: 50%; padding: 4px; }
+            .nav-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .nav-tabs .nav-link { padding: 8px 12px !important; font-size: 0.7rem !important; white-space: nowrap; flex-shrink: 0; }
+            .nav-tabs::-webkit-scrollbar { height: 2px; }
+            #searchAll, #searchSku, #searchNewSku,
+            input.form-control[placeholder*="Search"],
+            input.form-control[placeholder*="搜尋"] { max-width: 100% !important; width: 100% !important; font-size: 0.8rem; }
+            .card-header .d-flex { flex-direction: column; gap: 6px; }
+            .card-header select.form-select { width: 100% !important; max-width: 100% !important; }
+            .table { font-size: 0.65rem !important; }
+            .table-container { max-height: 350px; }
+            .table thead th, .table tbody td { padding: 4px 6px !important; }
+            .table td:first-child code { font-size: 0.55rem !important; word-break: break-all; }
+            @media (max-width: 480px) {
+                .table th:nth-child(5), .table td:nth-child(5) { display: none; }
+                .table th:nth-child(2), .table td:nth-child(2) { max-width: 120px !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+            }
+            .detail-card { padding: 16px !important; width: 95% !important; }
+            .detail-card h4 { font-size: 1rem; }
+            .detail-card .table { font-size: 0.6rem !important; }
+            .jp-btn { font-size: 0.65rem !important; padding: 4px 10px !important; }
+            .jp-btn-nav { gap: 4px; }
+            #salesTrendChart { height: 200px !important; }
+            #salesTableEl { font-size: 0.6rem !important; }
+            #salesTableEl td { padding: 3px 4px !important; }
+            #salesTableEl code { font-size: 0.5rem !important; word-break: break-all; }
+            .card-header .input-group { flex-direction: row; }
+            .card-header .input-group .form-control { font-size: 0.75rem; }
+            #salesDateFilterRow .col-auto, #salesMonthFilterRow .col-auto, #salesYearFilterRow .col-auto { flex: 1 1 auto; min-width: 0; }
+            #salesDateFilterRow select, #salesMonthFilterRow select, #salesYearFilterRow select { font-size: 0.7rem !important; width: 100% !important; min-width: 70px !important; }
+            #salesTableFilters .col-auto { flex: 1 1 auto; }
+            #salesTableFilters select { font-size: 0.7rem !important; min-width: 80px; }
+            #tableKeywordSearch { font-size: 0.75rem !important; }
+            #salesRangeFilterRow { flex-wrap: wrap; gap: 4px; }
+            #salesRangeFilterRow input[type="date"] { width: 130px !important; font-size: 0.7rem !important; min-width: 100px; }
+            #salesKeywordRow input { font-size: 0.75rem !important; width: 180px !important; }
+        }
+
 </head>
 <body>
     <div class="container-fluid py-4 px-4">
@@ -1908,6 +1959,14 @@
                                 <option value="">全部年份</option>
                             </select>
                             </span>
+                            <span id="salesRangeFilterRow" style="display:none;">
+                                <input type="date" id="salesDateFrom" class="form-control form-control-sm" style="width:140px" onchange="filterSalesByDateRange()">
+                                <span class="mx-1 text-muted">—</span>
+                                <input type="date" id="salesDateTo" class="form-control form-control-sm" style="width:140px" onchange="filterSalesByDateRange()">
+                            </span>
+                            <span id="salesKeywordRow" style="display:none;">
+                                <input type="text" id="salesKeywordSearch" class="form-control form-control-sm" placeholder="🔍 搜尋 SKU / 品牌 / 產品名..." style="width:220px" onkeyup="filterSalesByKeyword()">
+                            </span>
                             <div class="d-flex flex-column gap-2">
                                 <div class="d-flex gap-2 flex-wrap align-items-center">
                                     <span id="stThisMonthLabel">當月 (---)</span>
@@ -2111,6 +2170,9 @@
     let currentDateFilter = '';
     let currentMonthFilter = '';
     let currentYearFilter = '';
+    let currentDateFrom = '';
+    let currentDateTo = '';
+    let currentKeyword = '';
     let isInitialLoad = true;
     let salesChartInstance = null;
 
@@ -2264,6 +2326,25 @@
         // Repopulate month and date options based on new year
         populateFilteredOptions();
         switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
+    }
+
+    function filterSalesByDateRange() {
+        const fromEl = document.getElementById('salesDateFrom');
+        const toEl = document.getElementById('salesDateTo');
+        currentDateFrom = fromEl ? fromEl.value : '';
+        currentDateTo = toEl ? toEl.value : '';
+        switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
+    }
+
+    function filterSalesByKeyword() {
+        const kwEl = document.getElementById('salesKeywordSearch');
+        const searchVal = kwEl ? kwEl.value : '';
+        // Sync to the existing table keyword search if it exists
+        const tableSearch = document.getElementById('tableKeywordSearch');
+        if (tableSearch) {
+            tableSearch.value = searchVal;
+            filterSalesTable();
+        }
     }
 
     function getFilteredData(data, labels, chartName) {
@@ -2421,6 +2502,17 @@
             yearFilterRow.style.display = '';
         }
         
+        // Show date range + keyword search only for SKU Daily charts (5 & 7)
+        const isSkuDailyChart = chartName === 'gmvBySkuDaily' || chartName === 'qtyBySkuDaily';
+        const rangeFilterRow = document.getElementById('salesRangeFilterRow');
+        if (rangeFilterRow) {
+            rangeFilterRow.style.display = isSkuDailyChart ? 'inline-flex' : 'none';
+        }
+        const keywordRow = document.getElementById('salesKeywordRow');
+        if (keywordRow) {
+            keywordRow.style.display = isSkuDailyChart ? 'inline-flex' : 'none';
+        }
+        
         // Map salesTrendData.summary to the format expected by updateSalesSummary
         if (salesTrendData && salesTrendData.summary) {
             salesSummary = {
@@ -2437,10 +2529,18 @@
         const rawData = salesTrendData[config.dataKey];
         let data;
         if (config.multiDataset) {
-            // Apply date/month/year filter to multiDataset charts (SKU/Brand)
+            // Apply date/month/year/range filter to multiDataset charts (SKU/Brand)
             // rawData.data is a 2D array: data[dateIndex][skuIndex]
+            const hasRangeFilter = currentDateFrom && currentDateTo;
             let filteredIndices = [];
             rawData.labels.forEach((l, idx) => {
+                // Date range filter takes priority for SKU Daily charts
+                if (hasRangeFilter && (chartName === 'gmvBySkuDaily' || chartName === 'qtyBySkuDaily')) {
+                    if (l >= currentDateFrom && l <= currentDateTo) {
+                        filteredIndices.push(idx);
+                    }
+                    return;
+                }
                 const hasDateFilter = currentDateFilter && currentDateFilter.trim() !== '';
                 const labelMatch = l === currentDateFilter;
                 if (hasDateFilter && !chartName.includes('Monthly')) {
