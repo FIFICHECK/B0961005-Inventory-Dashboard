@@ -12894,15 +12894,16 @@
         if (chartName === 'gmvByDayOfWeek') {
             if (currentDateFilter) {
                 // Date filter: most specific, return immediately
-                filteredLabels = labels.filter(l => l.startsWith(currentDateFilter));
-                const idx = labels.findIndex(l => l.startsWith(currentDateFilter));
+                // NOTE: labels are "Sunday (2026-07-12)" format, so use includes() not startsWith()
+                filteredLabels = labels.filter(l => l.includes(currentDateFilter));
+                const idx = labels.findIndex(l => l.includes(currentDateFilter));
                 filteredData = idx >= 0 && Array.isArray(data) && data[idx] !== undefined ? [data[idx]] : [];
             } else if (currentMonthFilter) {
                 // Month filter: only if no date filter is set
                 filteredLabels = [];
                 filteredData = [];
                 labels.forEach((l, i) => {
-                    if (l.startsWith(currentMonthFilter)) {
+                    if (l.includes(currentMonthFilter)) {
                         filteredLabels.push(l);
                         filteredData.push(data[i]);
                     }
