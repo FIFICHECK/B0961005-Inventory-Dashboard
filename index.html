@@ -1964,10 +1964,7 @@
                                 <span class="mx-1 text-muted">—</span>
                                 <input type="date" id="salesDateTo" class="form-control form-control-sm" style="width:140px" onchange="filterSalesByDateRange()">
                             </span>
-                            <span id="salesKeywordRow" style="display:none;">
-                                <input type="text" id="salesKeywordSearch" class="form-control form-control-sm" placeholder="🔍 搜尋 SKU / 品牌 / 產品名..." style="width:220px" onkeyup="filterSalesByKeyword()">
-                            </span>
-                            <div class="d-flex flex-column gap-2">
+                             <div class="d-flex flex-column gap-2">
                                 <div class="d-flex gap-2 flex-wrap align-items-center">
                                     <span id="stThisMonthLabel">當月 (---)</span>
                                     <span class="text-success fw-bold">GMV $<span id="stTotalGMV">0</span></span>
@@ -2172,7 +2169,6 @@
     let currentYearFilter = '';
     let currentDateFrom = '';
     let currentDateTo = '';
-    let currentKeyword = '';
     let isInitialLoad = true;
     let salesChartInstance = null;
 
@@ -2336,18 +2332,7 @@
         switchSalesChart(currentSalesChart, document.querySelector('#salesChartNav .jp-btn.active'));
     }
 
-    function filterSalesByKeyword() {
-        const kwEl = document.getElementById('salesKeywordSearch');
-        const searchVal = kwEl ? kwEl.value : '';
-        // Sync to the existing table keyword search if it exists
-        const tableSearch = document.getElementById('tableKeywordSearch');
-        if (tableSearch) {
-            tableSearch.value = searchVal;
-            filterSalesTable();
-        }
-    }
-
-    function getFilteredData(data, labels, chartName) {
+    function getFilteredData(chartName, btn) {
         let filteredLabels = labels;
         let filteredData = data;
         // Skip date/month filters for SKU, Brand charts - their data is already date-aggregated
@@ -2502,15 +2487,11 @@
             yearFilterRow.style.display = '';
         }
         
-        // Show date range + keyword search only for SKU Daily charts (5 & 7)
+        // Show date range filter only for SKU Daily charts (5 & 7)
         const isSkuDailyChart = chartName === 'gmvBySkuDaily' || chartName === 'qtyBySkuDaily';
         const rangeFilterRow = document.getElementById('salesRangeFilterRow');
         if (rangeFilterRow) {
             rangeFilterRow.style.display = isSkuDailyChart ? 'inline-flex' : 'none';
-        }
-        const keywordRow = document.getElementById('salesKeywordRow');
-        if (keywordRow) {
-            keywordRow.style.display = isSkuDailyChart ? 'inline-flex' : 'none';
         }
         
         // Map salesTrendData.summary to the format expected by updateSalesSummary
