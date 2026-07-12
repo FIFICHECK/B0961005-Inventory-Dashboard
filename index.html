@@ -2170,14 +2170,13 @@
         
         // Clear and repopulate date options
         if (dateSelect) {
-            // Bottom 2 charts (Brand Daily/Monthly) should never show "全部日期"
-            // Brand Daily requires a specific date; Brand Monthly already hides date filter row
-            const isBrandChart = currentSalesChart && currentSalesChart.includes('Brand');
-            if (!isBrandChart) {
-                dateSelect.innerHTML = '<option value="">全部日期</option>';
-            } else {
-                dateSelect.innerHTML = '';
-            }
+        // Brand Monthly should never show "全部日期" (date filter row is hidden)
+        const isBrandMonthly = currentSalesChart === 'gmvByBrandMonthly';
+        if (!isBrandMonthly) {
+            dateSelect.innerHTML = '<option value="">全部日期</option>';
+        } else {
+            dateSelect.innerHTML = '';
+        }
             let filteredDates;
             if (currentMonthFilter) {
                 filteredDates = dates.filter(d => d.startsWith(currentMonthFilter));
@@ -2396,8 +2395,8 @@
             isInitialLoad = false;
         }
         
-        // Date filter is hidden for GMV by Monthly, GMV by DayOfWeek, and SKU/Brand Daily/Monthly charts
-        const hideDateFilterCharts = ['gmvByMonth', 'gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly', 'gmvByBrandDaily'];
+        // Date filter is hidden for Monthly/Brand Monthly/SKU Monthly charts
+        const hideDateFilterCharts = ['gmvByMonth', 'gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly'];
         const dateFilterRow = document.getElementById('salesDateFilterRow');
         if (dateFilterRow) {
             dateFilterRow.style.display = hideDateFilterCharts.includes(chartName) ? 'none' : '';
