@@ -70,6 +70,95 @@
             background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
         }
         </style>
+
+        /* Mobile / App responsive styles */
+        @media (max-width: 768px) {
+            body { font-size: 14px; }
+            .container-fluid { padding: 8px !important; }
+            .card-body { padding: 12px !important; }
+            
+            /* Header */
+            .header-bg h2 { font-size: 1.1rem; }
+            .header-bg p { font-size: 0.7rem !important; }
+            .header-bg .d-flex { flex-direction: column; align-items: flex-start !important; gap: 8px; }
+            .header-bg .btn { width: 100%; font-size: 0.8rem; }
+            
+            /* KPI cards: 2 columns */
+            .kpi-card { padding: 12px 8px !important; }
+            .kpi-value { font-size: 1.4rem !important; }
+            .kpi-label { font-size: 0.65rem !important; }
+            .row.mb-4 .col-md-2 { flex: 0 0 50%; max-width: 50%; padding: 4px; }
+            
+            /* Tabs: scrollable on mobile */
+            .nav-tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .nav-tabs .nav-link { 
+                padding: 8px 12px !important; 
+                font-size: 0.7rem !important; 
+                white-space: nowrap; 
+                flex-shrink: 0;
+            }
+            .nav-tabs::-webkit-scrollbar { height: 2px; }
+            
+            /* Search inputs full width */
+            #searchAll, #searchSku, #searchNewSku,
+            input.form-control[placeholder*="Search"],
+            input.form-control[placeholder*="搜尋"] {
+                max-width: 100% !important;
+                width: 100% !important;
+                font-size: 0.8rem;
+            }
+            .card-header .d-flex { flex-direction: column; gap: 6px; }
+            .card-header select.form-select { width: 100% !important; max-width: 100% !important; }
+            
+            /* Tables: compact + sticky columns */
+            .table { font-size: 0.65rem !important; }
+            .table-container { max-height: 350px; }
+            .table thead th, .table tbody td { padding: 4px 6px !important; }
+            .table td:first-child code { font-size: 0.55rem !important; word-break: break-all; }
+            
+            /* Hide Brand column on very small screens, show in row title */
+            @media (max-width: 480px) {
+                .table th:nth-child(5), .table td:nth-child(5) { display: none; }
+                .table th:nth-child(2), .table td:nth-child(2) { 
+                    max-width: 120px !important; 
+                    overflow: hidden; 
+                    text-overflow: ellipsis; 
+                    white-space: nowrap; 
+                }
+            }
+            
+            /* Detail modal */
+            .detail-card { padding: 16px !important; width: 95% !important; }
+            .detail-card h4 { font-size: 1rem; }
+            .detail-card .table { font-size: 0.6rem !important; }
+            
+            /* Sales Trend */
+            .jp-btn { font-size: 0.65rem !important; padding: 4px 10px !important; }
+            .jp-btn-nav { gap: 4px; }
+            #salesTrendChart { height: 200px !important; }
+            #salesTableEl { font-size: 0.6rem !important; }
+            #salesTableEl td { padding: 3px 4px !important; }
+            #salesTableEl code { font-size: 0.5rem !important; word-break: break-all; }
+            .card-header .input-group { flex-direction: row; }
+            .card-header .input-group .form-control { font-size: 0.75rem; }
+            
+            /* Filter dropdowns in Sales Trend */
+            #salesDateFilterRow .col-auto,
+            #salesMonthFilterRow .col-auto,
+            #salesYearFilterRow .col-auto { flex: 1 1 auto; min-width: 0; }
+            #salesDateFilterRow select,
+            #salesMonthFilterRow select,
+            #salesYearFilterRow select { 
+                font-size: 0.7rem !important; 
+                width: 100% !important; 
+                min-width: 70px !important; 
+            }
+            
+            /* Sales Trend table filters */
+            #salesTableFilters .col-auto { flex: 1 1 auto; }
+            #salesTableFilters select { font-size: 0.7rem !important; min-width: 80px; }
+            #tableKeywordSearch { font-size: 0.75rem !important; }
+        }
 </head>
 <body>
     <div class="container-fluid py-4 px-4">
