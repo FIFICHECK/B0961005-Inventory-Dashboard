@@ -2407,7 +2407,7 @@
         }
         
         // Date filter is hidden for GMV by Monthly, GMV by DayOfWeek, and SKU/Brand Daily/Monthly charts
-        const hideDateFilterCharts = ['gmvByMonth', 'gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly', 'gmvByBrandDaily'];
+        const hideDateFilterCharts = ['gmvByMonth', 'gmvBySkuMonthly', 'qtyBySkuMonthly', 'gmvByBrandMonthly'];
         const dateFilterRow = document.getElementById('salesDateFilterRow');
         if (dateFilterRow) {
             dateFilterRow.style.display = hideDateFilterCharts.includes(chartName) ? 'none' : '';
