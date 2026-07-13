@@ -4,10 +4,11 @@ B0961005 Daily Price History Generator
 Reads the latest Exchange Jerry inventory CSV, extracts RSP/PSP for each SKU,
 and appends a new daily snapshot to the price history JSON file.
 
+Format: { "SKU_CODE": [{"date": "2026-06-14", "rsp": 49.9, "psp": 34.9}, ...], ... }
+
 Usage: python3 generate_price_history.py
 Cron:  Runs after the Exchange Jerry inventory download (e.g., 3AM, 11AM, 3PM, 6PM, 10PM)
 """
-
 import csv
 import json
 import os
@@ -20,12 +21,15 @@ REPO_DIR = Path("/tmp/B0961005-Inventory-Dashboard")
 CRON_OUTPUT_DIR = Path.home() / ".hermes/cron/output/exchange-jerry-inventory"
 PRICE_HISTORY_FILE = REPO_DIR / "data/price_history.json"
 
-# The most recent CSV in cron output dir
 def get_latest_csv():
+    """Get the most recent non-empty CSV from cron output dir."""
     files = sorted(CRON_OUTPUT_DIR.glob("inventory_report_*.csv"), key=lambda f: f.stat().st_mtime)
     if not files:
         return None
-    return files[-1]
+    valid = [f for f in files if f.stat().st_size > 100]
+    if not valid:
+        return None
+    return valid[-1]
 
 def parse_inventory_csv(csv_path):
     """Parse the Exchange Jerry inventory CSV and return {sku: {rsp, psp, name}} dict."""
@@ -34,11 +38,10 @@ def parse_inventory_csv(csv_path):
         reader = csv.reader(f)
         rows = list(reader)
 
-    # Find the header row (row index 5 typically)
     header = None
     data_start = 0
     for i, row in enumerate(rows):
-        if row and row[0] == "Merchant ID" and "Merchant SKU ID" in row:
+        if row and len(row) >= 6 and row[0] == "Merchant ID" and "Merchant SKU ID" in row:
             header = row
             data_start = i + 1
             break
@@ -71,13 +74,12 @@ def parse_inventory_csv(csv_path):
         except ValueError:
             disc = 0.0
         name = row[name_idx].strip()
-
         skus[sku] = {"rsp": orig, "psp": disc, "name": name}
 
     return skus
 
 def load_history():
-    """Load existing price history, or create empty structure."""
+    """Load existing price history (SKU-centric format)."""
     if PRICE_HISTORY_FILE.exists():
         with open(PRICE_HISTORY_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -88,19 +90,36 @@ def save_history(history):
     PRICE_HISTORY_FILE.parent.mkdir(parents=True, exist_ok=True)
     with open(PRICE_HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(history, f, ensure_ascii=False, indent=2)
-    print(f"Saved {len(history)} days of history to {PRICE_HISTORY_FILE}")
+    print(f"Saved {len(history)} SKUs to {PRICE_HISTORY_FILE}")
 
 def append_daily_snapshot(history, csv_path):
-    """Append today's snapshot to history."""
-    today = date.today().isoformat()  # "2026-06-14"
-    skus = parse_inventory_csv(csv_path)
+    """Append today's snapshot to the SKU-centric history."""
+    today = date.today().isoformat()
+    csv_skus = parse_inventory_csv(csv_path)
 
-    if not skus:
+    if not csv_skus:
         print("WARNING: No SKUs found in CSV!")
         return history
 
-    history[today] = skus
-    print(f"Added snapshot for {today} with {len(skus)} SKUs")
+    # Remove any stray date-key entries (from older format)
+    date_keys = [k for k in history if k.startswith("20") and len(k) == 10 and k[4] == "-"]
+    for dk in date_keys:
+        del history[dk]
+
+    tracked = 0
+    new_skus = 0
+    for sku, data in csv_skus.items():
+        entry = {"date": today, "rsp": data["rsp"], "psp": data["psp"]}
+        if sku in history:
+            tracked += 1
+            existing_dates = {e["date"] for e in history[sku]}
+            if today not in existing_dates:
+                history[sku].append(entry)
+        else:
+            new_skus += 1
+            history[sku] = [entry]
+
+    print(f"Added snapshot for {today}: {tracked} existing SKUs updated, {new_skus} new SKUs added")
     return history
 
 def main():
@@ -116,15 +135,20 @@ def main():
     save_history(history)
 
     # Summary
-    dates = sorted(history.keys())
-    print(f"\nHistory summary: {len(dates)} days")
-    if dates:
-        print(f"  Earliest: {dates[0]}")
-        print(f"  Latest:   {dates[-1]}")
-        # Show first SKU from latest
-        latest = history[dates[-1]]
-        first_sku = next(iter(latest.values()))
-        print(f"  Latest sample: RSP={first_sku['rsp']}, PSP={first_sku['psp']}")
+    all_dates = set()
+    max_dates = 0
+    for sku, entries in history.items():
+        dates_set = {e["date"] for e in entries}
+        all_dates.update(dates_set)
+        if len(dates_set) > max_dates:
+            max_dates = len(dates_set)
+
+    sorted_dates = sorted(all_dates)
+    print(f"\nHistory summary:")
+    print(f"  Total SKUs tracked: {len(history)}")
+    print(f"  Total unique dates: {len(sorted_dates)}")
+    print(f"  Max snapshots per SKU: {max_dates}")
+    print(f"  Date range: {sorted_dates[0]} to {sorted_dates[-1]}" if sorted_dates else "  No dates")
 
 if __name__ == "__main__":
     main()
