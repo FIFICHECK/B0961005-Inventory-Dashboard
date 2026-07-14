@@ -1,10 +1,12 @@
 {
-  "total_products": 248,
-  "total_stock": 9735,
-  "zero_stock": 37,
-  "low_stock": 80,
-  "normal_stock": 101,
-  "high_stock": 30,
-  "report_date": "2026-07-10",
-  "generated_at": "2026-07-11 01:43:32"
+  "generated": "2026-07-14T22:13:12.007713",
+  "report_date": "2026-07-14 18:18",
+  "total_products": 262,
+  "total_stock": 5690,
+  "zero_stock": 73,
+  "low_stock": 102,
+  "normal_stock": 67,
+  "high_stock": 20,
+  "online": 257,
+  "offline": 5
 }
