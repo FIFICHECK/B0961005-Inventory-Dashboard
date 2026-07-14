@@ -1,4 +1,6 @@
-{
+// supermarketPrices - Auto-generated 2026-07-14
+// Source: superpricehk.com API (categories 287, 288, 289)
+const supermarketPrices = {
   "P000001692": {
     "brand": "維多C",
     "name": "雙重功效 (維他命C加鋅) 香橙味水溶片 10片",
@@ -178,4 +180,4 @@
     "updated": "2026-07-14",
     "mannings": "343"
   }
-}
+};
