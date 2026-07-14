@@ -79,10 +79,11 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-07-13 (00:00:00) &nbsp;|&nbsp; 🔄 2026-07-15 01:12:21</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-07-14 (18:00:00) &nbsp;|&nbsp; 🔄 2026-07-15 01:12:21</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-07-13 (00:00:00) &nbsp;|&nbsp; 🔄 2026-07-15 01:26:27</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-07-14 (18:00:00) &nbsp;|&nbsp; 🔄 2026-07-15 01:26:27</p>
                     </div>
-                    <button class="btn btn-light" onclick="location.reload()" title="Reload dashboard"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+                    <button class="btn btn-light" id="autoRefreshBtn" onclick="toggleAutoRefresh()" title="Click to auto-refresh every 10s"><i class="bi bi-arrow-clockwise"></i> <span id="refreshLabel">Refresh</span></button>
+                    <span id="countdownDisplay" style="display:none;color:rgba(255,255,255,0.9);font-size:0.9rem;margin-left:8px;font-weight:500">⏳ <span id="countdownSec">10</span>s</span>
                 </div>
             </div>
         </div>
@@ -2011,6 +2012,37 @@
         }
         function closeModal(){document.getElementById('detailModal').classList.remove('show')}
         document.getElementById('detailModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
+        let autoRefreshTimer = null;
+        let countdownTimer = null;
+        let countdownVal = 10;
+        function toggleAutoRefresh(){
+            if (autoRefreshTimer) {
+                clearInterval(autoRefreshTimer);
+                clearInterval(countdownTimer);
+                autoRefreshTimer = null;
+                document.getElementById('refreshLabel').textContent = 'Refresh';
+                document.getElementById('countdownDisplay').style.display = 'none';
+                document.getElementById('autoRefreshBtn').classList.remove('btn-warning');
+                document.getElementById('autoRefreshBtn').classList.add('btn-light');
+                document.getElementById('autoRefreshBtn').title = 'Click to auto-refresh every 10s';
+                return;
+            }
+            countdownVal = 10;
+            document.getElementById('countdownSec').textContent = countdownVal;
+            document.getElementById('countdownDisplay').style.display = 'inline';
+            document.getElementById('refreshLabel').textContent = 'Auto';
+            document.getElementById('autoRefreshBtn').classList.remove('btn-light');
+            document.getElementById('autoRefreshBtn').classList.add('btn-warning');
+            document.getElementById('autoRefreshBtn').title = 'Click to stop auto-refresh';
+            countdownTimer = setInterval(function(){
+                countdownVal--;
+                if (countdownVal <= 0) countdownVal = 10;
+                document.getElementById('countdownSec').textContent = countdownVal;
+            }, 1000);
+            autoRefreshTimer = setInterval(function(){
+                location.reload();
+            }, 10000);
+        }
         function filterTable(type){
             let s=document.getElementById(type==='all'?'searchAll':'searchSku').value.toLowerCase();
             let fEl=document.getElementById(type==='all'?'filterAll':'filterSku');
