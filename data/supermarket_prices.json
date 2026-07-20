@@ -3,71 +3,74 @@
     "watsons": "49"
   },
   "維多c 3重功效 (維他命c加鋅) 兒童咀嚼片 90片": {
-    "mannings": "104.9",
-    "wellcome": "104.9",
-    "watsons": "104.9",
-    "parknshop": "118",
     "lungfung": "70",
-    "jasons": "104.9"
+    "mannings": "104.9",
+    "watsons": "104.9",
+    "wellcome": "104.9",
+    "jasons": "104.9",
+    "parknshop": "118"
   },
   "康鈣 c950 (維他命c+鈣) 水溶片- 橙味 30片": {
-    "parknshop": "113.9",
-    "mannings": "113.9",
-    "wellcome": "96.9",
-    "watsons": "96.8",
     "lungfung": "90",
-    "jasons": "114"
+    "watsons": "96.8",
+    "wellcome": "96.9",
+    "jasons": "99.5",
+    "mannings": "113.9",
+    "parknshop": "113.9"
   },
   "小善存 +維他命c (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒": {
+    "lungfung": "168",
     "mannings": "174.9",
-    "watsons": "174.9",
-    "lungfung": "168"
+    "watsons": "174.9"
   },
   "善存 成人配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
     "wellcome": "183.4",
-    "mannings": "261.9",
-    "watsons": "261.9",
+    "jasons": "188.9",
     "lungfung": "195",
-    "jasons": "262"
+    "watsons": "261.9",
+    "mannings": "261.9"
   },
   "銀善存 50+配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
-    "mannings": "312.9",
-    "watsons": "312.9",
     "wellcome": "219",
+    "jasons": "225.4",
     "lungfung": "230",
-    "jasons": "312.9"
+    "mannings": "312.9",
+    "watsons": "312.9"
   },
   "惠氏 23種維他命及礦物質補充品 100粒": {
-    "mannings": "264",
-    "watsons": "264"
+    "watsons": "264",
+    "mannings": "264"
   },
   "司各脫 鰵魚肝油 - 鮮橙 400毫升": {
-    "mannings": "111.9",
-    "watsons": "95.1",
-    "wellcome": "95",
+    "lungfung": "95",
     "jasons": "95",
+    "wellcome": "95",
+    "watsons": "95.1",
+    "mannings": "111.9"
+  },
+  "司各脫 鰵魚肝油 - 乳白 400毫升": {
     "lungfung": "95"
   },
   "kawai 日本肝油丸 (drop s) 300粒": {
-    "mannings": "205",
+    "lungfung": "125",
     "watsons": "205",
-    "lungfung": "125"
-  },
-  "swisse 無腥味高濃度野生魚油 200粒": {
-    "wellcome": "199",
-    "mannings": "199",
-    "parknshop": "199",
-    "watsons": "199",
-    "jasons": "153.8"
+    "mannings": "205"
   },
   "blackmores 無腥味魚油1000 400粒": {
-    "watsons": "279",
+    "lungfung": "178",
     "parknshop": "279",
-    "lungfung": "178"
+    "watsons": "279"
   },
   "kawai 無腥味日本肝油鈣丸 (drop m400) 180粒": {
     "watsons": "182",
     "mannings": "182.5"
+  },
+  "swisse 無腥味高濃度野生魚油 200粒": {
+    "parknshop": "199",
+    "mannings": "199",
+    "watsons": "199",
+    "wellcome": "199",
+    "jasons": "205"
   },
   "增美神 三文魚油丸 210粒": {
     "watsons": "275"
@@ -79,83 +82,38 @@
     "watsons": "570"
   },
   "優之源 雙岐乳酸菌啫喱 20包": {
-    "parknshop": "89",
     "watsons": "118"
   },
-  "blackmores 腸道益生菌 (300億) 30粒": {
-    "mannings": "299",
-    "watsons": "299",
-    "parknshop": "299",
-    "sasa": "155"
-  },
   "康萃樂 兒童益生菌咀嚼片 30粒": {
+    "lungfung": "128",
     "parknshop": "268",
-    "watsons": "268",
-    "lungfung": "128"
+    "watsons": "268"
   },
   "proven 益生菌 (合生原) 250億高效成人配方 30粒": {
     "mannings": "148"
+  },
+  "blackmores 腸道益生菌 (300億) 30粒": {
+    "sasa": "155",
+    "parknshop": "299",
+    "mannings": "299",
+    "watsons": "299"
   },
   "naturo vita 益生元．菌固體飲品 14包": {
     "mannings": "199"
   },
   "善存 三效益生菌配方 60粒": {
-    "mannings": "395",
-    "parknshop": "395",
+    "lungfung": "290",
     "watsons": "395",
-    "lungfung": "290"
+    "mannings": "395",
+    "parknshop": "395"
   },
   "biostime 合生元兒童 hmo 益生菌 28包": {
     "mannings": "343"
   },
-  "維多C 雙重功效 (維他命c加鋅) 香橙味水溶片 10片": {
+  "雙重功效 (維他命c加鋅) 香橙味水溶片 10片": {
     "watsons": "49"
   },
-  "維多C 3重功效 (維他命c加鋅) 兒童咀嚼片 90片": {
-    "mannings": "104.9",
-    "wellcome": "104.9",
-    "watsons": "104.9",
-    "parknshop": "118"
-  },
-  "Kawai 日本肝油丸 (drop s) 300粒": {
-    "mannings": "205",
-    "watsons": "205"
-  },
-  "Swisse 無腥味高濃度野生魚油 200粒": {
-    "wellcome": "149.3",
-    "mannings": "199",
-    "parknshop": "199",
-    "watsons": "199",
-    "jasons": "153.8"
-  },
-  "Blackmores 無腥味魚油1000 400粒": {
-    "watsons": "279",
-    "parknshop": "279",
-    "lungfung": "178"
-  },
-  "Kawai 無腥味日本肝油鈣丸 (drop m400) 180粒": {
-    "watsons": "182",
-    "mannings": "182.5"
-  },
-  "Blackmores 腸道益生菌 (300億) 30粒": {
-    "mannings": "299",
-    "watsons": "299",
-    "parknshop": "299",
-    "sasa": "155"
-  },
-  "Proven 益生菌 (合生原) 250億高效成人配方 30粒": {
-    "mannings": "165"
-  },
-  "Naturo Vita 益生元．菌固體飲品 14包": {
-    "mannings": "199"
-  },
-  "Biostime 合生元兒童 hmo 益生菌 28包": {
-    "mannings": "343"
-  },
-  "雙重功效 (維他命C加鋅) 香橙味水溶片 10片": {
-    "watsons": "49"
-  },
-  "3重功效 (維他命C加鋅) 兒童咀嚼片 90片": {
+  "3重功效 (維他命c加鋅) 兒童咀嚼片 90片": {
     "wellcome": "104.9",
     "watsons": "104.9",
     "mannings": "104.9",
@@ -163,7 +121,7 @@
     "lungfung": "70",
     "jasons": "104.9"
   },
-  "C950 (維他命C+鈣) 水溶片- 橙味 30片": {
+  "c950 (維他命c+鈣) 水溶片- 橙味 30片": {
     "parknshop": "113.9",
     "mannings": "113.9",
     "wellcome": "114",
@@ -171,19 +129,19 @@
     "lungfung": "90",
     "jasons": "114"
   },
-  "+維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒": {
+  "+維他命c (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒": {
     "mannings": "174.9",
     "watsons": "174.9",
     "lungfung": "168"
   },
-  "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒": {
+  "成人配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
     "wellcome": "262",
     "mannings": "261.9",
     "watsons": "261.9",
     "lungfung": "195",
     "jasons": "262"
   },
-  "50+配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒": {
+  "50+配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
     "wellcome": "312.9",
     "mannings": "312.9",
     "watsons": "312.9",
@@ -204,7 +162,7 @@
   "鰵魚肝油 - 乳白 400毫升": {
     "lungfung": "95"
   },
-  "日本肝油丸 (Drop S) 300粒": {
+  "日本肝油丸 (drop s) 300粒": {
     "watsons": "205",
     "mannings": "205",
     "lungfung": "125"
@@ -221,7 +179,7 @@
     "watsons": "279",
     "lungfung": "178"
   },
-  "無腥味日本肝油鈣丸 (Drop M400) 180粒": {
+  "無腥味日本肝油鈣丸 (drop m400) 180粒": {
     "watsons": "182",
     "mannings": "182.5"
   },
@@ -230,13 +188,6 @@
   },
   "3倍精煉魚油 80粒": {
     "mannings": "281"
-  },
-  "增強版強腦素 60粒": {
-    "watsons": "570"
-  },
-  "雙岐乳酸菌啫喱 20包": {
-    "parknshop": "89",
-    "watsons": "118"
   },
   "兒童益生菌咀嚼片 30粒": {
     "parknshop": "268",
@@ -261,260 +212,89 @@
     "mannings": "395",
     "lungfung": "290"
   },
-  "合生元兒童 HMO 益生菌 28包": {
+  "合生元兒童 hmo 益生菌 28包": {
     "mannings": "343"
   },
-  "Swisse 鈣+維他命d 90PC": {
+  "swisse 鈣+維他命d 90pc": {
     "wellcome": "119.00"
   },
-  "You C1000 維他命檸檬  6 X 140ML": {
+  "you c1000 維他命檸檬 6 x 140ml": {
     "wellcome": "35.00"
   },
-  "Meadows 橙汁添加维他命 C 350ML": {
-    "wellcome": "12.00"
-  },
-  "利賓納黑加侖子軟糖 60GM (包裝隨機發放)": {
-    "wellcome": "10.50"
-  },
-  "House C1000 檸檬果凍 180G": {
-    "wellcome": "18.00"
-  },
-  "Blackmores 多元維他命+礦物質 60PC": {
+  "blackmores 多元維他命+礦物質 60pc": {
     "wellcome": "169.90"
   },
-  "Blackmores 多元維他命b 60PC": {
+  "blackmores 多元維他命b 60pc": {
     "wellcome": "142.90"
   },
-  "維多C IMMUNOPRO白金免疫力配方水溶片 30 PC": {
-    "wellcome": "139.90"
-  },
-  "三得利檸檬味氣泡飲料 500ML": {
-    "wellcome": "8.50"
-  },
-  "維多C 3重功效橙味水溶片 30PC": {
-    "wellcome": "115.00"
-  },
-  "麒麟關顧免疫維生素乳酸飲品 100ML X 6": {
-    "wellcome": "59.00"
-  },
-  "明治 即攻元氣果酸檸檬飲品 180G": {
-    "wellcome": "18.00"
-  },
-  "You C1000 維他命香橙  6 X 140ML": {
+  "you c1000 維他命香橙 6 x 140ml": {
     "wellcome": "35.00"
   },
-  "羊脂美容霜 含維生素e 100GM": {
-    "wellcome": "90.00"
-  },
-  "地捫西梅汁加維他命 32OZ": {
+  "地捫西梅汁加維他命 32oz": {
     "wellcome": "56.50"
   },
-  "Blackmores 維他命c 60PC": {
+  "blackmores 維他命c 60pc": {
     "wellcome": "99.90"
   },
-  "味覺糖 多種維他命營養補充軟糖 20 PC": {
+  "味覺糖 多種維他命營養補充軟糖 20 pc": {
     "wellcome": "30.00"
   },
-  "Blackmores 維他命b+C 60PC": {
+  "blackmores 維他命b+c 60pc": {
     "wellcome": "146.90"
   },
-  "Swisse女性活力複合維他命 120PC": {
+  "swisse女性活力複合維他命 120pc": {
     "wellcome": "369.00"
   },
-  "VITAMIN WELL 檸檬及青檸功能飲 500ML": {
+  "vitamin well 檸檬及青檸功能飲 500ml": {
     "wellcome": "15.00"
   },
-  "Meadows橄欖油浸吞拿魚塊 185GM": {
-    "wellcome": "22.90"
-  },
-  "BANGA 油浸三文魚加檸檬 120 GM": {
-    "wellcome": "20.00"
-  },
-  "Meadows橄欖油浸吞拿魚塊 95GM": {
-    "wellcome": "12.90"
-  },
-  "紅圈牌油浸魚柳 120GM": {
-    "wellcome": "11.00"
-  },
-  "皇滋味橄欖油浸沙甸魚 120GM": {
-    "wellcome": "22.00"
-  },
-  "老人牌油浸沙甸魚 125GM": {
-    "wellcome": "25.00"
-  },
-  "美味牌油浸吞拿魚罐裝 3 X 185GM": {
-    "wellcome": "57.00"
-  },
-  "紅圈牌油辣沙甸 110GM": {
-    "wellcome": "11.00"
-  },
-  "美味牌辣油沙甸魚 106GM": {
-    "wellcome": "13.00"
-  },
-  "寶幸淡金槍油浸吞拿魚 3 X 70GM": {
-    "wellcome": "29.90"
-  },
-  "大澳益昌號 油浸鹹魚(馬友) 190GM": {
-    "wellcome": "158.00"
-  },
-  "尊西金槍魚 145GM": {
-    "wellcome": "34.00"
-  },
-  "Meadows 油浸鯖魚柳120G": {
-    "wellcome": "15.00"
-  },
-  "Swisse 無腥味高濃度野生魚油 200PC": {
+  "swisse 無腥味高濃度野生魚油 200pc": {
     "wellcome": "149.30"
   },
-  "美味牌葵花籽油吞拿魚 95GM": {
-    "wellcome": "17.00"
-  },
-  "Meadows 油浸辣椒鯖魚柳120G": {
-    "wellcome": "15.00"
-  },
-  "東遠芥花籽油吞拿魚 100GM": {
-    "wellcome": "17.00"
-  },
-  "美味牌葵花籽油浸吞拿魚 185GM": {
-    "wellcome": "19.00"
-  },
-  "老人牌油浸辣沙甸魚 125GM": {
-    "wellcome": "25.00"
-  },
-  "Susanna Balbo 西班牙八爪魚 116GM": {
-    "wellcome": "56.00"
-  },
-  "Meadows益生菌飲品 5 X 63ML": {
+  "meadows益生菌飲品 5 x 63ml": {
     "wellcome": "9.00"
   },
-  "保利活性乳酸菌飲品65ML x 5": {
-    "wellcome": "16.50"
-  },
-  "燕塘 老廣州原味乳酪 180GM": {
-    "wellcome": "10.00"
-  },
-  "康萃樂LGMGM成人益生菌 30粒": {
+  "康萃樂lgmgm成人益生菌 30粒": {
     "wellcome": "201.00"
   },
   "雀巢三花 益生健 益生菌高鈣較低脂奶粉 750克": {
     "wellcome": "138.90"
   },
-  "雀巢ACTI-V 雀巢低脂原味乳酪 475GM": {
-    "wellcome": "34.90"
-  },
-  "白蘭氏蟲草雞精樽裝 16 X 2.5OZ (新舊包裝隨機發放)": {
-    "wellcome": "215.00"
-  },
-  "白蘭氏冰糖燕窩 6 X 70GM (新舊包裝隨機發放)": {
-    "wellcome": "184.00"
-  },
-  "子母Smart+ 牛奶飲品4x180ML": {
-    "wellcome": "25.00"
-  },
-  "增美神-維他命B雜丸120S": {
+  "增美神-維他命b雜丸120s": {
     "wellcome": "245.00"
   },
-  "指定分類送贈品": {
-    "wellcome": "32.00"
-  },
-  "子母Smart+ 牛奶飲品4x125 Ml": {
-    "wellcome": "18.00"
-  },
-  "雀巢天源素美味營養湯250毫升x 6 枝": {
-    "wellcome": "156.00"
-  },
-  "白蘭氏雞精樽裝 16 X 2.5OZ (新舊包裝隨機發放)": {
-    "wellcome": "183.00"
-  },
-  "買2送1(加3件入購物車)": {
-    "wellcome": "169.90"
-  },
-  "子母Smart+ 朱古力牛奶飲品 4x125 mL": {
-    "wellcome": "18.00"
-  },
-  "SWISSE 維他命CD鋅紫錐菊泡騰片 40 PC": {
+  "swisse 維他命cd鋅紫錐菊泡騰片 40 pc": {
     "wellcome": "140.00"
   },
-  "2件$80": {
-    "wellcome": "68.00"
-  },
-  "買1送1(加2件入購物車)": {
-    "wellcome": "139.90"
-  },
-  "白蘭氏無糖燕窩支裝 6 X 70GM (新舊包裝隨機發放)": {
-    "wellcome": "184.00"
-  },
-  "2件$12": {
-    "wellcome": "9.00"
-  },
-  "益力多低糖高纖乳酸飲品 5 X 100ML": {
-    "wellcome": "19.90"
-  },
-  "Centrum 三效益生菌配方 60S": {
+  "centrum 三效益生菌配方 60s": {
     "wellcome": "395.00"
   },
-  "益力多活性乳酸菌飲品 5 X 100ML": {
-    "wellcome": "13.50"
-  },
-  "YowUp! 低卡無糖活性益生菌乳酪 (狗狗專用/火雞味) 115G": {
+  "yowup! 低卡無糖活性益生菌乳酪 (狗狗專用/火雞味) 115g": {
     "wellcome": "32.00"
   },
-  "Centrum 甜睡益生菌配方 30S": {
+  "centrum 甜睡益生菌配方 30s": {
     "wellcome": "319.00"
   },
-  "紐西蘭康果芒果汁+益生菌 400ML": {
+  "紐西蘭康果芒果汁+益生菌 400ml": {
     "wellcome": "13.00"
   },
-  "YowUp! 低卡無糖益生菌免疫力狗用乳酪 益生元 115G": {
+  "yowup! 低卡無糖益生菌免疫力狗用乳酪 益生元 115g": {
     "wellcome": "29.00"
   },
   "嘉寶 益生菌香蕉燕麥糊 227克": {
     "wellcome": "65.00"
   },
-  "紐西蘭康果奇異果汁+益生菌 400ML": {
+  "紐西蘭康果奇異果汁+益生菌 400ml": {
     "wellcome": "13.00"
   },
-  "指定品牌送贈品\n    \n      指定分類9折": {
-    "wellcome": "109.50"
-  },
-  "Vaalia 純天然原味乳酪 900GM": {
-    "wellcome": "78.00"
-  },
-  "YowUp! 低卡無糖益生菌免疫力狗用乳酪 關節護養 115G": {
+  "yowup! 低卡無糖益生菌免疫力狗用乳酪 關節護養 115g": {
     "wellcome": "29.00"
   },
-  "Vaalia 法式雲呢拿乳酪 900GM": {
-    "wellcome": "78.00"
-  },
-  "Swisse 護肝排毒片 120PC": {
-    "wellcome": "224.30"
-  },
-  "Swisse 濃縮蔓越莓 30PC": {
-    "wellcome": "171.80"
-  },
-  "Swisse 葡萄籽 180PC": {
-    "wellcome": "419.30"
-  },
-  "Swisse 男性活力複合維他命 120PC": {
+  "swisse 男性活力複合維他命 120pc": {
     "wellcome": "369.00"
   },
-  "Swisse 葡萄糖胺+軟骨素 90PC": {
-    "wellcome": "224.30"
-  },
-  "Swisse 50歲以上男性活力多元維他命 120PC": {
+  "swisse 50歲以上男性活力多元維他命 120pc": {
     "wellcome": "299.30"
-  },
-  "善存成人配方 100PC": {
-    "wellcome": "196.50"
-  },
-  "善存成人配方 5s": {
-    "wellcome": "15.00"
-  },
-  "善存銀善存成人配方 100PC": {
-    "wellcome": "234.70"
-  },
-  "swisse ultiboost mega b 60pcs": {
-    "mannings": "229.00"
   },
   "mannings triple action vitamin c vitamin d3 zinc effervescent tablets 10pcs": {
     "mannings": "38.00"
@@ -522,14 +302,8 @@
   "mannings triple action vitamin c vitamin d3 zinc effervescent tablets 30pcs": {
     "mannings": "92.00"
   },
-  "mitime vit b complex 60 tablets": {
-    "mannings": "299.00"
-  },
   "mitime multivitamin 60 tablets": {
     "mannings": "199.00"
-  },
-  "swisse ultiv men tab 120pcs": {
-    "mannings": "369.00"
   },
   "gnc vitamin b 12 1000 100pcs": {
     "mannings": "189.00"
@@ -540,20 +314,8 @@
   "gnc vitamin e 400 180pcs": {
     "mannings": "419.00"
   },
-  "holdbody activated b complex 60pcs": {
-    "mannings": "399.00"
-  },
-  "bioderma atoderm pp baume 200ml": {
-    "mannings": "285.00"
-  },
   "gnc vitamin b2 100mg 100pcs": {
     "mannings": "175.00"
-  },
-  "mitime kids dha 60 softgels": {
-    "mannings": "299.00"
-  },
-  "blackmores omega ultra 60 capsules": {
-    "mannings": "499.00"
   },
   "mannings guardian odourless fish oil 1000mg softgels 200pcs": {
     "mannings": "139.00"
@@ -561,26 +323,17 @@
   "health proof omega proof 45 capsules": {
     "mannings": "168.00"
   },
-  "blackmores omega triple 150 capsules": {
-    "mannings": "439.00"
-  },
   "gnc triple strength fish oil 120pcs": {
     "mannings": "679.00"
   },
   "gnc triple strength fish oil 60pcs": {
     "mannings": "365.00"
   },
-  "unichi rosa prima rose oil complex 90 softgels": {
-    "mannings": "368.00"
-  },
   "jamieson wild salmon fish oil 1000mg 210pcs": {
     "mannings": "260.00"
   },
   "health proof junior omega proof 60pcs": {
     "mannings": "198.00"
-  },
-  "scott s emulsion orange 400ml": {
-    "mannings": "111.90"
   },
   "gnc ultra strength rtg fish oil 120pcs": {
     "mannings": "549.00"
@@ -630,86 +383,17 @@
   "swisse ultiboost vitamin c d zinc echinacea effervescent 40pcs": {
     "mannings": "140.00"
   },
-  "swisse plus advanced cardiovascular protect 120pcs": {
-    "mannings": "599.00"
-  },
-  "swisse ultra beauty lift firm shots 25ml x 6pcs": {
-    "mannings": "599.00"
-  },
-  "swisse beauty collagen glow 30pcs": {
-    "mannings": "229.00"
-  },
-  "swisse ultiboost high strength co enzyme q10 30pcs": {
-    "mannings": "299.00"
-  },
-  "swisse ultiboost men s potency 30pcs": {
-    "mannings": "159.00"
-  },
-  "swisse ultiboost magnesium calcium d3 120pcs": {
-    "mannings": "259.00"
-  },
-  "swisse beauty golden collagen liquid 25ml x 10bottles": {
-    "mannings": "299.00"
-  },
-  "swisse collagen plus ha collagen 90 tablets": {
-    "mannings": "689.00"
-  },
   "centrum triple action probiotics 60 tablets": {
     "mannings": "395.00"
-  },
-  "centrum women 50 60pcs": {
-    "mannings": "243.90"
-  },
-  "centrum men 50 60pcs": {
-    "mannings": "243.90"
-  },
-  "centrum professional daily wellness pack men 40 30 sachets": {
-    "mannings": "399.00"
-  },
-  "centrum professional daily wellness pack men 30 30 sachets": {
-    "mannings": "369.00"
-  },
-  "centrum professional daily wellness pack women menopause sleep bone support 30 sachets": {
-    "mannings": "459.00"
   },
   "centrum professional daily wellness pack 3 highs health management heart liver health 30 sachets": {
     "mannings": "459.00"
   },
-  "centrum professional daily wellness pack women 30 30 sachets": {
-    "mannings": "369.00"
-  },
-  "centrum professional daily wellness pack women 40 30 sachets": {
-    "mannings": "399.00"
-  },
   "centrum vitamin b complex energy 60 tablets": {
     "mannings": "180.00"
   },
-  "centrum men 60pcs": {
-    "mannings": "202.90"
-  },
-  "centrum women 60pcs": {
-    "mannings": "202.90"
-  },
-  "centrum junior extra c chewable 60pcs": {
-    "mannings": "174.90"
-  },
-  "centrum advance 150pcs": {
-    "mannings": "366.90"
-  },
-  "centrum advance 50 100pcs": {
-    "mannings": "312.90"
-  },
-  "centrum advance 100pcs": {
-    "mannings": "261.90"
-  },
   "centrum sleep probiotics 30 capsules": {
     "mannings": "319.00"
-  },
-  "caltrate uc ii hops 60pcs": {
-    "mannings": "499.90"
-  },
-  "caltrate adult 60pcs": {
-    "mannings": "216.90"
   },
   "caltrate mama calcium supplement 60pcs": {
     "mannings": "244.90"
@@ -720,210 +404,7 @@
   "caltrate joint health uc ii collagen 30pcs": {
     "mannings": "299.90"
   },
-  "caltrate uc ii 90pcs": {
-    "mannings": "799.90"
-  },
-  "維多C 雙重功效 (維他命C加鋅) 香橙味水溶片 10片": {
-    "watsons": "49"
-  },
-  "維多C 3重功效 (維他命C加鋅) 兒童咀嚼片 90片": {
-    "lungfung": "70",
-    "jasons": "104.9",
-    "wellcome": "104.9",
-    "mannings": "104.9",
-    "watsons": "104.9",
-    "parknshop": "118"
-  },
-  "康鈣 C950 (維他命C+鈣) 水溶片- 橙味 30片": {
-    "lungfung": "90",
-    "parknshop": "113.9",
-    "mannings": "113.9",
-    "wellcome": "114",
-    "jasons": "114",
-    "watsons": "96.8"
-  },
-  "小善存 +維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒": {
-    "lungfung": "168",
-    "mannings": "174.9",
-    "watsons": "174.9"
-  },
-  "善存 成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒": {
-    "lungfung": "195",
-    "wellcome": "262",
-    "mannings": "261.9",
-    "jasons": "262",
-    "watsons": "261.9"
-  },
-  "銀善存 50+配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒": {
-    "lungfung": "230",
-    "wellcome": "312.9",
-    "mannings": "312.9",
-    "watsons": "312.9",
-    "jasons": "312.9"
-  },
-  "司各脫 鰵魚肝油 - 乳白 400毫升": {
-    "lungfung": "95"
-  },
-  "Kawai 日本肝油丸 (Drop S) 300粒": {
-    "lungfung": "125",
-    "watsons": "205",
-    "mannings": "205"
-  },
-  "Kawai 無腥味日本肝油鈣丸 (Drop M400) 180粒": {
-    "watsons": "182",
-    "mannings": "182.5"
-  },
-  "Biostime 合生元兒童 HMO 益生菌 28包": {
-    "mannings": "343"
-  },
-  "House香桃蒟蒻啫喱飲品180G": {
-    "wellcome": "18.00"
-  },
-  "李錦記蒸魚豉油 410ML": {
-    "wellcome": "13.00"
-  },
-  "李錦記 蒸魚豉油優惠裝 1 PK": {
-    "wellcome": "25.00"
-  },
-  "swisse 鈣+維他命d 90pc": {
-    "wellcome": "119.00"
-  },
-  "you c1000 維他命檸檬  6 x 140ml": {
-    "wellcome": "35.00"
-  },
-  "blackmores 多元維他命+礦物質 60pc": {
-    "wellcome": "169.90"
-  },
-  "swisse 男性活力複合維他命 120pc": {
-    "wellcome": "369.00"
-  },
-  "利賓納黑加侖子軟糖 60gm (包裝隨機發放)": {
-    "wellcome": "10.50"
-  },
-  "meadows 橙汁添加维他命 c 350ml": {
-    "wellcome": "12.00"
-  },
-  "blackmores 多元維他命b 60pc": {
-    "wellcome": "142.90"
-  },
-  "swisse女性活力複合維他命 120pc": {
-    "wellcome": "369.00"
-  },
-  "地捫西梅汁加維他命 32oz": {
-    "wellcome": "56.50"
-  },
-  "三得利檸檬味氣泡飲料 500ml": {
-    "wellcome": "8.50"
-  },
-  "house c1000 檸檬果凍 180g": {
-    "wellcome": "18.00"
-  },
-  "swisse 維他命cd鋅紫錐菊泡騰片 40 pc": {
-    "wellcome": "140.00"
-  },
-  "you c1000 維他命香橙  6 x 140ml": {
-    "wellcome": "35.00"
-  },
-  "羊脂美容霜 含維生素e 100gm": {
-    "wellcome": "90.00"
-  },
-  "blackmores 維他命c 60pc": {
-    "wellcome": "99.90"
-  },
-  "維多c 3重功效橙味水溶片 30pc": {
-    "wellcome": "115.00"
-  },
-  "blackmores 維他命b+c 60pc": {
-    "wellcome": "146.90"
-  },
-  "swisse 50歲以上男性活力多元維他命 120pc": {
-    "wellcome": "299.30"
-  },
-  "麒麟關顧免疫維生素乳酸飲品 100ml x 6": {
-    "wellcome": "59.00"
-  },
-  "blackmores 活性鈣 60pc": {
-    "wellcome": "164.90"
-  },
-  "meadows橄欖油浸吞拿魚塊 185gm": {
-    "wellcome": "22.90"
-  },
-  "banga 油浸三文魚加檸檬 120 gm": {
-    "wellcome": "20.00"
-  },
-  "meadows橄欖油浸吞拿魚塊 95gm": {
-    "wellcome": "12.90"
-  },
-  "老人牌油浸沙甸魚 125gm": {
-    "wellcome": "25.00"
-  },
-  "皇滋味橄欖油浸沙甸魚 120gm": {
-    "wellcome": "22.00"
-  },
-  "美味牌油浸吞拿魚罐裝 3 x 185gm": {
-    "wellcome": "57.00"
-  },
-  "紅圈牌油浸魚柳 120gm": {
-    "wellcome": "11.00"
-  },
-  "大澳益昌號 油浸鹹魚(馬友) 190gm": {
-    "wellcome": "158.00"
-  },
-  "美味牌辣油沙甸魚 106gm": {
-    "wellcome": "13.00"
-  },
-  "寶幸淡金槍油浸吞拿魚 3 x 70gm": {
-    "wellcome": "29.90"
-  },
-  "紅圈牌油辣沙甸 110gm": {
-    "wellcome": "11.00"
-  },
-  "meadows 油浸鯖魚柳120g": {
-    "wellcome": "15.00"
-  },
-  "尊西金槍魚 145gm": {
-    "wellcome": "34.00"
-  },
-  "meadows 油浸辣椒鯖魚柳120g": {
-    "wellcome": "15.00"
-  },
-  "swisse 無腥味高濃度野生魚油 200pc": {
-    "wellcome": "149.30"
-  },
-  "美味牌葵花籽油吞拿魚 95gm": {
-    "wellcome": "17.00"
-  },
-  "東遠芥花籽油吞拿魚 100gm": {
-    "wellcome": "17.00"
-  },
-  "美味牌葵花籽油浸吞拿魚 185gm": {
-    "wellcome": "19.00"
-  },
-  "李錦記 蒸魚豉油優惠裝 1 pk": {
-    "wellcome": "25.00"
-  },
-  "李錦記蒸魚豉油 410ml": {
-    "wellcome": "13.00"
-  },
-  "meadows益生菌飲品 5 x 63ml": {
-    "wellcome": "9.00"
-  },
-  "保利活性乳酸菌飲品65ml x 5": {
-    "wellcome": "16.50"
-  },
-  "燕塘 老廣州原味乳酪 180gm": {
-    "wellcome": "10.00"
-  },
-  "康萃樂lgmgm成人益生菌 30粒": {
-    "wellcome": "201.00"
-  },
-  "雀巢acti-v 雀巢低脂原味乳酪 475gm": {
-    "wellcome": "34.90"
-  },
-  "點點綠維他命C1000mg+鋅10mg(無糖橙味)30PC": {
+  "點點綠維他命c1000mg+鋅10mg(無糖橙味)30pc": {
     "wellcome": "68.00"
-  },
-  "佳存成人50+鈣片  60PC": {
-    "wellcome": "160.90"
   }
 }
