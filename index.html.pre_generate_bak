@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-07-16 (00:00:00) &nbsp;|&nbsp; 🔄 2026-07-20 08:41:57</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-07-17 (11:00:00) &nbsp;|&nbsp; 🔄 2026-07-20 08:41:57</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-07-16 (00:00:00) &nbsp;|&nbsp; 🔄 2026-07-17 22:09:37</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-07-17 (11:00:00) &nbsp;|&nbsp; 🔄 2026-07-17 22:09:37</p>
                     </div>
                     <span id="countdownDisplay" style="color:rgba(255,255,255,0.9);font-size:0.85rem;font-weight:500" title="Auto-refresh when cron job completes">🔄 Cron</span>
                 </div>
@@ -2128,13 +2128,13 @@
         }
         function closeModal(){document.getElementById('detailModal').classList.remove('show')}
         document.getElementById('detailModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
-        const BUILD_VERSION = '2026-07-20 08:41:51';
+        const BUILD_VERSION = '2026-07-17 22:09:30';
         // Check cron job update every 30s — auto-reload only if version changed
         function checkVersion() {
             fetch('/B0961005-Inventory-Dashboard/version.json?' + Date.now())
                 .then(r => r.json())
                 .then(v => {
-                    if (v.build_ts && v.build_ts !== 1784508111) {
+                    if (v.build_ts && v.build_ts !== 1784297370) {
                         console.log('New cron build detected: ' + v.build_time + ' — reloading...');
                         location.reload();
                     }
