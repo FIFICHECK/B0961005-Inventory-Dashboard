@@ -2211,7 +2211,7 @@
         }
         function closeModal(){document.getElementById('detailModal').classList.remove('show')}
         document.getElementById('detailModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
-        const BUILD_VERSION = '2026-07-22 22:02:48';
+        const BUILD_VERSION = '2026-07-23 09:49:36';
         // Check cron job update every 30s — auto-reload only if version changed
         function checkVersion() {
             fetch('/B0961005-Inventory-Dashboard/version.json?' + Date.now())
