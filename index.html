@@ -79,8 +79,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-07-24 (00:00:00) &nbsp;|&nbsp; 🔄 2026-07-24 11:42:08</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-07-22 (23:59:59) &nbsp;|&nbsp; 🔄 2026-07-24 11:42:08</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-07-24 (00:00:00) &nbsp;|&nbsp; 🔄 2026-07-24 11:53:36</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-07-22 (23:59:59) &nbsp;|&nbsp; 🔄 2026-07-24 11:53:36</p>
                     </div>
                     <span id="countdownDisplay" style="color:rgba(255,255,255,0.9);font-size:0.85rem;font-weight:500" title="Auto-refresh when cron job completes">🔄 Cron</span>
                 </div>
@@ -2241,13 +2241,13 @@
         }
         function closeModal(){document.getElementById('detailModal').classList.remove('show')}
         document.getElementById('detailModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
-        const BUILD_VERSION = '2026-07-24 11:42:01';
+        const BUILD_VERSION = '2026-07-24 11:53:29';
         // Check cron job update every 30s — auto-reload only if version changed
         function checkVersion() {
             fetch('/B0961005-Inventory-Dashboard/version.json?' + Date.now())
                 .then(r => r.json())
                 .then(v => {
-                    if (v.build_ts && v.build_ts !== 1784864521) {
+                    if (v.build_ts && v.build_ts !== 1784865209) {
                         console.log('New cron build detected: ' + v.build_time + ' — reloading...');
                         location.reload();
                     }
@@ -2754,41 +2754,33 @@
             // Apply date/month/year filter to multiDataset charts (SKU/Brand)
             // rawData.data is a 2D array: data[dateIndex][skuIndex]
             let filteredIndices = [];
-            rawData.labels.forEach((l, idx) => {
-                const hasDateFilter = currentDateFilter && currentDateFilter.trim() !== '';
-                const labelMatch = l === currentDateFilter;
-                const hasDateRange = currentDateFrom && currentDateTo;
-                if (hasDateRange && chartName.includes('Daily')) {
-                    // Date range filter for Daily charts (SKU/Brand)
-                    if (l >= currentDateFrom && l <= currentDateTo) {
-                        filteredIndices.push(idx);
-                    }
-                } else if (hasDateFilter && !chartName.includes('Monthly')) {
-                    // Date filter only applies to Daily/Hour charts, not Monthly
-                    if (chartName.includes('Daily') && labelMatch) {
-                        filteredIndices.push(idx);
-                    }
-                }
-                // ⚠️ Fallback: if date filter matched NOTHING, fall through to month/year filter
-                if (filteredIndices.length === 0 && !hasDateRange) {
-                    // No match from date filter — use month/year instead (common when today's date > latest data)
+            const hasDateRange = currentDateFrom && currentDateTo;
+            const hasDateFilter = currentDateFilter && currentDateFilter.trim() !== '';
+
+            // Phase 1: Try date-range or date-specific filter
+            if (hasDateRange && chartName.includes('Daily')) {
+                rawData.labels.forEach((l, idx) => {
+                    if (l >= currentDateFrom && l <= currentDateTo) filteredIndices.push(idx);
+                });
+            } else if (hasDateFilter && !chartName.includes('Monthly')) {
+                rawData.labels.forEach((l, idx) => {
+                    if (l === currentDateFilter) filteredIndices.push(idx);
+                });
+            }
+
+            // Phase 2: Fallback if no matches from date filter — use month/year instead
+            if (filteredIndices.length === 0) {
+                rawData.labels.forEach((l, idx) => {
                     if (currentMonthFilter) {
-                    // Month filter only when no date filter
-                    if (chartName.includes('Daily') && l.startsWith(currentMonthFilter)) {
-                        filteredIndices.push(idx);
-                    } else if (chartName.includes('Monthly') && l.startsWith(currentMonthFilter)) {
-                        filteredIndices.push(idx);
-                    }
-                } else if (currentYearFilter) {
-                    // Year filter: match first 4 characters
-                    if (l.startsWith(currentYearFilter)) {
+                        if (l.startsWith(currentMonthFilter)) filteredIndices.push(idx);
+                    } else if (currentYearFilter) {
+                        if (l.startsWith(currentYearFilter)) filteredIndices.push(idx);
+                    } else {
+                        // No filters - show all
                         filteredIndices.push(idx);
                     }
-                } else {
-                    // No filters - show all
-                    filteredIndices.push(idx);
-                }
-            });
+                });
+            }
                         // Extract filtered labels and rows
             const filteredLabels = filteredIndices.map(i => rawData.labels[i]);
             const filteredData = filteredIndices.map(i => rawData.data[i]);
