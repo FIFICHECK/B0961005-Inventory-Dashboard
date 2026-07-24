@@ -94,8 +94,8 @@
   },
   "blackmores 腸道益生菌 (300億) 30粒": {
     "sasa": "155",
-    "mannings": "239",
     "parknshop": "299",
+    "mannings": "299",
     "watsons": "299"
   },
   "naturo vita 益生元．菌固體飲品 14包": {
@@ -114,22 +114,13 @@
     "wellcome": "119.00"
   },
   "you c1000 維他命香橙 6 x 140ml": {
-    "wellcome": "35.00"
+    "wellcome": "28.00"
   },
   "blackmores 維他命c 60pc": {
     "wellcome": "99.90"
   },
-  "維多c 3重功效橙味水溶片 30pc": {
-    "wellcome": "115.00"
-  },
   "blackmores 多元維他命b 60pc": {
     "wellcome": "142.90"
-  },
-  "維多c immunopro白金免疫力配方水溶片 30 pc": {
-    "wellcome": "139.90"
-  },
-  "維多c 三重功效兒童咀嚼片 90 pc": {
-    "wellcome": "104.90"
   },
   "swisse 維他命cd鋅紫錐菊泡騰片 40 pc": {
     "wellcome": "140.00"
@@ -150,9 +141,24 @@
     "wellcome": "399.00"
   },
   "雀巢三花 益生健 益生菌高鈣較低脂奶粉 750克": {
-    "wellcome": "138.90"
+    "wellcome": "109.50"
   },
   "康萃樂lgmgm成人益生菌 30粒": {
     "wellcome": "268.00"
+  },
+  "維多c 三重功效兒童咀嚼片 90 pc": {
+    "wellcome": "104.90"
+  },
+  "維多c immunopro白金免疫力配方水溶片 30 pc": {
+    "wellcome": "139.90"
+  },
+  "維多c 3重功效橙味水溶片 30pc": {
+    "wellcome": "86.00"
+  },
+  "blackmores 活性鈣 60pc": {
+    "wellcome": "164.90"
+  },
+  "維多c 3重功效橙味水溶片 45pc": {
+    "wellcome": "155.00"
   }
 }
