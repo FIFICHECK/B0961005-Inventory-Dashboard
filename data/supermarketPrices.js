@@ -1,3 +1,5 @@
+// supermarketPrices - Auto-generated 2026-07-26
+// Source: superpricehk.com API (categories 287, 288, 289)
 const supermarketPrices = {
   "P000001692": {
     "brand": "維多C",
