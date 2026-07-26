@@ -1,5 +1,3 @@
-// supermarketPrices - Auto-generated 2026-07-25
-// Source: superpricehk.com API (categories 287, 288, 289)
 const supermarketPrices = {
   "P000001692": {
     "brand": "維多C",
@@ -9,7 +7,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "watsons": "49"
   },
   "P000003198": {
@@ -20,7 +18,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "lungfung": "70",
     "mannings": "104.9",
     "wellcome": "104.9",
@@ -36,7 +34,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "lungfung": "90",
     "wellcome": "96.9",
     "jasons": "99.5",
@@ -52,7 +50,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "lungfung": "168",
     "watsons": "174.9",
     "mannings": "174.9"
@@ -65,7 +63,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "wellcome": "183.4",
     "jasons": "188.9",
     "lungfung": "195",
@@ -80,7 +78,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "wellcome": "219",
     "jasons": "225.4",
     "lungfung": "230",
@@ -95,7 +93,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "mannings": "264",
     "watsons": "264"
   },
@@ -107,7 +105,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "wellcome": "95",
     "jasons": "95",
     "lungfung": "95",
@@ -122,7 +120,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "lungfung": "95"
   },
   "P000001714": {
@@ -133,7 +131,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "lungfung": "125",
     "watsons": "205",
     "mannings": "205"
@@ -146,7 +144,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "lungfung": "178",
     "watsons": "599",
     "parknshop": "599"
@@ -159,7 +157,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "watsons": "182",
     "mannings": "182.5"
   },
@@ -171,7 +169,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "parknshop": "199",
     "wellcome": "199",
     "mannings": "199",
@@ -186,7 +184,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "watsons": "275"
   },
   "P000004872": {
@@ -197,7 +195,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "mannings": "352"
   },
   "P000004875": {
@@ -208,7 +206,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "watsons": "570"
   },
   "P000004949": {
@@ -219,7 +217,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "watsons": "118"
   },
   "P000004956": {
@@ -230,7 +228,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "lungfung": "128",
     "parknshop": "268",
     "watsons": "268"
@@ -243,7 +241,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "mannings": "148"
   },
   "P000004946": {
@@ -254,7 +252,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "sasa": "155",
     "watsons": "299",
     "parknshop": "299",
@@ -268,7 +266,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "mannings": "199"
   },
   "P000004948": {
@@ -279,7 +277,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "lungfung": "290",
     "mannings": "395",
     "parknshop": "395",
@@ -293,9 +291,7 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-25",
+    "updated": "2026-07-26",
     "mannings": "343"
   }
 };
-
-if (typeof module !== "undefined") module.exports = supermarketPrices;
