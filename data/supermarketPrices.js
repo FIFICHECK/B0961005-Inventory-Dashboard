@@ -1,6 +1,5 @@
-// supermarketPrices - Auto-generated 2026-07-27
-// Source: superpricehk.com API (categories 287, 288, 289)
-const supermarketPrices = {
+const supermarketPrices = 
+{
   "P000001692": {
     "brand": "維多C",
     "name": "雙重功效 (維他命C加鋅) 香橙味水溶片 10片",
@@ -9,8 +8,8 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-27",
-    "watsons": "49",
+    "updated": "2026-07-28",
+    "watsons": "49"
   },
   "P000003198": {
     "brand": "維多C",
@@ -20,13 +19,13 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "lungfung": "70",
     "watsons": "104.9",
     "mannings": "104.9",
     "jasons": "104.9",
     "wellcome": "104.9",
-    "parknshop": "118",
+    "parknshop": "118"
   },
   "P000003197": {
     "brand": "康鈣",
@@ -36,13 +35,13 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "lungfung": "90",
     "wellcome": "96.9",
     "jasons": "99.5",
     "mannings": "113.9",
     "parknshop": "113.9",
-    "watsons": "139",
+    "watsons": "139"
   },
   "P000002575": {
     "brand": "小善存",
@@ -52,10 +51,10 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "lungfung": "168",
     "mannings": "174.9",
-    "watsons": "174.9",
+    "watsons": "174.9"
   },
   "P000001663": {
     "brand": "善存",
@@ -65,12 +64,12 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "wellcome": "183.4",
     "jasons": "188.9",
     "lungfung": "195",
     "mannings": "261.9",
-    "watsons": "261.9",
+    "watsons": "261.9"
   },
   "P000003194": {
     "brand": "銀善存",
@@ -80,12 +79,12 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "wellcome": "219",
     "jasons": "225.4",
     "lungfung": "230",
     "mannings": "312.9",
-    "watsons": "312.9",
+    "watsons": "312.9"
   },
   "P000003195": {
     "brand": "惠氏",
@@ -95,9 +94,9 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "維他命 / 礦物質"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "watsons": "264",
-    "mannings": "264",
+    "mannings": "264"
   },
   "P000001732": {
     "brand": "司各脫",
@@ -107,12 +106,12 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "lungfung": "95",
     "wellcome": "95",
     "jasons": "95",
     "mannings": "111.9",
-    "watsons": "118",
+    "watsons": "118"
   },
   "P000001733": {
     "brand": "司各脫",
@@ -122,8 +121,8 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-27",
-    "lungfung": "95",
+    "updated": "2026-07-28",
+    "lungfung": "95"
   },
   "P000001714": {
     "brand": "Kawai",
@@ -133,10 +132,10 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "lungfung": "125",
     "watsons": "205",
-    "mannings": "205",
+    "mannings": "205"
   },
   "P000004877": {
     "brand": "Blackmores",
@@ -146,10 +145,10 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "lungfung": "178",
     "parknshop": "599",
-    "watsons": "599",
+    "watsons": "599"
   },
   "P000003196": {
     "brand": "Kawai",
@@ -159,9 +158,9 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "watsons": "182",
-    "mannings": "182.5",
+    "mannings": "182.5"
   },
   "P000004876": {
     "brand": "Swisse",
@@ -171,12 +170,12 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "watsons": "199",
     "mannings": "199",
     "parknshop": "199",
     "wellcome": "199",
-    "jasons": "205",
+    "jasons": "205"
   },
   "P000004874": {
     "brand": "增美神",
@@ -186,8 +185,8 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-27",
-    "watsons": "275",
+    "updated": "2026-07-28",
+    "watsons": "275"
   },
   "P000004872": {
     "brand": "維柏健",
@@ -197,8 +196,8 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-27",
-    "mannings": "352",
+    "updated": "2026-07-28",
+    "mannings": "352"
   },
   "P000004875": {
     "brand": "日本命力",
@@ -208,8 +207,8 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "魚油 / 魚肝油 / 肝油"
     },
-    "updated": "2026-07-27",
-    "watsons": "570",
+    "updated": "2026-07-28",
+    "watsons": "570"
   },
   "P000004949": {
     "brand": "優之源",
@@ -219,8 +218,8 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-27",
-    "watsons": "118",
+    "updated": "2026-07-28",
+    "watsons": "118"
   },
   "P000004956": {
     "brand": "康萃樂",
@@ -230,10 +229,10 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "lungfung": "128",
     "parknshop": "268",
-    "watsons": "268",
+    "watsons": "268"
   },
   "P000004951": {
     "brand": "Proven",
@@ -243,8 +242,8 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-27",
-    "mannings": "148",
+    "updated": "2026-07-28",
+    "mannings": "148"
   },
   "P000004946": {
     "brand": "Blackmores",
@@ -254,11 +253,11 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "sasa": "155",
     "mannings": "299",
     "watsons": "299",
-    "parknshop": "299",
+    "parknshop": "299"
   },
   "P000004950": {
     "brand": "Naturo Vita",
@@ -268,8 +267,8 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-27",
-    "mannings": "199",
+    "updated": "2026-07-28",
+    "mannings": "199"
   },
   "P000004948": {
     "brand": "善存",
@@ -279,11 +278,11 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-27",
+    "updated": "2026-07-28",
     "lungfung": "290",
     "watsons": "395",
     "mannings": "395",
-    "parknshop": "395",
+    "parknshop": "395"
   },
   "P000004955": {
     "brand": "Biostime",
@@ -293,7 +292,8 @@ const supermarketPrices = {
       "cat2": "保健食品 / 營養補充劑",
       "cat3": "益生菌"
     },
-    "updated": "2026-07-27",
-    "mannings": "343",
-  },
-};
+    "updated": "2026-07-28",
+    "mannings": "343"
+  }
+}
+;
