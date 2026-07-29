@@ -2448,7 +2448,7 @@
             fetch('/B0961005-Inventory-Dashboard/version.json?' + Date.now())
                 .then(r => r.json())
                 .then(v => {
-                    if (v.build_ts && v.build_ts !== 1785319972) {
+                    if (v.build_ts && v.build_ts !== 1785334049) {
                         console.log('New cron build detected: ' + v.build_time + ' — reloading...');
                         location.reload();
                     }
