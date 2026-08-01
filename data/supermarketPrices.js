@@ -1,12 +1,10 @@
-// supermarketPrices - Auto-generated 2026-07-31
+// supermarketPrices - Auto-generated 2026-08-01 09:14:44
 // Source: superpricehk.com API (categories 287, 288, 289)
 const supermarketPrices = {
   "P000001663": {
-    "JS": 188.9,
-    "LF": 195,
+    "WEL": 262,
     "MS": 261.9,
     "WS": 288,
-    "WEL": 183.4,
     "brand": "善存",
     "name": "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒"
   },
@@ -16,39 +14,28 @@ const supermarketPrices = {
     "name": "雙重功效 (維他命C加鋅) 香橙味水溶片 10片"
   },
   "P000001714": {
-    "LF": 125,
     "MS": 205,
     "WS": 205,
     "brand": "Kawai",
     "name": "日本肝油丸 (Drop S) 300粒"
   },
   "P000001732": {
-    "JS": 95,
-    "LF": 95,
+    "WEL": 95,
     "MS": 111.9,
     "WS": 118,
-    "WEL": 95,
     "brand": "司各脫",
     "name": "鰵魚肝油 - 鮮橙 400毫升"
   },
-  "P000001733": {
-    "LF": 95,
-    "brand": "司各脫",
-    "name": "鰵魚肝油 - 乳白 400毫升"
-  },
   "P000002575": {
-    "LF": 168,
     "MS": 174.9,
     "WS": 185.9,
     "brand": "小善存",
     "name": "+維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒"
   },
   "P000003194": {
-    "JS": 225.4,
-    "LF": 230,
+    "WEL": 312.9,
     "MS": 312.9,
     "WS": 312.9,
-    "WEL": 219,
     "brand": "銀善存",
     "name": "50+配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒"
   },
@@ -65,27 +52,23 @@ const supermarketPrices = {
     "name": "無腥味日本肝油鈣丸 (Drop M400) 180粒"
   },
   "P000003197": {
-    "JS": 99.5,
-    "LF": 90,
+    "WEL": 114,
     "MS": 113.9,
-    "PNS": 113.9,
     "WS": 139,
-    "WEL": 96.9,
+    "PNS": 113.9,
     "brand": "康鈣",
     "name": "C950 (維他命C+鈣) 水溶片- 橙味 30片"
   },
   "P000003198": {
-    "JS": 104.9,
-    "LF": 70,
-    "MS": 104.9,
-    "PNS": 118,
-    "WS": 104.9,
     "WEL": 104.9,
+    "MS": 104.9,
+    "WS": 104.9,
+    "PNS": 118,
     "brand": "維多C",
     "name": "3重功效 (維他命C加鋅) 兒童咀嚼片 90片"
   },
   "P000004872": {
-    "MS": 352,
+    "MS": 281,
     "brand": "維柏健",
     "name": "3倍精煉魚油 80粒"
   },
@@ -100,34 +83,30 @@ const supermarketPrices = {
     "name": "增強版強腦素 60粒"
   },
   "P000004876": {
-    "JS": 205,
-    "MS": 199,
-    "PNS": 199,
-    "WS": 199,
     "WEL": 199,
+    "MS": 199,
+    "WS": 199,
+    "PNS": 199,
     "brand": "Swisse",
     "name": "無腥味高濃度野生魚油 200粒"
   },
   "P000004877": {
-    "LF": 178,
-    "PNS": 599,
     "WS": 599,
+    "PNS": 599,
     "brand": "Blackmores",
     "name": "無腥味魚油1000 400粒"
   },
   "P000004946": {
     "MS": 299,
-    "PNS": 299,
-    "SS": 155,
     "WS": 299,
+    "PNS": 299,
     "brand": "Blackmores",
     "name": "腸道益生菌 (300億) 30粒"
   },
   "P000004948": {
-    "LF": 290,
     "MS": 395,
-    "PNS": 395,
     "WS": 395,
+    "PNS": 395,
     "brand": "善存",
     "name": "三效益生菌配方 60粒"
   },
@@ -142,7 +121,7 @@ const supermarketPrices = {
     "name": "益生元．菌固體飲品 14包"
   },
   "P000004951": {
-    "MS": 148,
+    "MS": 165,
     "brand": "Proven",
     "name": "益生菌 (合生原) 250億高效成人配方 30粒"
   },
@@ -152,9 +131,8 @@ const supermarketPrices = {
     "name": "合生元兒童 HMO 益生菌 28包"
   },
   "P000004956": {
-    "LF": 128,
-    "PNS": 268,
     "WS": 268,
+    "PNS": 268,
     "brand": "康萃樂",
     "name": "兒童益生菌咀嚼片 30粒"
   }
