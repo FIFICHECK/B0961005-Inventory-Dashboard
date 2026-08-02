@@ -1,8 +1,8 @@
-// supermarketPrices - Auto-generated 2026-08-01 09:14:44
+// supermarketPrices - Auto-generated 2026-08-02 09:13:43
 // Source: superpricehk.com API (categories 287, 288, 289)
 const supermarketPrices = {
   "P000001663": {
-    "WEL": 262,
+    "WEL": 183.4,
     "MS": 261.9,
     "WS": 288,
     "brand": "善存",
@@ -33,7 +33,7 @@ const supermarketPrices = {
     "name": "+維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒"
   },
   "P000003194": {
-    "WEL": 312.9,
+    "WEL": 219,
     "MS": 312.9,
     "WS": 312.9,
     "brand": "銀善存",
@@ -52,7 +52,7 @@ const supermarketPrices = {
     "name": "無腥味日本肝油鈣丸 (Drop M400) 180粒"
   },
   "P000003197": {
-    "WEL": 114,
+    "WEL": 96.9,
     "MS": 113.9,
     "WS": 139,
     "PNS": 113.9,
