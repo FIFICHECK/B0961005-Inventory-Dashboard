@@ -1,114 +1,114 @@
 {
   "維多c 雙重功效 (維他命c加鋅) 香橙味水溶片 10片": {
-    "watsons": "49"
+    "watsons": "49.0"
   },
   "維多c 3重功效 (維他命c加鋅) 兒童咀嚼片 90片": {
-    "watsons": "104.9",
-    "wellcome": "104.9",
+    "lungfung": "70.0",
     "mannings": "104.9",
-    "parknshop": "118",
-    "lungfung": "70",
-    "jasons": "104.9"
+    "wellcome": "104.9",
+    "jasons": "104.9",
+    "watsons": "104.9",
+    "parknshop": "118.0"
   },
   "康鈣 c950 (維他命c+鈣) 水溶片- 橙味 30片": {
-    "watsons": "139",
+    "lungfung": "90.0",
     "wellcome": "96.9",
+    "jasons": "99.5",
     "mannings": "113.9",
     "parknshop": "113.9",
-    "lungfung": "90",
-    "jasons": "99.5"
+    "watsons": "139.0"
   },
   "小善存 +維他命c (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒": {
-    "watsons": "185.9",
+    "lungfung": "168.0",
     "mannings": "174.9",
-    "lungfung": "168"
+    "watsons": "185.9"
   },
   "善存 成人配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
-    "watsons": "288",
     "wellcome": "183.4",
+    "jasons": "188.9",
+    "lungfung": "195.0",
     "mannings": "261.9",
-    "lungfung": "195",
-    "jasons": "188.9"
+    "watsons": "288.0"
   },
   "銀善存 50+配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
-    "watsons": "312.9",
-    "wellcome": "219",
+    "wellcome": "219.0",
+    "jasons": "225.4",
+    "lungfung": "230.0",
     "mannings": "312.9",
-    "lungfung": "230",
-    "jasons": "225.4"
+    "watsons": "312.9"
   },
   "惠氏 23種維他命及礦物質補充品 100粒": {
-    "watsons": "264",
-    "mannings": "264"
+    "mannings": "264.0",
+    "watsons": "264.0"
   },
   "司各脫 鰵魚肝油 - 鮮橙 400毫升": {
-    "watsons": "118",
-    "wellcome": "95",
+    "jasons": "95.0",
+    "lungfung": "95.0",
+    "wellcome": "95.0",
     "mannings": "111.9",
-    "lungfung": "95",
-    "jasons": "95"
+    "watsons": "118.0"
+  },
+  "司各脫 鰵魚肝油 - 乳白 400毫升": {
+    "lungfung": "95.0"
   },
   "kawai 日本肝油丸 (drop s) 300粒": {
-    "watsons": "205",
-    "mannings": "205",
-    "lungfung": "125"
+    "lungfung": "125.0",
+    "watsons": "205.0",
+    "mannings": "205.0"
   },
   "blackmores 無腥味魚油1000 400粒": {
-    "watsons": "599",
-    "parknshop": "599",
-    "lungfung": "178"
+    "lungfung": "178.0",
+    "parknshop": "599.0",
+    "watsons": "599.0"
   },
   "kawai 無腥味日本肝油鈣丸 (drop m400) 180粒": {
-    "watsons": "182",
+    "watsons": "182.0",
     "mannings": "182.5"
   },
   "swisse 無腥味高濃度野生魚油 200粒": {
-    "watsons": "199",
-    "wellcome": "199",
-    "mannings": "199",
-    "parknshop": "199",
-    "jasons": "205"
+    "watsons": "199.0",
+    "mannings": "199.0",
+    "wellcome": "199.0",
+    "parknshop": "199.0",
+    "jasons": "205.0"
   },
   "增美神 三文魚油丸 210粒": {
-    "watsons": "275"
+    "watsons": "275.0"
   },
   "維柏健 3倍精煉魚油 80粒": {
-    "mannings": "281"
+    "mannings": "281.0"
   },
   "日本命力 增強版強腦素 60粒": {
-    "watsons": "570"
+    "watsons": "570.0"
   },
   "優之源 雙岐乳酸菌啫喱 20包": {
-    "watsons": "118"
+    "watsons": "118.0"
   },
   "康萃樂 兒童益生菌咀嚼片 30粒": {
-    "watsons": "268",
-    "parknshop": "268",
-    "lungfung": "128"
-  },
-  "proven 益生菌 (合生原) 250億高效成人配方 30粒": {
-    "mannings": "165"
+    "lungfung": "128.0",
+    "watsons": "268.0",
+    "parknshop": "268.0"
   },
   "blackmores 腸道益生菌 (300億) 30粒": {
-    "watsons": "299",
-    "mannings": "299",
-    "parknshop": "299",
-    "sasa": "155"
+    "sasa": "155.0",
+    "mannings": "299.0",
+    "parknshop": "299.0",
+    "watsons": "299.0"
+  },
+  "proven 益生菌 (合生原) 250億高效成人配方 30粒": {
+    "mannings": "165.0"
   },
   "naturo vita 益生元．菌固體飲品 14包": {
-    "mannings": "199"
+    "mannings": "199.0"
   },
   "善存 三效益生菌配方 60粒": {
-    "watsons": "395",
-    "mannings": "395",
-    "parknshop": "395",
-    "lungfung": "290"
+    "lungfung": "290.0",
+    "parknshop": "395.0",
+    "watsons": "395.0",
+    "mannings": "395.0"
   },
   "biostime 合生元兒童 hmo 益生菌 28包": {
-    "mannings": "343"
-  },
-  "司各脫 鰵魚肝油 - 乳白 400毫升": {
-    "lungfung": "95"
+    "mannings": "343.0"
   },
   "you c1000 維他命檸檬 6 x 140ml": {
     "wellcome": "28.00"
@@ -151,5 +151,8 @@
   },
   "blackmores 多元維他命+礦物質 60pc": {
     "wellcome": "169.90"
+  },
+  "地捫西梅汁加維他命 32oz": {
+    "wellcome": "40.00"
   }
 }
