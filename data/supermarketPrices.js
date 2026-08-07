@@ -1,4 +1,4 @@
-// supermarketPrices - Auto-generated 2026-08-06 09:22:38
+// supermarketPrices - Auto-generated 2026-08-07 09:15:02
 // Source: superpricehk.com API (categories 287, 288, 289)
 const supermarketPrices = {
   "P000001663": {
@@ -11,6 +11,7 @@ const supermarketPrices = {
     "name": "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒"
   },
   "P000001692": {
+    "MS": 49.0,
     "WS": 49.0,
     "brand": "維多C",
     "name": "雙重功效 (維他命C加鋅) 香橙味水溶片 10片"
@@ -55,12 +56,14 @@ const supermarketPrices = {
   "P000003195": {
     "MS": 264.0,
     "WS": 264.0,
+    "LF": 150.0,
     "brand": "惠氏",
     "name": "23種維他命及礦物質補充品 100粒"
   },
   "P000003196": {
     "MS": 182.5,
     "WS": 182.0,
+    "LF": 110.0,
     "brand": "Kawai",
     "name": "無腥味日本肝油鈣丸 (Drop M400) 180粒"
   },
@@ -90,6 +93,7 @@ const supermarketPrices = {
     "name": "3倍精煉魚油 80粒"
   },
   "P000004874": {
+    "MS": 260.0,
     "WS": 275.0,
     "brand": "增美神",
     "name": "三文魚油丸 210粒"
@@ -110,6 +114,7 @@ const supermarketPrices = {
     "WS": 279.0,
     "PNS": 279.0,
     "LF": 178.0,
+    "SA": 188.0,
     "brand": "Blackmores",
     "name": "無腥味魚油1000 400粒"
   },
@@ -122,6 +127,7 @@ const supermarketPrices = {
     "name": "腸道益生菌 (300億) 30粒"
   },
   "P000004948": {
+    "WEL": 395.0,
     "MS": 395.0,
     "WS": 395.0,
     "PNS": 395.0,
@@ -131,6 +137,7 @@ const supermarketPrices = {
   },
   "P000004949": {
     "WS": 118.0,
+    "SA": 98.0,
     "brand": "優之源",
     "name": "雙岐乳酸菌啫喱 20包"
   },
