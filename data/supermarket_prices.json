@@ -1,8 +1,4 @@
 {
-  "維多c 雙重功效 (維他命c加鋅) 香橙味水溶片 10片": {
-    "mannings": "49.0",
-    "watsons": "49.0"
-  },
   "維多c 3重功效 (維他命c加鋅) 兒童咀嚼片 90片": {
     "lungfung": "70.0",
     "mannings": "104.9",
@@ -18,16 +14,6 @@
     "parknshop": "113.9",
     "mannings": "113.9",
     "watsons": "139.0"
-  },
-  "惠氏 23種維他命及礦物質補充品 100粒": {
-    "lungfung": "150.0",
-    "mannings": "264.0",
-    "watsons": "264.0"
-  },
-  "小善存 +維他命c (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒": {
-    "lungfung": "168.0",
-    "mannings": "174.9",
-    "watsons": "185.9"
   },
   "善存 成人配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
     "wellcome": "183.4",
@@ -50,70 +36,12 @@
     "mannings": "111.9",
     "watsons": "111.9"
   },
-  "司各脫 鰵魚肝油 - 乳白 400毫升": {
-    "lungfung": "95.0"
-  },
-  "kawai 無腥味日本肝油鈣丸 (drop m400) 180粒": {
-    "lungfung": "110.0",
-    "watsons": "182.0",
-    "mannings": "182.5"
-  },
-  "kawai 日本肝油丸 (drop s) 300粒": {
-    "lungfung": "125.0",
-    "watsons": "205.0",
-    "mannings": "205.0"
-  },
-  "blackmores 無腥味魚油1000 400粒": {
-    "lungfung": "178.0",
-    "sasa": "188.0",
-    "parknshop": "279.0",
-    "watsons": "279.0"
-  },
-  "swisse 無腥味高濃度野生魚油 200粒": {
-    "parknshop": "199.0",
-    "mannings": "199.0",
-    "watsons": "199.0"
-  },
-  "增美神 三文魚油丸 210粒": {
-    "mannings": "260.0",
-    "watsons": "275.0"
-  },
-  "維柏健 3倍精煉魚油 80粒": {
-    "mannings": "281.0"
-  },
-  "日本命力 增強版強腦素 60粒": {
-    "watsons": "570.0"
-  },
-  "優之源 雙岐乳酸菌啫喱 20包": {
-    "sasa": "98.0",
-    "watsons": "118.0"
-  },
-  "康萃樂 兒童益生菌咀嚼片 30粒": {
-    "lungfung": "128.0",
-    "watsons": "268.0",
-    "parknshop": "268.0"
-  },
-  "blackmores 腸道益生菌 (300億) 30粒": {
-    "sasa": "155.0",
-    "parknshop": "299.0",
-    "mannings": "299.0",
-    "watsons": "299.0"
-  },
-  "proven 益生菌 (合生原) 250億高效成人配方 30粒": {
-    "mannings": "165.0"
-  },
-  "naturo vita 益生元．菌固體飲品 14包": {
-    "mannings": "199.0"
-  },
   "善存 三效益生菌配方 60粒": {
     "lungfung": "290.0",
     "parknshop": "395.0",
     "wellcome": "395.0",
     "mannings": "395.0",
     "watsons": "395.0"
-  },
-  "biostime 合生元兒童 hmo 益生菌 28包": {
-    "mannings": "343.0"
   },
   "you c1000 維他命檸檬 6 x 140ml": {
     "wellcome": "32.00"
@@ -144,9 +72,6 @@
   },
   "swisse 50歲以上男性活力多元維他命 120pc": {
     "wellcome": "399.00"
-  },
-  "meadows益生菌飲品 5 x 63ml": {
-    "wellcome": "9.00"
   },
   "康萃樂lgmgm成人益生菌 30粒": {
     "wellcome": "214.00"
