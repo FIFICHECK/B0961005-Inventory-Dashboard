@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         :root { --primary: #1e40af; --success: #16a34a; --warning: #d97706; --danger: #dc2626; }
         body { background: #f0f4f8; font-family: 'Inter', system-ui, sans-serif; }
@@ -79,8 +80,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-08-10 (00:00:00) &nbsp;|&nbsp; 🔄 2026-08-10 22:19:06</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-08-09 (23:59:59) &nbsp;|&nbsp; 🔄 2026-08-10 22:19:06</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-08-10 (00:00:00) &nbsp;|&nbsp; 🔄 2026-08-11 00:24:18</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-08-09 (23:59:59) &nbsp;|&nbsp; 🔄 2026-08-11 00:24:18</p>
                     </div>
                     <span id="countdownDisplay" style="color:rgba(255,255,255,0.9);font-size:0.85rem;font-weight:500" title="Auto-refresh when cron job completes">🔄 Cron</span>
                 </div>
@@ -2635,6 +2636,9 @@
                                 <span class="text-muted">&mdash;</span>
                                 <input type="date" id="salesDateTo" class="form-control form-control-sm" style="width:140px" onchange="filterSalesByDateRange()">
                             </span>
+                            <button type="button" class="btn btn-sm btn-success" onclick="downloadSalesTrendExcel()" title="下載當前圖表及 filter 嘅數據 (Excel)">
+                                <i class="bi bi-download me-1"></i>📥 下載 Excel
+                            </button>
                             <div class="d-flex flex-column gap-2">
                                 <div class="d-flex gap-2 flex-wrap align-items-center">
                                     <span id="stThisMonthLabel">當月 (---)</span>
@@ -2698,13 +2702,13 @@
         }
         function closeModal(){document.getElementById('detailModal').classList.remove('show')}
         document.getElementById('detailModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
-        const BUILD_VERSION = '2026-08-10 22:18:54';
+        const BUILD_VERSION = '2026-08-11 00:24:07';
         // Check cron job update every 30s — auto-reload only if version changed
         function checkVersion() {
             fetch('/B0961005-Inventory-Dashboard/version.json?' + Date.now())
                 .then(r => r.json())
                 .then(v => {
-                    if (v.build_ts && v.build_ts !== 1786371534) {
+                    if (v.build_ts && v.build_ts !== 1786379047) {
                         console.log('New cron build detected: ' + v.build_time + ' — reloading...');
                         location.reload();
                     }
@@ -3340,6 +3344,111 @@
         }
         salesChartInstance = new Chart(ctx, { type: chartData.type || config.type, data: chartData, options: chartOptions });
         renderSalesLegend(config, data);
+    }
+
+    // Download current chart's filtered data as Excel (.xlsx) — uses the SAME filter logic as switchSalesChart
+    function downloadSalesTrendExcel() {
+        const chartName = currentSalesChart || 'gmvByDate';
+        const config = chartConfigs[chartName];
+        if (!config) return;
+        const rawData = salesTrendData[config.dataKey];
+        if (!rawData) return;
+        const isSkuChart = chartName.includes('Sku');
+        const isBrandChart = chartName.includes('Brand');
+        const isQty = chartName.toLowerCase().includes('qty');
+
+        let summaryRows = [];
+        let detailRows = [];
+
+        if (config.multiDataset) {
+            // Apply same date/month/year filter as switchSalesChart
+            let filteredIndices = [];
+            const hasDateRange = currentDateFrom && currentDateTo;
+            const hasDateFilter = currentDateFilter && currentDateFilter.trim() !== '';
+            if (hasDateRange && chartName.includes('Daily')) {
+                rawData.labels.forEach((l, idx) => { if (l >= currentDateFrom && l <= currentDateTo) filteredIndices.push(idx); });
+            } else if (hasDateFilter && !chartName.includes('Monthly')) {
+                rawData.labels.forEach((l, idx) => { if (l === currentDateFilter) filteredIndices.push(idx); });
+            }
+            if (filteredIndices.length === 0) {
+                rawData.labels.forEach((l, idx) => {
+                    if (currentMonthFilter) { if (l.startsWith(currentMonthFilter)) filteredIndices.push(idx); }
+                    else if (currentYearFilter) { if (l.startsWith(currentYearFilter)) filteredIndices.push(idx); }
+                    else filteredIndices.push(idx);
+                });
+            }
+            const filteredLabels = filteredIndices.map(i => rawData.labels[i]);
+            let filteredData = filteredIndices.map(i => rawData.data[i]);
+            if (filteredData.length > 1 && filteredData[0].length === 1) {
+                filteredData = filteredData[0].map((_, c) => filteredData.map(r => r[c]));
+            }
+            const items = isSkuChart ? (rawData.skus || []) : (rawData.brands || []);
+            const valueHdr = isQty ? 'Qty 件' : 'GMV (HKD)';
+
+            // Summary sheet: item + total (sorted desc)
+            const totals = items.map((item, idx) => {
+                let sum = 0;
+                filteredData.forEach(row => { if (row && row[idx] !== undefined) sum += row[idx]; });
+                return { item, sum };
+            }).filter(t => t.sum > 0).sort((a, b) => b.sum - a.sum);
+
+            if (isSkuChart) summaryRows.push(['SKU ID', 'Brand', 'SKU Name (Chinese)', valueHdr]);
+            else summaryRows.push(['Brand', valueHdr]);
+            totals.forEach(t => {
+                if (isSkuChart) {
+                    const nm = (salesTrendData.sku_product_name_map && salesTrendData.sku_product_name_map[t.item])
+                        || salesTrendData.sku_name_map[t.item] || t.item;
+                    const br = salesTrendData.sku_brand_map ? salesTrendData.sku_brand_map[t.item] : '-';
+                    summaryRows.push([t.item, br, nm, Math.round(t.sum * 100) / 100]);
+                } else {
+                    summaryRows.push([t.item, Math.round(t.sum * 100) / 100]);
+                }
+            });
+
+            // Detail sheet: long format (date, item, value)
+            if (isSkuChart) detailRows.push(['日期', 'SKU ID', 'Brand', 'SKU Name (Chinese)', valueHdr]);
+            else detailRows.push(['日期', 'Brand', valueHdr]);
+            filteredLabels.forEach((l, i) => {
+                const row = filteredData[i] || [];
+                items.forEach((item, idx) => {
+                    const v = row[idx];
+                    if (v !== undefined && v > 0) {
+                        if (isSkuChart) {
+                            const nm = (salesTrendData.sku_product_name_map && salesTrendData.sku_product_name_map[item])
+                                || salesTrendData.sku_name_map[item] || item;
+                            const br = salesTrendData.sku_brand_map ? salesTrendData.sku_brand_map[item] : '-';
+                            detailRows.push([l, item, br, nm, Math.round(v * 100) / 100]);
+                        } else {
+                            detailRows.push([l, item, Math.round(v * 100) / 100]);
+                        }
+                    }
+                });
+            });
+        } else {
+            // Simple charts (1-4): filtered labels + values
+            const filtered = getFilteredData(rawData.data, rawData.labels, chartName);
+            const labelHdr = chartName === 'gmvByMonth' ? '月份' :
+                             chartName === 'gmvByHour' ? '小時' :
+                             chartName === 'gmvByDayOfWeek' ? '星期' : '日期';
+            summaryRows.push([labelHdr, isQty ? 'Qty 件' : 'GMV (HKD)']);
+            (filtered.labels || []).forEach((l, i) => {
+                summaryRows.push([l, filtered.data && filtered.data[i] !== undefined ? Math.round(filtered.data[i] * 100) / 100 : 0]);
+            });
+        }
+
+        if (typeof XLSX === 'undefined') {
+            alert('Excel 匯出函式未載入，請檢查網絡後重新整理頁面。');
+            return;
+        }
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(summaryRows), 'Summary');
+        if (detailRows.length > 1) {
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(detailRows), 'Detail');
+        }
+        const filterDesc = currentDateFilter || currentMonthFilter || currentYearFilter
+            || (currentDateFrom ? currentDateFrom + '_' + currentDateTo : 'All');
+        const fname = 'B0961005_SalesTrend_' + chartName + '_' + String(filterDesc).replace(/-/g, '').replace(/\//g, '') + '.xlsx';
+        XLSX.writeFile(wb, fname);
     }
 
     function renderSalesTable(chartName, config, data) {
