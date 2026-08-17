@@ -1,4 +1,4 @@
-// supermarketPrices - Auto-generated 2026-08-17 10:28:33
+// supermarketPrices - Auto-generated 2026-08-17 11:40:41
 // Source: superpricehk.com API (categories 287, 288, 289)
 const supermarketPrices = {
   "P000001663": {"brand": "善存", "name": "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒", "WS": 288, "MS": 261.9, "WEL": 183.4, "LF": 195, "JA": 188.9},
