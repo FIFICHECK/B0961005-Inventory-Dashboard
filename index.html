@@ -80,8 +80,8 @@
                     <div>
                         <h2 class="mb-1">🏥 B0961005 Store Dashboard</h2>
                         <p class="mb-0 opacity-75">Hong Kong online Community pharmacy superstore</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-08-18 (00:00:00) &nbsp;|&nbsp; 🔄 2026-08-19 12:32:48</p>
-                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-08-17 (23:59:59) &nbsp;|&nbsp; 🔄 2026-08-19 12:32:48</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:4px">📅 Inventory Report: 2026-08-18 (00:00:00) &nbsp;|&nbsp; 🔄 2026-08-19 18:42:23</p>
+                        <p class="mb-0" style="color:rgba(255,255,255,0.7);font-size:0.85rem;margin-top:2px">📅 Order Report: 2026-08-18 (23:59:59) &nbsp;|&nbsp; 🔄 2026-08-19 18:42:23</p>
                     </div>
                     <span id="countdownDisplay" style="color:rgba(255,255,255,0.9);font-size:0.85rem;font-weight:500" title="Auto-refresh when cron job completes">🔄 Cron</span>
                 </div>
@@ -1248,6 +1248,16 @@
                             </thead>
                             <tbody>
                                 
+                <tr>
+                    <td class="align-middle"><strong>2026-08-19</strong></td>
+                    <td class="align-middle text-muted text-center">18:41</td>
+                    <td class="align-middle text-end">337</td>
+                    <td class="align-middle">
+                        <a href="reports/inventory_report_20260819_1823.csv" download class="btn btn-sm btn-success">
+                            <i class="bi bi-download me-1"></i>📥 Download
+                        </a>
+                    </td>
+                </tr>
                 <tr>
                     <td class="align-middle"><strong>2026-08-18</strong></td>
                     <td class="align-middle text-muted text-center">22:10</td>
@@ -2930,13 +2940,13 @@
         }
         function closeModal(){document.getElementById('detailModal').classList.remove('show')}
         document.getElementById('detailModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
-        const BUILD_VERSION = '2026-08-19 12:32:35';
+        const BUILD_VERSION = '2026-08-19 18:42:10';
         // Check cron job update every 30s — auto-reload only if version changed
         function checkVersion() {
             fetch('/B0961005-Inventory-Dashboard/version.json?' + Date.now())
                 .then(r => r.json())
                 .then(v => {
-                    if (v.build_ts && v.build_ts !== 1787113955) {
+                    if (v.build_ts && v.build_ts !== 1787136130) {
                         console.log('New cron build detected: ' + v.build_time + ' — reloading...');
                         location.reload();
                     }
