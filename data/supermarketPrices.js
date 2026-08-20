@@ -1,4 +1,4 @@
-// supermarketPrices - Auto-generated 2026-08-19 09:18:02
+// supermarketPrices - Auto-generated 2026-08-20 09:18:08
 // Source: superpricehk.com API (categories 287, 288, 289)
 const supermarketPrices = {
   "P000001663": {"brand": "善存", "name": "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒", "WS": 288, "MS": 261.9, "WEL": 183.4, "LF": 195, "JA": 188.9},
@@ -16,7 +16,7 @@ const supermarketPrices = {
   "P000004874": {"brand": "增美神", "name": "三文魚油丸 210粒", "WS": 275, "MS": 260},
   "P000004875": {"brand": "日本命力", "name": "增強版強腦素 60粒", "WS": 570},
   "P000004876": {"brand": "Swisse", "name": "無腥味高濃度野生魚油 200粒", "WS": 199, "MS": 199, "PNS": 199},
-  "P000004877": {"brand": "Blackmores", "name": "無腥味魚油1000 400粒", "WS": 279, "PNS": 279, "LF": 178},
+  "P000004877": {"brand": "Blackmores", "name": "無腥味魚油1000 400粒", "WS": 279, "PNS": 599, "LF": 178},
   "P000004946": {"brand": "Blackmores", "name": "腸道益生菌 (300億) 30粒", "WS": 299, "MS": 299, "PNS": 299, "SA": 155},
   "P000004948": {"brand": "善存", "name": "三效益生菌配方 60粒", "WS": 395, "MS": 395, "WEL": 395, "PNS": 395, "LF": 290},
   "P000004949": {"brand": "優之源", "name": "雙岐乳酸菌啫喱 20包", "WS": 118, "SA": 98},

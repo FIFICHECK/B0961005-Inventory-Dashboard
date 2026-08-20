@@ -2950,13 +2950,13 @@
         }
         function closeModal(){document.getElementById('detailModal').classList.remove('show')}
         document.getElementById('detailModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
-        const BUILD_VERSION = '2026-08-20 01:26:06';
+        const BUILD_VERSION = '2026-08-20 09:18:08';
         // Check cron job update every 30s — auto-reload only if version changed
         function checkVersion() {
             fetch('/B0961005-Inventory-Dashboard/version.json?' + Date.now())
                 .then(r => r.json())
                 .then(v => {
-                    if (v.build_ts && v.build_ts !== 1787160366) {
+                    if (v.build_ts && v.build_ts !== 1787188688) {
                         console.log('New cron build detected: ' + v.build_time + ' — reloading...');
                         location.reload();
                     }
