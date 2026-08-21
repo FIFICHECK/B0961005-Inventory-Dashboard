@@ -1,10 +1,10 @@
-// supermarketPrices - Auto-generated 2026-08-20 09:18:08
+// supermarketPrices - Auto-generated 2026-08-21 09:20:45
 // Source: superpricehk.com API (categories 287, 288, 289)
 const supermarketPrices = {
   "P000001663": {"brand": "善存", "name": "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒", "WS": 288, "MS": 261.9, "WEL": 183.4, "LF": 195, "JA": 188.9},
   "P000001692": {"brand": "維多C", "name": "雙重功效 (維他命C加鋅) 香橙味水溶片 10片", "WS": 49, "MS": 49},
   "P000001714": {"brand": "Kawai", "name": "日本肝油丸 (Drop S) 300粒", "WS": 205, "MS": 205, "LF": 125},
-  "P000001732": {"brand": "司各脫", "name": "鰵魚肝油 - 鮮橙 400毫升", "WS": 111.9, "MS": 111.9, "WEL": 95, "LF": 95, "JA": 95},
+  "P000001732": {"brand": "司各脫", "name": "鰵魚肝油 - 鮮橙 400毫升", "WS": 118, "MS": 111.9, "WEL": 95, "LF": 95, "JA": 95},
   "P000001733": {"brand": "司各脫", "name": "鰵魚肝油 - 乳白 400毫升", "LF": 95},
   "P000002575": {"brand": "小善存", "name": "+維他命C (含多種維他命及礦物質) 葡萄口味咀嚼片 60粒", "WS": 185.9, "MS": 174.9, "LF": 168},
   "P000003194": {"brand": "銀善存", "name": "50+配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒", "WS": 312.9, "MS": 312.9, "WEL": 219, "LF": 230, "JA": 225.4},
@@ -16,7 +16,7 @@ const supermarketPrices = {
   "P000004874": {"brand": "增美神", "name": "三文魚油丸 210粒", "WS": 275, "MS": 260},
   "P000004875": {"brand": "日本命力", "name": "增強版強腦素 60粒", "WS": 570},
   "P000004876": {"brand": "Swisse", "name": "無腥味高濃度野生魚油 200粒", "WS": 199, "MS": 199, "PNS": 199},
-  "P000004877": {"brand": "Blackmores", "name": "無腥味魚油1000 400粒", "WS": 279, "PNS": 599, "LF": 178},
+  "P000004877": {"brand": "Blackmores", "name": "無腥味魚油1000 400粒", "WS": 599, "PNS": 599, "LF": 178},
   "P000004946": {"brand": "Blackmores", "name": "腸道益生菌 (300億) 30粒", "WS": 299, "MS": 299, "PNS": 299, "SA": 155},
   "P000004948": {"brand": "善存", "name": "三效益生菌配方 60粒", "WS": 395, "MS": 395, "WEL": 395, "PNS": 395, "LF": 290},
   "P000004949": {"brand": "優之源", "name": "雙岐乳酸菌啫喱 20包", "WS": 118, "SA": 98},
