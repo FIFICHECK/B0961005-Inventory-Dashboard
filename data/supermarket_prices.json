@@ -1,22 +1,22 @@
 {
   "維多c 雙重功效 (維他命c加鋅) 香橙味水溶片 10片": {
-    "mannings": "49",
-    "watsons": "49"
+    "watsons": "49",
+    "mannings": "49"
   },
   "維多c 3重功效 (維他命c加鋅) 兒童咀嚼片 90片": {
     "lungfung": "70",
-    "watsons": "104.9",
-    "mannings": "104.9",
-    "jasons": "104.9",
     "wellcome": "104.9",
+    "mannings": "104.9",
+    "watsons": "104.9",
+    "jasons": "104.9",
     "parknshop": "118"
   },
   "康鈣 c950 (維他命c+鈣) 水溶片- 橙味 30片": {
     "lungfung": "90",
     "wellcome": "96.9",
     "jasons": "99.5",
-    "mannings": "113.9",
     "parknshop": "113.9",
+    "mannings": "113.9",
     "watsons": "139"
   },
   "惠氏 23種維他命及礦物質補充品 100粒": {
@@ -33,8 +33,8 @@
     "wellcome": "183.4",
     "jasons": "188.9",
     "lungfung": "195",
-    "mannings": "261.9",
-    "watsons": "288"
+    "watsons": "261.9",
+    "mannings": "261.9"
   },
   "銀善存 50+配方 advance - complete from a to zinc (多種維他命及礦物質) 100粒": {
     "wellcome": "219",
@@ -44,9 +44,9 @@
     "mannings": "312.9"
   },
   "司各脫 鰵魚肝油 - 鮮橙 400毫升": {
-    "lungfung": "95",
     "wellcome": "95",
     "jasons": "95",
+    "lungfung": "95",
     "mannings": "111.9",
     "watsons": "118"
   },
@@ -60,17 +60,17 @@
   },
   "blackmores 無腥味魚油1000 400粒": {
     "lungfung": "178",
-    "parknshop": "599",
-    "watsons": "599"
+    "watsons": "599",
+    "parknshop": "599"
   },
   "kawai 無腥味日本肝油鈣丸 (drop m400) 180粒": {
     "watsons": "182",
     "mannings": "182.5"
   },
   "swisse 無腥味高濃度野生魚油 200粒": {
+    "parknshop": "199",
     "watsons": "199",
-    "mannings": "199",
-    "parknshop": "199"
+    "mannings": "199"
   },
   "增美神 三文魚油丸 210粒": {
     "mannings": "260",
@@ -88,8 +88,8 @@
   },
   "康萃樂 兒童益生菌咀嚼片 30粒": {
     "lungfung": "128",
-    "parknshop": "268",
-    "watsons": "268"
+    "watsons": "268",
+    "parknshop": "268"
   },
   "blackmores 腸道益生菌 (300億) 30粒": {
     "sasa": "155",
@@ -105,9 +105,9 @@
   },
   "善存 三效益生菌配方 60粒": {
     "lungfung": "290",
-    "wellcome": "395",
-    "mannings": "395",
     "watsons": "395",
+    "mannings": "395",
+    "wellcome": "395",
     "parknshop": "395"
   },
   "biostime 合生元兒童 hmo 益生菌 28包": {
