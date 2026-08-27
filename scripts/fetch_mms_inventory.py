@@ -9,7 +9,7 @@ Usage: python3 fetch_mms_inventory.py <accessToken>
   If the cookie read is blocked, capture the Authorization header via XHR interceptor
   on the inventory-report page (see mms-inventory-report skill).
 """
-import csv, io, json, os, sys, subprocess, datetime, glob, shutil
+import csv, io, json, os, sys, subprocess, datetime, glob, shutil, urllib.request
 
 TOKEN = sys.argv[1] if len(sys.argv) > 1 else os.environ.get('MMS_TOKEN', '')
 if not TOKEN:
@@ -26,18 +26,15 @@ PAGE_SIZE = 1000
 
 def fetch_page(n):
     body = json.dumps({"pageNumber": n, "pageSize": PAGE_SIZE,
-                       "buCodeList": ["HKTV"], "storeId": [STORE_ID]})
-    # Use curl (verified works; urllib gets 403 from this API's WAF)
-    r = subprocess.run([
-        'curl', '-s', '-m', '60', '-X', 'POST', API,
-        '-H', 'Content-Type: application/json',
-        '-H', 'Authorization: Bearer ' + TOKEN,
-        '-H', 'Accept: application/json, text/plain, */*',
-        '-H', 'Origin: https://merchant.shoalter.com',
-        '-H', 'Referer: https://merchant.shoalter.com/',
-        '-d', body,
-    ], capture_output=True, text=True)
-    return json.loads(r.stdout)
+                       "buCodeList": ["HKTV"], "storeId": [STORE_ID]}).encode()
+    # urllib (verified 2026-08-27: curl gets WAF 403; urllib works — same as P0122001 script)
+    req = urllib.request.Request(API, data=body, headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + TOKEN,
+        'Accept': 'application/json, text/plain, */*',
+    })
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.load(r)
 
 # ---- 1. Fetch all pages (pageSize max 1000) ----
 rows, page, total = [], 1, None
@@ -67,6 +64,7 @@ for it in rows:
         'stock': qty,
         'online': 'online' if str(bu.get('status', '')).upper() == 'ONLINE' else 'offline',
         'invisible': 'Y' if bu.get('isVisible') is False else 'N',
+        'foos': 'Y' if str(bu.get('stockStatus', '')).upper() == 'FORCEOUTOFSTOCK' else 'N',
         'sku_name_en': it.get('skuNameEn', ''),
         'sku_name_ch': it.get('skuNameCh', ''),
     }
@@ -121,6 +119,8 @@ for r in data_rows:
         r[col_idx['StockLevel']] = str(m['stock'])
         r[col_idx['Online Status']] = m['online']
         r[col_idx['Invisible']] = m['invisible']
+        if 'Force Out Of Stock' in col_idx:
+            r[col_idx['Force Out Of Stock']] = m['foos']
         if m['sku_name_en'] and 'SKU Name' in col_idx:
             r[col_idx['SKU Name']] = m['sku_name_en']
         if m['sku_name_ch'] and 'SKU Name (Chi)' in col_idx:
