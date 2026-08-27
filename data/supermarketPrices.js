@@ -1,7 +1,7 @@
-// supermarketPrices - Auto-generated 2026-08-26 09:18:26
+// supermarketPrices - Auto-generated 2026-08-27 09:11:46
 // Source: superpricehk.com API (categories 287, 288, 289)
 const supermarketPrices = {
-  "P000001663": {"brand": "善存", "name": "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒", "WS": 288, "MS": 261.9, "WEL": 183.4, "LF": 195, "JA": 188.9},
+  "P000001663": {"brand": "善存", "name": "成人配方 Advance - Complete from A to Zinc (多種維他命及礦物質) 100粒", "WS": 261.9, "MS": 261.9, "WEL": 183.4, "LF": 195, "JA": 188.9},
   "P000001692": {"brand": "維多C", "name": "雙重功效 (維他命C加鋅) 香橙味水溶片 10片", "WS": 49, "MS": 49},
   "P000001714": {"brand": "Kawai", "name": "日本肝油丸 (Drop S) 300粒", "WS": 205, "MS": 205, "LF": 125},
   "P000001732": {"brand": "司各脫", "name": "鰵魚肝油 - 鮮橙 400毫升", "WS": 118, "MS": 111.9, "WEL": 95, "LF": 95, "JA": 95},
