@@ -9,7 +9,7 @@ Usage: python3 fetch_mms_inventory.py <accessToken>
   If the cookie read is blocked, capture the Authorization header via XHR interceptor
   on the inventory-report page (see mms-inventory-report skill).
 """
-import csv, json, os, sys, subprocess, datetime, glob, shutil
+import csv, io, json, os, sys, subprocess, datetime, glob, shutil
 
 TOKEN = sys.argv[1] if len(sys.argv) > 1 else os.environ.get('MMS_TOKEN', '')
 if not TOKEN:
@@ -99,17 +99,14 @@ for i, l in enumerate(lines):
 if hdr_idx is None:
     print("!! cannot find data header row in baseline CSV"); sys.exit(1)
 
-# Parse header + data rows using csv module (handles quoted fields with commas)
-header = next(csv.reader([lines[hdr_idx].strip()]))
-header = [h.strip() for h in header]
+# Parse header + data rows using csv module over the FULL block
+# (single csv.reader pass handles quoted fields containing embedded newlines,
+#  e.g. SKU names with '\n[BEST_BEFORE]' coming from MMS API skuNameEn)
+all_rows = [r for r in csv.reader(io.StringIO(''.join(lines[hdr_idx:]))) if any((c or '').strip() for c in r)]
+header = [h.strip() for h in all_rows[0]]
 col_idx = {h: i for i, h in enumerate(header)}
 print(f"baseline columns: {len(header)}")
-
-data_rows = []
-for l in lines[hdr_idx+1:]:
-    if not l.strip():
-        continue
-    data_rows.append(next(csv.reader([l])))
+data_rows = all_rows[1:]
 print(f"baseline data rows: {len(data_rows)}")
 
 # ---- 4. Merge MMS live fields ----
