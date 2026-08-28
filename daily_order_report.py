@@ -28,7 +28,10 @@ from playwright.async_api import async_playwright, TimeoutError as PwTimeout
 # ── Config ─────────────────────────────────────────────────────────────────────
 MMS_URL  = "https://merchant.shoalter.com"
 MMS_USER = "***REMOVED***"
-MMS_PASS = os.environ.get("MMS_PASSWORD", "***REMOVED***")
+MMS_PASS = os.environ.get("MMS_PASSWORD", "")
+if not MMS_PASS:
+    print("!! MMS_PASSWORD environment variable not set - refusing to run (credential hygiene)")
+    sys.exit(1)
 STORE_ID = "B0961005"
 HKT      = timezone(timedelta(hours=8))
 

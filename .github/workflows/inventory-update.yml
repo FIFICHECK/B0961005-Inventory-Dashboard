@@ -50,7 +50,7 @@ jobs:
                   await page.goto('https://exchange.hktvmall.com/merchant/shared/loginform.php')
                   await page.wait_for_load_state('domcontentloaded')
                   await page.fill('input[name="username"]', 'jerry')
-                  await page.fill('input[name="pwd"]', '***REMOVED***')
+                  await page.fill('input[name="pwd"]', '${{ secrets.EXCHANGE_PASSWORD }}')
                   await page.press('input[name="pwd"]', 'Enter')
                   await page.wait_for_load_state('domcontentloaded')
                   await page.wait_for_timeout(2000)
