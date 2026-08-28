@@ -27,7 +27,7 @@ from playwright.async_api import async_playwright, TimeoutError as PwTimeout
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 MMS_URL  = "https://merchant.shoalter.com"
-MMS_USER = "jerry@hktv.com.hk"
+MMS_USER = "***REMOVED***"
 MMS_PASS = os.environ.get("MMS_PASSWORD", "")
 if not MMS_PASS:
     raise SystemExit("!! MMS_PASSWORD env var is required (do not hardcode credentials)")
