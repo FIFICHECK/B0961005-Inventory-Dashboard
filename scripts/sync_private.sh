@@ -14,6 +14,9 @@ if ! grep -q 'dashFrame' index.html 2>/dev/null; then
 fi
 cp -f data/*.csv data/*.json "$DST/data/" 2>/dev/null || true
 cp -rf reports/* "$DST/reports/" 2>/dev/null || true
+# 🛡️ 還原 public repo 個 index.html 做 loader（build 過程會 regenerate 有數據版——唔可以留喺 working tree）
+git checkout -- index.html 2>/dev/null || true
+git reset -q HEAD index.html 2>/dev/null || true
 cd "$DST"
 if git status --short | grep -q .; then
   git add -A
