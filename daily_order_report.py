@@ -30,8 +30,7 @@ MMS_URL  = "https://merchant.shoalter.com"
 MMS_USER = "***REMOVED***"
 MMS_PASS = os.environ.get("MMS_PASSWORD", "")
 if not MMS_PASS:
-    print("!! MMS_PASSWORD environment variable not set - refusing to run (credential hygiene)")
-    sys.exit(1)
+    raise SystemExit("!! MMS_PASSWORD env var is required (do not hardcode credentials)")
 STORE_ID = "B0961005"
 HKT      = timezone(timedelta(hours=8))
 
