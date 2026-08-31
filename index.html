@@ -16,6 +16,8 @@
             <p style="color:#64748b;margin:0 0 24px;font-size:0.95rem;">請輸入 email 申請訪問權限。批核後會自動載入 dashboard。</p>
             <div id="gateFormBox">
                 <input id="gateEmail" type="email" placeholder="your@email.com" style="width:100%;padding:12px 16px;border:1px solid #cbd5e1;border-radius:8px;font-size:1rem;margin-bottom:12px;box-sizing:border-box;" />
+                <input id="gateReason" type="text" placeholder="申請原因（例：需查閱庫存數據）" maxlength="200" style="width:100%;padding:12px 16px;border:1px solid #cbd5e1;border-radius:8px;font-size:1rem;margin-bottom:12px;box-sizing:border-box;" />
+                <input id="gatePurpose" type="text" placeholder="用途（例：日常營運分析）" maxlength="200" style="width:100%;padding:12px 16px;border:1px solid #cbd5e1;border-radius:8px;font-size:1rem;margin-bottom:12px;box-sizing:border-box;" />
                 <button onclick="requestAccess()" style="width:100%;padding:12px;background:#1e40af;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;">申請訪問</button>
             </div>
             <div id="gateStatus" style="margin-top:16px;color:#475569;font-size:0.9rem;min-height:20px;"></div>
@@ -55,7 +57,7 @@
         await fetch('https://fificheck-access-gate.fificheck.workers.dev/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain' },
-          body: JSON.stringify({ site: GATE_STORE, email: email })
+          body: JSON.stringify({ site: GATE_STORE, email: email, reason: (document.getElementById('gateReason').value || '').trim(), purpose: (document.getElementById('gatePurpose').value || '').trim() })
         });
         localStorage.setItem('b096_gate_email', email.toLowerCase());
         status.textContent = '✅ 已送出申請！管理員一撳批准，你重新整理此頁即可進入。';
