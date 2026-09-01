@@ -43,7 +43,7 @@
         if (!r.ok) { if (status) status.textContent = '⚠️ 未授權或 session 過期，請重新申請'; return; }
       } catch (e) { if (status) status.textContent = '⚠️ 連線失敗，請稍後再試'; return; }
       const f = document.getElementById('dashFrame');
-      f.src = DASH_URL + '&v=' + Date.now();
+      f.src = DASH_URL + '&v=' + Date.now() + '&email=' + encodeURIComponent(email);
       f.style.display = 'block';
     }
 
